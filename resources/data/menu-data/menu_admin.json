@@ -1,0 +1,48 @@
+{
+    "menu": [
+      {
+        "url": "home",
+        "name": "Home",
+        "icon": "home",
+        "slug": "home"
+      },
+      {
+        "navheader": "Daftar Surat",
+        "slug": ""
+      },
+      {
+        "url": "",
+        "name": "Permohonan Surat",
+        "icon": "edit-3",
+        "slug": "permohonan"
+      },
+      {
+        "url": "",
+        "name": "Menu Surat Keluar",
+        "icon": "mail",
+        "slug": "menu"
+      },
+      {
+        "name": "Menu Surat Masuk",
+        "icon": "mail",
+        "slug": "Permohonan",
+        "submenu" : [
+  
+          {
+            "url": "",
+            "name": "Tabel Surat Masuk",
+            "icon": "mail",
+            "slug": "menu"
+          },
+          {
+            "url": "",
+            "name": "Tabel Disposisi",
+            "icon": "mail",
+            "slug": "disposisi"
+          }
+  
+        ]
+      }
+    ]
+  }
+  

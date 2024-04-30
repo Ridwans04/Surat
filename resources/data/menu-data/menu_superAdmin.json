@@ -1,0 +1,33 @@
+{
+    "menu": [
+      {
+        "url": "home",
+        "name": "Home",
+        "icon": "home",
+        "slug": "home"
+      },
+      {
+        "navheader": "MASTER DATA",
+        "slug": ""
+      },
+      {
+        "url": "master/master_akun",
+        "name": "Master Akun",
+        "icon": "user",
+        "slug": "permohonan"
+      },
+      {
+        "url": "",
+        "name": "Master Surat",
+        "icon": "mail",
+        "slug": "menu"
+      },
+      {
+        "url": "",
+        "name": "Master PJ",
+        "icon": "mail",
+        "slug": "menu"
+      }
+    ]
+  }
+  

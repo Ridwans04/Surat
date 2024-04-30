@@ -1,0 +1,23 @@
+{
+    "menu": [
+      {
+        "url": "beranda_pemohon",
+        "name": "Beranda",
+        "icon": "home",
+        "slug": "beranda"
+      },
+      {
+        "url": "/Surat_Keluar/Menu_Surat/menu_pemohon",
+        "name": "Menu Surat Keluar",
+        "icon": "mail",
+        "slug": "Menu"
+      },
+      {
+        "url": "/Surat_Masuk/surat_masukPenerima",
+        "name": "Menu Surat Masuk",
+        "icon": "mail",
+        "slug": "Permohonan"
+      }
+    ]
+  }
+  

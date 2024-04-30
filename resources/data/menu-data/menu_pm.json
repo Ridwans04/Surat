@@ -1,0 +1,44 @@
+{
+    "menu": [
+      {
+        "url": "beranda_pm",
+        "name": "Beranda",
+        "icon": "home",
+        "slug": "beranda"
+      },
+      {
+        "url": "/Surat_Keluar/Menu_Surat/menu_surat",
+        "name": "Menu Surat Keluar",
+        "icon": "mail",
+        "slug": "Menu"
+      },
+      {
+        "name": "Menu Surat Masuk",
+        "icon": "mail",
+        "slug": "Permohonan",
+        "submenu" : [
+  
+          {
+            "url": "/Surat_Masuk/surat_masukPM",
+            "name": "Tabel Permintaan Disposisi",
+            "icon": "mail",
+            "slug": "Menu"
+          },
+          {
+            "url": "/Surat_Masuk/surat_masukPenerima",
+            "name": "Tabel Surat Masuk",
+            "icon": "mail",
+            "slug": "Menu"
+          },
+          {
+            "url": "/Disposisi/tabel_disposisi",
+            "name": "Tabel Disposisi",
+            "icon": "mail",
+            "slug": "Menu"
+          }
+  
+        ]
+      }
+    ]
+  }
+  

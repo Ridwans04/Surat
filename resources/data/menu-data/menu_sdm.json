@@ -1,0 +1,23 @@
+{
+    "menu": [
+      {
+        "url": "/beranda",
+        "name": "Beranda",
+        "icon": "home",
+        "slug": "/beranda"
+      },
+      {
+        "url": "/Surat_Keluar/Surat_Kontrak/Tabel_sk",
+        "name": "Surat Kontrak",
+        "icon": "mail",
+        "slug": "sk"
+      },
+      {
+        "url": "/Surat_Keluar/Surat_Pengangkatan/Tabel_sp",
+        "name": "Surat Pengangkatan",
+        "icon": "mail",
+        "slug": "sp"
+      }
+    ]
+  }
+  
