@@ -15,5 +15,7 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-// MASTER
+// MASTER AKUN
 Route::get('get_data_akun', [master_akunController::class, 'get_data_akun'])->name('get_data_akun');
+Route::post('add_akun', [master_akunController::class, 'add_akun'])->name('add_akun');
+Route::put('update_akun', [master_akunController::class, 'update_akun'])->name('update_akun');

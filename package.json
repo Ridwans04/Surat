@@ -10,11 +10,13 @@
         "production": "mix --production"
     },
     "dependencies": {
-        "bootstrap": "~5.1.0"
+        "@sweetalert2/theme-dark": "^5.0.16",
+        "bootstrap": "~5.1.0",
+        "sweetalert2": "^11.6.13"
     },
     "devDependencies": {
-        "axios": "^0.25",
-        "browser-sync": "^2.27.7",
+        "axios": "^1.6.8",
+        "browser-sync": "^3.0.2",
         "browser-sync-webpack-plugin": "2.3.0",
         "laravel-mix": "^6.0.6",
         "lodash": "^4.17.19",

@@ -43,7 +43,7 @@ Route::group(['prefix' => 'auth'], function(){
 
 // MASTER
 Route::group(['prefix' => 'master'], function(){
-    Route::view('master_akun', 'content/master/master_akun')->name('master_akun');
+    Route::view('master_akun', 'content/master/master_akun/data')->name('master_akun');
 });
 
 
