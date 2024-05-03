@@ -14,19 +14,19 @@
         "url": "master/master_akun",
         "name": "Master Akun",
         "icon": "user",
-        "slug": "permohonan"
+        "slug": "master_akun"
       },
       {
-        "url": "",
+        "url": "master/master_pj",
+        "name": "Master PJ",
+        "icon": "users",
+        "slug": "master_pj"
+      },
+      {
+        "url": "master/master_surat",
         "name": "Master Surat",
         "icon": "mail",
-        "slug": "menu"
-      },
-      {
-        "url": "",
-        "name": "Master PJ",
-        "icon": "mail",
-        "slug": "menu"
+        "slug": "master_surat"
       }
     ]
   }

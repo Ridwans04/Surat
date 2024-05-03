@@ -1,4 +1,4 @@
-@section('title', 'Master Akun')
+@section('title', 'Master Surat')
 
 @section('vendor-style')
     <!-- Vendor css files -->
@@ -47,13 +47,14 @@
                 },
             })
         }
+
         // FUNGSI MENAMPILKAN DATA
-        function get_data_akun() {
+        function get_data() {
             $.ajax({
                 type: "GET",
-                url: `{{ route('get_data_akun') }}`,
+                url: `{{ route('get_data_surat') }}`,
                 beforeSend: function() {
-                    $('#master_akun').block({
+                    $('#master_surat').block({
                         message: '<div class="loader-box"><div class="loader-1"></div></div>',
                         css: {
                             backgroundColor: 'transparent',
@@ -68,12 +69,13 @@
                 dataType: "JSON",
                 success: function(response) {
                     var html_row = "";
+                    var nomer = "1";
                     var menu = "";
                     var date = new Date();
                     $.each(response.data, function(key, val) {
                         menu =
                             `
-                                <button onclick="modal_detail('${val.id}', '${val.username}', '${val.level}', '${val.institusi}')"
+                                <button onclick="modal_detail('${val.id}', '${val.pj}', '${val.institusi}')"
                                 type="button" class="btn btn-icon btn-success mb-1 text-start">
                                 <i data-feather="edit"></i>
                                 Edit</button>
@@ -83,32 +85,32 @@
                                 Hapus</button>
                             `
                         html_row += `<tr>
-                            <td>${val.username}</td>
-                            <td style="white-space:nowrap">${val.level}</td>
-                            <td>${val.institusi}</td>
+                            <td>${nomer++}</td>
+                            <td>${val.nama_surat}</td>
+                            <td style="white-space:nowrap">${val.status}</td>
                             <td>${menu}</td>
                         </tr>`;
                     });
                     var html_content = `
                 <thead>
                     <tr>
-                        <th>Username</th>
-                        <th>Level</th>
-                        <th>Institusi</th>
+                        <th>No.</th>
+                        <th>Nama Surat</th>
+                        <th>Status</th>
                         <th>Menu</th>
                     </tr>
                 </thead>
                 <tbody>
                     ${html_row}
                 </tbody>`;
-                    if ($.fn.DataTable.isDataTable('#master_akun')) {
-                        $('#master_akun').DataTable().destroy();
+                    if ($.fn.DataTable.isDataTable('#master_surat')) {
+                        $('#master_surat').DataTable().destroy();
                     }
-                    $('#master_akun').unblock().html(html_content).DataTable({
+                    $('#master_surat').unblock().html(html_content).DataTable({
                         searching: false,
                         ordering: false,
                         drawCallback: function() {
-                            $('#master_akun [data-feather]').each(function() {
+                            $('#master_surat [data-feather]').each(function() {
                                 var icon = $(this).data('feather');
                                 $(this).empty().append(feather.icons[icon].toSvg({
                                     width: 14,
@@ -129,17 +131,17 @@
         }
 
         // FUNGSI OTOMATIS MENAMPILKAN DATA
-        get_data_akun()
+        get_data()
 
         // FUNGSI TAMBAH AKUN
-        function add_akun() {
-            const form = new FormData(document.querySelector('form#add_akun'));
+        function add_surat() {
+            const form = new FormData(document.querySelector('form#add_surat'));
             const title = 'Anda yakin ingin menambahkan data?';
             SweetAlert(title).then((result) => {
                 if (result.isConfirmed) {
                     $.ajax({
                         method: "post",
-                        url: "{{ route('add_akun') }}",
+                        url: "{{ route('add_surat') }}",
                         data: form,
                         contentType: false,
                         processData: false,
@@ -159,6 +161,7 @@
                                     icon: "success",
                                     title: "Data berhasil ditambahkan"
                                 });
+                                $('#modal_add').modal('hide');
                             } else {
                                 Toast.fire({
                                     icon: "error",
@@ -195,7 +198,7 @@
                 if (result.isConfirmed) {
                     $.ajax({
                         type: "put",
-                        url: `{{ route('update_akun') }}`,
+                        url: `{{ route('update_surat') }}`,
                         data: {
                             id: form.get('id_akun'),
                             user: form.get('user'),
@@ -237,7 +240,7 @@
                 if (result.isConfirmed) {
                     $.ajax({
                         type: "delete",
-                        url: `{{ route('hapus_akun') }}&id=${id}`,
+                        url: `{{ route('hapus_surat') }}&id=${id}`,
                         dataType: 'JSON',
                         success: function(response) {
                             if (response.success) {

@@ -15,6 +15,8 @@ return new class extends Migration
     {
         Schema::create('master_surat', function (Blueprint $table) {
             $table->id();
+            $table->string('nama_surat')->nullable();
+            $table->string('status')->nullable();
             $table->timestamps();
         });
     }

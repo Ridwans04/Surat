@@ -56,4 +56,13 @@ class master_akunController extends Controller
             'success' => true
         ]);
     }
+
+    public function hapus_akun(Request $request)
+    {
+        $id = $request->id;
+        User::find($id)->delete();
+        return response()->json([
+            'success'   => true
+        ]);
+    }
 }

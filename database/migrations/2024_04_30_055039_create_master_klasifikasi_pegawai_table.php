@@ -15,6 +15,9 @@ return new class extends Migration
     {
         Schema::create('master_klasifikasi_pegawai', function (Blueprint $table) {
             $table->id();
+            $table->string('klasifikasi');
+            $table->string('penetapan');
+            $table->string('link_kontrak');
             $table->timestamps();
         });
     }

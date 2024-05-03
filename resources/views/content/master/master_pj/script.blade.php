@@ -1,4 +1,4 @@
-@section('title', 'Master Akun')
+@section('title', 'Master PJ')
 
 @section('vendor-style')
     <!-- Vendor css files -->
@@ -47,13 +47,14 @@
                 },
             })
         }
+
         // FUNGSI MENAMPILKAN DATA
-        function get_data_akun() {
+        function get_data_pj() {
             $.ajax({
                 type: "GET",
                 url: `{{ route('get_data_akun') }}`,
                 beforeSend: function() {
-                    $('#master_akun').block({
+                    $('#master_pj').block({
                         message: '<div class="loader-box"><div class="loader-1"></div></div>',
                         css: {
                             backgroundColor: 'transparent',
@@ -73,7 +74,7 @@
                     $.each(response.data, function(key, val) {
                         menu =
                             `
-                                <button onclick="modal_detail('${val.id}', '${val.username}', '${val.level}', '${val.institusi}')"
+                                <button onclick="modal_detail('${val.id}', '${val.pj}', '${val.institusi}')"
                                 type="button" class="btn btn-icon btn-success mb-1 text-start">
                                 <i data-feather="edit"></i>
                                 Edit</button>
@@ -83,17 +84,15 @@
                                 Hapus</button>
                             `
                         html_row += `<tr>
-                            <td>${val.username}</td>
-                            <td style="white-space:nowrap">${val.level}</td>
-                            <td>${val.institusi}</td>
+                            <td>${val.pj}</td>
+                            <td style="white-space:nowrap">${val.institusi}</td>
                             <td>${menu}</td>
                         </tr>`;
                     });
                     var html_content = `
                 <thead>
                     <tr>
-                        <th>Username</th>
-                        <th>Level</th>
+                        <th>Nama PJ</th>
                         <th>Institusi</th>
                         <th>Menu</th>
                     </tr>
@@ -102,13 +101,13 @@
                     ${html_row}
                 </tbody>`;
                     if ($.fn.DataTable.isDataTable('#master_akun')) {
-                        $('#master_akun').DataTable().destroy();
+                        $('#master_pj').DataTable().destroy();
                     }
-                    $('#master_akun').unblock().html(html_content).DataTable({
+                    $('#master_pj').unblock().html(html_content).DataTable({
                         searching: false,
                         ordering: false,
                         drawCallback: function() {
-                            $('#master_akun [data-feather]').each(function() {
+                            $('#master_pj [data-feather]').each(function() {
                                 var icon = $(this).data('feather');
                                 $(this).empty().append(feather.icons[icon].toSvg({
                                     width: 14,
@@ -129,54 +128,54 @@
         }
 
         // FUNGSI OTOMATIS MENAMPILKAN DATA
-        get_data_akun()
+        get_data_pj()
 
         // FUNGSI TAMBAH AKUN
-        function add_akun() {
-            const form = new FormData(document.querySelector('form#add_akun'));
-            const title = 'Anda yakin ingin menambahkan data?';
-            SweetAlert(title).then((result) => {
-                if (result.isConfirmed) {
-                    $.ajax({
-                        method: "post",
-                        url: "{{ route('add_akun') }}",
-                        data: form,
-                        contentType: false,
-                        processData: false,
-                        beforeSend: function() {
-                            Swal.fire({
-                                html: '<div class="loader-box"><div class="loader-2"></div></div>',
-                                showConfirmButton: false,
-                                allowOutsideClick: false,
-                                background: 'transparent',
-                            });
-                        },
-                        datatype: "json",
-                        success: function(response) {
-                            console.log(response);
-                            if (response.success) {
-                                Toast.fire({
-                                    icon: "success",
-                                    title: "Data berhasil ditambahkan"
-                                });
-                            } else {
-                                Toast.fire({
-                                    icon: "error",
-                                    title: "Data gagal ditambahkan"
-                                });
-                            }
-                        },
-                        error: function(error) {
-                            Swal.fire(
-                                'Error',
-                                '',
-                                'error'
-                            )
-                        }
-                    });
-                }
-            })
-        }
+        // function add_pj() {
+        //     const form = new FormData(document.querySelector('form#add_akun'));
+        //     const title = 'Anda yakin ingin menambahkan data?';
+        //     SweetAlert(title).then((result) => {
+        //         if (result.isConfirmed) {
+        //             $.ajax({
+        //                 method: "post",
+        //                 url: "{{}}",
+        //                 data: form,
+        //                 contentType: false,
+        //                 processData: false,
+        //                 beforeSend: function() {
+        //                     Swal.fire({
+        //                         html: '<div class="loader-box"><div class="loader-2"></div></div>',
+        //                         showConfirmButton: false,
+        //                         allowOutsideClick: false,
+        //                         background: 'transparent',
+        //                     });
+        //                 },
+        //                 datatype: "json",
+        //                 success: function(response) {
+        //                     console.log(response);
+        //                     if (response.success) {
+        //                         Toast.fire({
+        //                             icon: "success",
+        //                             title: "Data berhasil ditambahkan"
+        //                         });
+        //                     } else {
+        //                         Toast.fire({
+        //                             icon: "error",
+        //                             title: "Data gagal ditambahkan"
+        //                         });
+        //                     }
+        //                 },
+        //                 error: function(error) {
+        //                     Swal.fire(
+        //                         'Error',
+        //                         '',
+        //                         'error'
+        //                     )
+        //                 }
+        //             });
+        //         }
+        //     })
+        // }
 
         // FUNGSI MENAMPILKAN MODAL DETAIL
         function modal_detail(id, user, lvl, ins) {
