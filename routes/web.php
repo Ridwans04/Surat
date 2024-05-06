@@ -16,6 +16,7 @@ use App\Http\Controllers\PagesController;
 use App\Http\Controllers\MiscellaneousController;
 use App\Http\Controllers\AuthenticationController;
 use App\Http\Controllers\ChartsController;
+use App\Http\Controllers\data\permohonan_suratController;
 
 /*
 |--------------------------------------------------------------------------
@@ -47,6 +48,9 @@ Route::group(['prefix' => 'master'], function(){
     Route::view('master_pj', 'content/master/master_pj/data')->name('master_pj');
     Route::view('master_surat', 'content/master/master_surat/data')->name('master_surat');
 });
+
+// PERMOHONAN SURAT
+Route::get('permohonan_surat', [permohonan_suratController::class, 'permohonan_surat'])->name('permohonan_surat');
 
 
 /* Route Dashboards */

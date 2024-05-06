@@ -1,7 +1,7 @@
 <?php
 
+use App\Http\Controllers\data\permohonan_suratController;
 use App\Http\Controllers\master\master_akunController;
-use App\Http\Controllers\master\master_pjController;
 use App\Http\Controllers\master\master_suratController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -28,3 +28,8 @@ Route::get('get_data_surat', [master_suratController::class, 'get_data_surat'])-
 Route::post('add_surat', [master_suratController::class, 'add_surat'])->name('add_surat');
 Route::put('update_surat', [master_suratController::class, 'update_surat'])->name('update_surat');
 Route::delete('hapus_surat', [master_suratController::class, 'hapus_surat'])->name('hapus_surat');
+
+// PERMOHONAN SURAT
+Route::get('get_ins', [permohonan_suratController::class, 'get_ins'])->name('get_ins');
+Route::get('get_list_pj', [permohonan_suratController::class, 'get_list_pj'])->name('get_list_pj');
+Route::post('add_req_surat', [permohonan_suratController::class, 'add_req_surat'])->name('add_req_surat');
