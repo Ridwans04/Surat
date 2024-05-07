@@ -426,9 +426,6 @@
                                         <span class="bs-stepper-subtitle">Eksternal</span>
                                     </span>
                                 </button>
-                                <button class="btn btn-icon btn-primary">
-                                    <i data-feather="eye"></i>
-                                </button>
                             </div>
                             <div class="step" data-target="#surat-keluar-internal" role="tab"
                                 id="create-app-frameworks-trigger">
@@ -481,7 +478,7 @@
                         </div>
 
                         <!-- content -->
-                        <div class="bs-stepper-content shadow-none">
+                        <div class="bs-stepper-content shadow-none p-2">
                             @include('content.permohonan_surat.surat_keluar_eks')
                             @include('content.permohonan_surat.surat_keluar_int')
                             @include('content.permohonan_surat.berita_acara')
