@@ -8,4 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 class sdm extends Model
 {
     use HasFactory;
+    protected $table = 'pegawai';
+    protected $connection = 'sdm';
+    protected $guarded = [];
 }

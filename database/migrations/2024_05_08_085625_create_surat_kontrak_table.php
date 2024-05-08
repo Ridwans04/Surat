@@ -13,9 +13,8 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('master_institusi', function (Blueprint $table) {
+        Schema::create('surat_kontrak', function (Blueprint $table) {
             $table->id();
-            $table->string('institusi')->nullable();
             $table->timestamps();
         });
     }
@@ -27,6 +26,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('master_institusi');
+        Schema::dropIfExists('surat_kontrak');
     }
 };

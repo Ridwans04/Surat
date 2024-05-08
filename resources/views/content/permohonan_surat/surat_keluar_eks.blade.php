@@ -44,7 +44,7 @@
                 </div>
             </div>
             <div class="d-flex justify-content-between">
-                <button class="btn btn-primary" type="submit">
+                <button class="btn btn-primary" id="confirm-text" type="submit">
                     <span class="align-middle d-sm-inline-block d-none">Kirim Permintaan</span>
                     <i data-feather="send" class="align-middle ms-sm-25 ms-0"></i>
                 </button>

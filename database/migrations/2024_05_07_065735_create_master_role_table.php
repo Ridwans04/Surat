@@ -15,6 +15,7 @@ return new class extends Migration
     {
         Schema::create('master_role', function (Blueprint $table) {
             $table->id();
+            $table->string('role')->nullable();
             $table->timestamps();
         });
     }

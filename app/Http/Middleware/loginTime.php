@@ -20,17 +20,13 @@ class loginTime
             session('role') === env('admin') ||
             session('role') === env('super_admin')
         ) {
-            return redirect()->to('/daftarLayanan');
+            return redirect()->to('/beranda_admin');
         } elseif (
-            session('role') == env('admin') ||
-            session('role') == env('keuangan') ||
+            session('role') == env('guru') ||
+            session('role') == env('pj') ||
             session('role') == env('superadmin')
         ) {
-            return redirect()->to('/dashboardAdmin');
-        } elseif (
-            session('role') == env('tenaga_ahli')
-        ) {
-            return redirect()->to('/kelolaPemesanan');
+            return redirect()->to('/beranda_user');
         }
         return $next($request);
     }

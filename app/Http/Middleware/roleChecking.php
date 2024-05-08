@@ -5,7 +5,7 @@ namespace App\Http\Middleware;
 use Closure;
 use Illuminate\Http\Request;
 
-class isPM
+class roleChecking
 {
     /**
      * Handle an incoming request.
@@ -16,6 +16,7 @@ class isPM
      */
     public function handle(Request $request, Closure $next)
     {
+    
         return $next($request);
     }
 }

@@ -17,6 +17,7 @@ use App\Http\Controllers\MiscellaneousController;
 use App\Http\Controllers\AuthenticationController;
 use App\Http\Controllers\ChartsController;
 use App\Http\Controllers\data\permohonan_suratController;
+use App\Http\Controllers\Util;
 
 /*
 |--------------------------------------------------------------------------
@@ -34,16 +35,23 @@ Route::view('/', 'content/auth/login_page')->name('login');
 Route::view('home', 'content/home/home')->name('home');
 
 // AUTH
-Route::group(['prefix' => 'auth'], function(){
-    Route::view('login_page', 'content/auth/login_page')->name('login');
-    Route::post('authenticate', [auth_controller::class, 'authenticate'])->name('authenticate');
-    Route::get('logout', [auth_controller::class, 'logout'])->name('logout');
-    Route::get('regis_page', [auth_controller::class, 'regis'])->name('regis');
-    Route::post('registrasi_store', [auth_controller::class, 'regis_store'])->name('regis_store');
+// Route::middleware('loginTime:admin,guru')->group(function () {
+    Route::group(['prefix' => 'auth'], function () {
+        Route::view('login_page', 'content/auth/login_page')->name('login');
+        Route::post('setSession', [Util::class, 'setSession'])->name('setSession');
+        Route::post('authenticate', [auth_controller::class, 'authenticate'])->name('authenticate');
+        Route::get('logout', [auth_controller::class, 'logout'])->name('logout');
+        Route::get('regis_page', [auth_controller::class, 'regis'])->name('regis');
+        Route::post('registrasi_store', [auth_controller::class, 'regis_store'])->name('regis_store');
+    });
+// });
+
+Route::group(['prefix' => 'beranda'], function () {
+    Route::view('beranda_admin', 'content.home.beranda_admin');
 });
 
 // MASTER
-Route::group(['prefix' => 'master'], function(){
+Route::group(['prefix' => 'master'], function () {
     Route::view('master_akun', 'content/master/master_akun/data')->name('master_akun');
     Route::view('master_pj', 'content/master/master_pj/data')->name('master_pj');
     Route::view('master_surat', 'content/master/master_surat/data')->name('master_surat');
@@ -51,7 +59,6 @@ Route::group(['prefix' => 'master'], function(){
 
 // PERMOHONAN SURAT
 Route::get('permohonan_surat', [permohonan_suratController::class, 'permohonan_surat'])->name('permohonan_surat');
-
 
 /* Route Dashboards */
 Route::group(['prefix' => 'dashboard'], function () {

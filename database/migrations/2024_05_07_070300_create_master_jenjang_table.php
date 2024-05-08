@@ -15,6 +15,8 @@ return new class extends Migration
     {
         Schema::create('master_jenjang', function (Blueprint $table) {
             $table->id();
+            $table->string('jenjang')->nullable();
+            $table->foreignId('institusi_id')->nullable();
             $table->timestamps();
         });
     }
