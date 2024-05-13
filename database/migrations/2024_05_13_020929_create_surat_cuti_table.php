@@ -13,14 +13,15 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('mou', function (Blueprint $table) {
+        Schema::create('surat_cuti', function (Blueprint $table) {
             $table->id();
-            $table->string('institusi')->nullable();
-            $table->string('nomor_mou')->nullable();
-            $table->string('tanggal_mou')->nullable();
-            $table->string('ket_mou')->nullable();
-            $table->string('isi_mou')->nullable();
-            $table->string('softfile')->nullable();
+            $table->string('nama')->nullable();
+            $table->string('jabatan')->nullable();
+            $table->string('selama')->nullable();
+            $table->string('tanggal')->nullable();
+            $table->string('nmr_tlp')->nullable();
+            $table->string('tgl_surat')->nullable();
+            $table->string('')->nullable();
             $table->timestamps();
         });
     }
@@ -32,6 +33,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('mou');
+        Schema::dropIfExists('surat_cuti');
     }
 };

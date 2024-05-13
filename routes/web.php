@@ -1,21 +1,9 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\LanguageController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\AppsController;
 use App\Http\Controllers\auth\auth_controller;
-use App\Http\Controllers\UserInterfaceController;
-use App\Http\Controllers\CardsController;
-use App\Http\Controllers\ComponentsController;
-use App\Http\Controllers\ExtensionController;
-use App\Http\Controllers\PageLayoutController;
-use App\Http\Controllers\FormsController;
-use App\Http\Controllers\TableController;
-use App\Http\Controllers\PagesController;
-use App\Http\Controllers\MiscellaneousController;
-use App\Http\Controllers\AuthenticationController;
-use App\Http\Controllers\ChartsController;
 use App\Http\Controllers\data\permohonan_suratController;
 use App\Http\Controllers\Util;
 
@@ -33,12 +21,12 @@ use App\Http\Controllers\Util;
 // Main Page Route
 Route::view('/', 'content/auth/login_page')->name('login');
 Route::view('home', 'content/home/home')->name('home');
+// Route::post('setSession', Util::class, 'setSession')->name('setSession');
 
 // AUTH
 // Route::middleware('loginTime:admin,guru')->group(function () {
     Route::group(['prefix' => 'auth'], function () {
         Route::view('login_page', 'content/auth/login_page')->name('login');
-        Route::post('setSession', [Util::class, 'setSession'])->name('setSession');
         Route::post('authenticate', [auth_controller::class, 'authenticate'])->name('authenticate');
         Route::get('logout', [auth_controller::class, 'logout'])->name('logout');
         Route::get('regis_page', [auth_controller::class, 'regis'])->name('regis');

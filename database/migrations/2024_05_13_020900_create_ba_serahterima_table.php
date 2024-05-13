@@ -13,14 +13,8 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('mou', function (Blueprint $table) {
+        Schema::create('ba_serahterima', function (Blueprint $table) {
             $table->id();
-            $table->string('institusi')->nullable();
-            $table->string('nomor_mou')->nullable();
-            $table->string('tanggal_mou')->nullable();
-            $table->string('ket_mou')->nullable();
-            $table->string('isi_mou')->nullable();
-            $table->string('softfile')->nullable();
             $table->timestamps();
         });
     }
@@ -32,6 +26,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('mou');
+        Schema::dropIfExists('ba_serahterima');
     }
 };

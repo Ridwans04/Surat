@@ -35,8 +35,9 @@ $configData = Helper::applClasses();
     <!-- Login-->
     <div class="d-flex col-lg-4 align-items-center auth-bg px-2 p-lg-7">
       <div class="col-12 col-sm-8 col-md-6 col-lg-12 px-xl-2 mx-auto">
-        <h2 class="card-title fw-bold mb-1">Selamat Datang Di Aplikasi Surat</h2>
-        <form class="auth-login-form mt-2" action="{{route('authenticate')}}" method="POST">
+        <img src="{{asset('images/logo/login_icon.png')}}" class="img-fluid rounded-top rounded-bottom" alt="">
+        <h2 class="card-title fw-bold mb-1">Selamat Datang Di E-Surat 📜</h2>
+        <form class="auth-login-form mt-2" onsubmit="event.preventDefault(),login(this)">
           @csrf
           <div class="mb-1">
             <label class="form-label" for="username">Nama</label>
@@ -49,7 +50,8 @@ $configData = Helper::applClasses();
             </div>
             <div class="input-group input-group-merge form-password-toggle" style="flex-wrap: nowrap">
               <input class="form-control" id="password" type="password" name="password" placeholder="············" aria-describedby="login-password" tabindex="2" />
-              <span class="input-group-text cursor-pointer"><i data-feather="eye"></i></span>
+              <span class="input-group-text cursor-pointer" style="border: 2px solid #404656
+              "><i data-feather="eye"></i></span>
             </div>
           </div>
           <button class="btn btn-relief btn-success w-100" tabindex="4">Masuk</button>
@@ -66,13 +68,4 @@ $configData = Helper::applClasses();
 @section('page-script')
 <script src="{{asset(mix('js/scripts/pages/auth-login.js'))}}"></script>
 <script src="{{ asset(mix('js/scripts/extensions/ext-component-toastr.js')) }}"></script>
-<script>
-  @if ($message = Session::get('error'))
-          toastr['error'](
-            '{!! $message !!}',
-            'Login gagal',
-            {showDuration: 500}
-          );
-         @endif
-</script>
 @endsection

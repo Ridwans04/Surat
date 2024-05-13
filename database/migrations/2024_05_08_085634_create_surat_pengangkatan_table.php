@@ -15,6 +15,18 @@ return new class extends Migration
     {
         Schema::create('surat_pengangkatan', function (Blueprint $table) {
             $table->id();
+            $table->string('nomor_surat')->nullable();
+            $table->string('klasifikasi')->nullable();
+            $table->string('tanggal_rapat')->nullable();
+            $table->string('penilaian')->nullable();
+            $table->string('divisi')->nullable();
+            $table->string('nama')->nullable();
+            $table->string('nip')->nullable();
+            $table->string('ttl')->nullable();
+            $table->string('ijazah')->nullable();
+            $table->string('lulusan')->nullable();
+            $table->string('tanggal_surat')->nullable();
+            $table->string('tanggal_penetapan')->nullable();
             $table->timestamps();
         });
     }

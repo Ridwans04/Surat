@@ -15,6 +15,15 @@ return new class extends Migration
     {
         Schema::create('surat_keputusan', function (Blueprint $table) {
             $table->id();
+            $table->string('institusi')->nullable();
+            $table->string('nomor_surat')->nullable();
+            $table->string('tentang')->nullable();
+            $table->string('menimbang1')->nullable();
+            $table->string('memperhatikan')->nullable();
+            $table->string('menetapkan')->nullable();
+            $table->string('tanggal_surat')->nullable();
+            $table->string('tanggal_hijriyah')->nullable();
+            $table->string('softfile')->nullable();
             $table->timestamps();
         });
     }

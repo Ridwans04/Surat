@@ -13,25 +13,23 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('surat_keluar_eksternal', function (Blueprint $table) {
+        Schema::create('berita_acara', function (Blueprint $table) {
             $table->id();
-            $table->string('template')->nullable();
             $table->string('institusi')->nullable();
             $table->string('pemohon')->nullable();
-            $table->string('kepada')->nullable();
-            $table->string('kelas')->nullable();
             $table->string('nomor_surat')->nullable();
-            $table->string('tanggal_surat')->nullable();
-            $table->string('tanggal_hijriyah')->nullable();
-            $table->string('perihal')->nullable();
+            $table->string('dasar_rapat')->nullable();
             $table->string('hari')->nullable();
             $table->string('waktu')->nullable();
             $table->string('tempat')->nullable();
-            $table->string('narasumber')->nullable();
-            $table->string('tema')->nullable();
-            $table->string('isi_surat')->nullable();
-            $table->string('total')->nullable();
-            $table->string('softfile')->nullable();
+            $table->string('agenda_rapat')->nullable();
+            $table->string('kesimpulan')->nullable();
+            $table->string('penutup')->nullable();
+            $table->string('tanggal_surat')->nullable();
+            $table->string('tanggal_permohonan')->nullable();
+            $table->string('tangal_hijriyah')->nullable();
+            $table->string('pembuat')->nullable();
+            $table->string('nip')->nullable();
             $table->enum('status', ['Baru', 'Sedang Diproses', 'Terbit'])->nullable();
             $table->string('persetujuan')->nullable();
             $table->timestamps();
@@ -45,6 +43,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('surat_keluar_eksternal');
+        Schema::dropIfExists('berita_acara');
     }
 };

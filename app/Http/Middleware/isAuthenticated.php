@@ -18,7 +18,7 @@ class isAuthenticated
      */
     public function handle(Request $request, Closure $next)
     {
-        $token = session()->get('token');
+        $token = session('token');
         if (!$token) {
             session()->put('isLogin', false);
             return redirect()->route('hal_login');

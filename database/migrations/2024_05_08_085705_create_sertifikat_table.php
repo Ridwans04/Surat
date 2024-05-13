@@ -15,6 +15,11 @@ return new class extends Migration
     {
         Schema::create('sertifikat', function (Blueprint $table) {
             $table->id();
+            $table->string('institusi')->nullable();
+            $table->string('nomor_sertif')->nullable();
+            $table->string('ket_sertif')->nullable();
+            $table->string('tanggal_sertif')->nullable();
+            $table->string('softfile')->nullable();
             $table->timestamps();
         });
     }
