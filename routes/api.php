@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\auth\auth_controller;
 use App\Http\Controllers\data\permohonan_suratController;
 use App\Http\Controllers\master\master_akunController;
 use App\Http\Controllers\master\master_suratController;
@@ -17,6 +18,10 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
+// AUTH
+Route::group(['prefix' => 'auth'], function(){
+    Route::post('authenticate', [auth_controller::class, 'authenticate'])->name('authenticate');
+});
 // MASTER AKUN
 Route::get('get_data_akun', [master_akunController::class, 'get_data_akun'])->name('get_data_akun');
 Route::post('add_akun', [master_akunController::class, 'add_akun'])->name('add_akun');

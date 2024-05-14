@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\User;
+use Firebase\JWT\JWT;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
@@ -48,5 +49,10 @@ class Util extends Controller
             
         }
         return redirect()->route('beranda');  
+    }
+
+    public function makeJWT(array $payload)
+    {
+        return JWT::encode($payload, env('JWT_SECRET'), env('JWT_ALGO'));
     }
 }

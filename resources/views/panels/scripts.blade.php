@@ -11,6 +11,10 @@
 
 <!-- custome scripts file for user -->
 <script src="{{ asset(mix('js/core/scripts.js')) }}"></script>
+<script src="{{ asset('js/scripts/tool/sweet-alert.js') }}"></script>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<script src="{{ asset('js/scripts/tool/toast.js') }}"></script>
+@include('content.general.script_ajax')
 
 @if($configData['blankPage'] === false)
 <script src="{{ asset(mix('js/scripts/customizer.js')) }}"></script>
