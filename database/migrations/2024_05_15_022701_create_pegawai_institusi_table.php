@@ -13,10 +13,10 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('master_jenjang', function (Blueprint $table) {
+        Schema::create('pegawai_institusi', function (Blueprint $table) {
             $table->id();
-            $table->string('jenjang')->nullable();
-            $table->foreignId('institusi_id')->nullable();
+            $table->foreignId('pegawai_id');
+            $table->foreignId('institusi_id');
             $table->timestamps();
         });
     }
@@ -28,6 +28,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('master_jenjang');
+        Schema::dropIfExists('pegawai_institusi');
     }
 };

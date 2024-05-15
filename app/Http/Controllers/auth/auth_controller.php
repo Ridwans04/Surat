@@ -7,6 +7,7 @@ use App\Http\Controllers\Util;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\RateLimiter;
 use Illuminate\Support\Facades\Session;
 
@@ -15,7 +16,7 @@ class auth_controller extends Controller
     protected $util;
     public function __construct()
     {
-        $this->util = new Util;
+        $this->util = new Util();
     }
 
     public function authenticate(Request $request)
@@ -24,15 +25,19 @@ class auth_controller extends Controller
             'username' => 'required',
             'password' => 'required',
         ]);
-        $password = $request->password;
-        $username = $request->username;
-        $key = 'verify:' . $request->ip();
-        dd($key);
-        $adminCheck = User::all()
-            ->where('username', '=', $username)
+
+        // MENGAMBIL DATA USERS
+        $usersCheck = User::all()
+            ->where('username', '=', $request->username)
             ->first();
-        $pjCheck = 
+        // MENGAMBIL DATA PEGAWAI SDM
+        $pegawaiCheck = DB::connection('sdm')
+            ->table('pegawai')
+            ->where('nip', $request->username)
+            ->first();
+
         $key = 'verify:' . $request->ip();
+
         $maxAttempt = 5;
         if (RateLimiter::tooManyAttempts($key, $maxAttempt)) {
             $seconds = RateLimiter::availableIn($key);
@@ -41,15 +46,42 @@ class auth_controller extends Controller
         $executed = RateLimiter::attempt(
             $key,
             $maxAttempt,
-            function () use ($request, $credentials, $adminCheck,$key,$maxAttempt) {
-                if (is_null($adminCheck)) {
-                    $remaining = RateLimiter::remaining($key,$maxAttempt);
-                    return response()->json(['status' => 'failed','message' => 'Nip Atau Password Salah, Sisa '.$remaining.' kali Percobaan'], 200);
+            function () use ($request, $credentials, $usersCheck, $pegawaiCheck, $key, $maxAttempt) {
+                if (is_null($usersCheck) && is_null($pegawaiCheck)) {
+                    $remaining = RateLimiter::remaining($key, $maxAttempt);
+                    return response()->json(['status' => 'failed', 'message' => 'Nip Atau Password Salah, Sisa ' . $remaining . ' kali Percobaan'], 200);
                 }
-                if (Auth::attempt($credentials)) {
+                if (is_null($pegawaiCheck)) {
+                    if (Auth::attempt($credentials)) {
+                        $payload = [
+                            'sub' => 'User',
+                            'surat_id' => ['id' => $usersCheck->id],
+                            'iss' => 'E-surat RaudlLatul Jannah',
+                            'exp' => time() + env('TIME_EXPIRATION'),
+                        ];
+                        try {
+                            $jwt = $this->util->makeJWT($payload);
+                            return response()->json(
+                                [
+                                    'status' => 'success',
+                                    'data' => $jwt,
+                                ],
+                                200,
+                            );
+                        } catch (\Throwable $th) {
+                            return response()->json(['status' => 'failed'], 400);
+                        }
+                    } else {
+                        $remaining = RateLimiter::remaining($key, $maxAttempt);
+                        return response()->json(['status' => 'failed', 'message' => 'Nip Atau Password Salah, Sisa ' . $remaining . ' kali Percobaan'], 200);
+                    }
+                } else {
                     $payload = [
-                        'id' => $adminCheck->id,
-                        'iss' => 'Kesiswaan RaudlLatul Jannah',
+                        'sub' => 'Pegawai',
+                        'surat_id' => [
+                            'id' => $pegawaiCheck->id,
+                        ],
+                        'iss' => 'E-surat RaudlLatul Jannah',
                         'exp' => time() + env('TIME_EXPIRATION'),
                     ];
                     try {
@@ -64,15 +96,11 @@ class auth_controller extends Controller
                     } catch (\Throwable $th) {
                         return response()->json(['status' => 'failed'], 400);
                     }
-                } else {
-                    $remaining = RateLimiter::remaining($key,$maxAttempt);
-                    return response()->json(['status' => 'failed','message' => 'Nip Atau Password Salah, Sisa '.$remaining.' kali Percobaan'], 200);
                 }
             },
             300,
         );
         return $executed;
-        
     }
 
     public function logout()

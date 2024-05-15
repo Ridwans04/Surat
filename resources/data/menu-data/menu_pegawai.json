@@ -1,0 +1,12 @@
+{
+    "menu": [
+      {
+        "url": "beranda_pemohon",
+        "name": "Beranda",
+        "role": ["pegawai"],
+        "icon": "home",
+        "slug": "beranda"
+      }
+    ]
+  }
+  

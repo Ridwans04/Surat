@@ -2,6 +2,7 @@
 
 namespace App\Http\Middleware;
 
+use App\Http\Controllers\Util;
 use Closure;
 use Firebase\JWT\JWT;
 use Firebase\JWT\Key;
@@ -20,17 +21,18 @@ class isAuthenticated
     {
         $token = session('token');
         if (!$token) {
-            session()->put('isLogin', false);
-            return redirect()->route('hal_login');
+            $token = $request->header('Authorization');
+        }
+        if (!$token) {
+            return redirect()->route('login');
         }
         $token = str_replace('Bearer ', '', $token);
         try {
             $decode = JWT::decode($token, new Key(env('JWT_SECRET'), env('JWT_ALGO')));
         } catch (\Throwable $th) {
-            session()->put('isLogin', false);
-            return redirect()->route('hal_login');
+            return redirect()->route('login');
         }
-        session()->put('isLogin', true);
+        (new Util)->setSession2($token);
         return $next($request);
     }
 }

@@ -24,9 +24,9 @@
         </ul>
         <ul class="nav navbar-nav">
             <li class="nav-item d-none d-lg-block">
-                <a class="nav-link nav-link-style">
-                    <i class="ficon" data-feather="{{ $configData['theme'] === 'dark' ? 'sun' : 'moon' }}"></i>
-                </a>
+                {{-- <a href="javascript:void(0);" id="theme-toggle" class="nav-link">
+                    <i data-feather="{{ $theme === 'dark' ? 'sun' : 'moon' }}"></i>
+                </a> --}}
             </li>
         </ul>
     </div>
@@ -36,19 +36,17 @@
                 data-bs-toggle="dropdown" aria-haspopup="true">
                 <div class="user-nav d-sm-flex d-none">
                     <span class="user-name fw-bolder">
-                        @if (Auth::check())
-                            {{ Auth::user()->username }}
-                        @else
-                            John Doe
-                        @endif
+                        {{ Auth::user()->username }}
                     </span>
-                    <span class="user-status">
-                        @if (Auth::check())
-                            {{ Auth::user()->level }}
-                        @else
-                            not found
-                        @endif
-                    </span>
+                    <p style="white-space: nowrap" class="font-medium-1">
+                        @foreach(session('role') as $key )
+                        <span class="badge bg-success ">
+                            <i data-feather="star" class="me-25"></i>
+                            <span>{{ str_replace("_", " ",$key)}}</span>
+                        </span>
+                        @endforeach
+                    </p>
+                    
                 </div>
                 <span class="avatar">
                     <img class="round" src="{{ asset('images/logo/profil.png') }}" alt="avatar" height="40"
@@ -57,13 +55,12 @@
                 </span>
             </a>
             <div class="dropdown-menu dropdown-menu-end" aria-labelledby="dropdown-user">
-                <h6 class="dropdown-header">Atur Akun</h6>
                 @if (Auth::check())
-                    <a class="dropdown-item" href="{{route('logout')}}">
+                    <a class="dropdown-item" href="{{ route('logout') }}">
                         <i class="me-50" data-feather="power"></i> Logout
                     </a>
                 @else
-                    <a class="dropdown-item" href="{{route('login')}}">
+                    <a class="dropdown-item" href="{{ route('login') }}">
                         <i class="me-50" data-feather="log-in"></i> Login
                     </a>
                 @endif

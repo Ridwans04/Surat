@@ -13,8 +13,10 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('pj', function (Blueprint $table) {
+        Schema::create('pegawai_role', function (Blueprint $table) {
             $table->id();
+            $table->foreignId('pegawai_id');
+            $table->foreignId('role_id');
             $table->timestamps();
         });
     }
@@ -26,6 +28,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('pj');
+        Schema::dropIfExists('pegawai_role');
     }
 };

@@ -4,7 +4,9 @@ namespace App\Http\Controllers;
 
 use App\Models\User;
 use Firebase\JWT\JWT;
+use Firebase\JWT\Key;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 
 class Util extends Controller
@@ -12,47 +14,65 @@ class Util extends Controller
     public function setSession(Request $request)
     {
         $token = $request->token;
-        $data = $this->getDataFromToken($token);
-        switch ($data->role) {
-            case 'admin':
-                $user = User::all()->find($data->id);
-                break;
-            case 'pegawai':
-                $user = DB::connection('sdm')
-                        ->table('pegawai')
-                        ->find($data->id);
-                break;
+        $this->setSession2($token);
+        return redirect()->route('home'); 
+    }
 
-            default:
-                null;
-                break;
-        }
-        
-        if ($data->id != null) {
-            session()->put('token', $token);
-            // MENGAMBIL USERNAME DARI DATA TOKEN
-            switch ($data->role) {
-                case 'admin':
-                    session()->put('user', $user->username);
-                    session()->put('nama', $user->nama);
-                    session()->put('jenjang', $user->jenjang);
-                    break;
-                case 'pegawai':
-                    session()->put('user', $user->nama);
-                    session()->put('jenjang', $user->jenjang);
-                    break;
-    
-                default:
-                    null;
-                    break;
+    public function setSession2($token)
+    {
+        $id = $this->getIDFromToken($token);
+        // dd($id);
+        if ($id != null) {
+            $dataRole = DB::table('master_role')->join('user_role', 'master_role.id', '=', 'user_role.role_id')->where('user_role.user_id', $id)->get()->toArray();
+            $role = [];
+            foreach ($dataRole as $key => $value) {
+                array_push($role, $value->role);
             }
-            
+            // $jenjang = $this->getJenjangFromID($id);
+            $dataUser = User::all()->find($id);
+            if (is_null(Auth::user())) {
+                Auth::login($dataUser);
+            }
+            // session()->put('jenjang', implode('||', $jenjang));
+            session()->put('token', $token);
+            session()->put('role', $role);
         }
-        return redirect()->route('beranda');  
     }
 
     public function makeJWT(array $payload)
     {
         return JWT::encode($payload, env('JWT_SECRET'), env('JWT_ALGO'));
+    }
+
+    public function getIDFromToken($token)
+    {
+        try {
+            $decode = JWT::decode($token, new Key(env('JWT_SECRET'), env('JWT_ALGO')));
+            return $decode->surat_id->id;
+        } catch (\Throwable $th) {
+        }
+        try {
+            $decode = JWT::decode($token, new Key(env('JWT_SECRET'), env('JWT_ALGO')));
+            return $decode->id;
+        } catch (\Throwable $th) {
+            return null;
+        }
+    }
+
+    public function getRoleFromID(string $id)
+    {
+        $dataRole = DB::table('master_role')->join('user_role', 'master_role.id', '=', 'user_role.role_id')->where('user_role.user_id', $id)->get()->toArray();
+        $role = [];
+        foreach ($dataRole as $key => $value) {
+            array_push($role, $value->role_name);
+        }
+        return $role;
+    }
+
+    public function changeTheme(Request $request)
+    {
+        $theme = $request->input('theme');
+        session()->put('theme', $theme);
+        return response()->json(['status' => 'success'], 200);
     }
 }

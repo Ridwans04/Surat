@@ -27,15 +27,14 @@ return new class extends Migration
             $table->string('akhir_kerja')->nullable();
             $table->string('masa_kerja')->nullable();
             $table->string('masa_kontrak')->nullable();
-            $table->string('')->nullable();
-            $table->string('')->nullable();
+            $table->string('jam_kerja')->nullable();
             $table->string('honor')->nullable();
             $table->string('terbilang')->nullable();
             $table->string('klasifikasi')->nullable();
             $table->string('potongan_honor')->nullable();
             $table->enum('status', ['Baru', 'Sedang Diproses', 'Terbit'])->nullable();
             $table->string('persetujuan')->nullable();
-            $table->string('klasifikasi_id')->nullable();
+            $table->foreignId('klasifikasi_id')->nullable();
             $table->timestamps();
         });
     }

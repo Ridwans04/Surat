@@ -2,42 +2,56 @@
     "menu": [
       {
         "url": "home",
-        "name": "Home",
+        "name": "Beranda",
+        "icon": "home",
+        "role": ["super_admin", "admin"],
+        "slug": "home"
+      },
+      {
+        "url": "home",
+        "name": "Dashboard",
+        "role": ["pj"],
         "icon": "home",
         "slug": "home"
       },
       {
         "navheader": "Daftar Surat",
+        "role": ["super_admin", "admin"],
         "slug": ""
       },
       {
         "url": "permohonan_surat",
         "name": "Permohonan Surat",
         "icon": "edit-3",
+        "role": ["super_admin", "admin"],
         "slug": "permohonan_surat"
       },
       {
         "url": "",
         "name": "Menu Surat Keluar",
         "icon": "mail",
+        "role": ["super_admin", "admin"],
         "slug": "menu"
       },
       {
         "name": "Menu Surat Masuk",
         "icon": "mail",
         "slug": "Permohonan",
+        "role": ["super_admin", "admin"],
         "submenu" : [
   
           {
             "url": "",
             "name": "Tabel Surat Masuk",
             "icon": "mail",
+            "role": ["super_admin", "admin"],
             "slug": "menu"
           },
           {
             "url": "",
             "name": "Tabel Disposisi",
             "icon": "mail",
+            "role": ["super_admin", "admin"],
             "slug": "disposisi"
           }
   

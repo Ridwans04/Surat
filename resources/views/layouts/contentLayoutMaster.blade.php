@@ -5,6 +5,7 @@
 <!DOCTYPE html>
 @php
 $configData = Helper::applClasses();
+$theme = session('theme', config('custom.default_theme')); // Fetch theme from session or default
 @endphp
 
 <html class="loading {{ $configData['theme'] === 'light' ? '' : $configData['layoutTheme'] }}"

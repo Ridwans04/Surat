@@ -479,11 +479,11 @@
 
                         <!-- content -->
                         <div class="bs-stepper-content shadow-none p-2">
-                            @include('content.permohonan_surat.surat_keluar_eks')
+                            {{-- @include('content.permohonan_surat.surat_keluar_eks')
                             @include('content.permohonan_surat.surat_keluar_int')
                             @include('content.permohonan_surat.berita_acara')
                             @include('content.permohonan_surat.surat_tugas')
-                            @include('content.permohonan_surat.surat_keterangan')
+                            @include('content.permohonan_surat.surat_keterangan') --}}
                         </div>
                     </div>
                 </div>
