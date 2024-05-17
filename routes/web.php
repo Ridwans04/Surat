@@ -20,7 +20,6 @@ use App\Http\Controllers\Util;
 
 // Main Page Route
 Route::view('/', 'content/auth/login_page')->name('login');
-Route::view('home', 'content/home/home')->name('home');
 Route::post('setSession', [Util::class, 'setSession'])->name('setSession');
 
 // Route::get('/toggle-theme', [Util::class, 'toggleTheme'])->name('theme.toggle');
@@ -35,13 +34,21 @@ Route::group(['prefix' => 'auth'], function () {
 Route::middleware('authenticatedWeb')->group(function () {
     // BERANDA
     Route::group(['prefix' => 'beranda'], function () {
+        Route::view('home', 'content/home/home')->name('home');
         Route::view('beranda_admin', 'content.home.beranda_admin');
     });
 
-    // MASTER
+    // MASTER AKUN
+    Route::group(['prefix' => 'master_akun'], function () {
+        Route::view('kelola_user', 'content/master/master_akun/user/data')->name('kelola_user');
+        
+    });
+
+    Route::group(['prefix' => 'master_surat'], function () {
+        Route::view('klasifikasi_surat', 'content/master/master_pj/data')->name('klasifikasi_surat');
+    });
+
     Route::group(['prefix' => 'master'], function () {
-        Route::view('master_akun', 'content/master/master_akun/data')->name('master_akun');
-        Route::view('master_pj', 'content/master/master_pj/data')->name('master_pj');
         Route::view('master_surat', 'content/master/master_surat/data')->name('master_surat');
     });
 

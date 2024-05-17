@@ -103,10 +103,12 @@ class auth_controller extends Controller
         return $executed;
     }
 
-    public function logout()
+    public function logout(Request $request)
     {
-        Session::flush();
         Auth::logout();
-        return redirect('auth/login_page');
+        auth('web')->logout();
+        $request->session()->invalidate();
+        $request->session()->regenerateToken();
+        return redirect()->route('login');
     }
 }

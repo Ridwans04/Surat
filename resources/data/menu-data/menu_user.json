@@ -15,6 +15,69 @@
         "slug": "home"
       },
       {
+        "navheader": "Master",
+        "role": ["super_admin"],
+        "slug": ""
+      },
+      {
+        "url": "",
+        "name": "Master Akun",
+        "icon": "user",
+        "role": ["super_admin"],
+        "slug": "",
+        "submenu" : [
+          {
+            "url": "master_akun/kelola_user",
+            "name": "Kelola User",
+            "icon": "user-plus",
+            "role": ["super_admin"],
+            "slug": "master_akun"
+          },
+          {
+            "url": "master_akun/kelola_user_role",
+            "name": "Kelola User Role",
+            "icon": "user-plus",
+            "role": ["super_admin"],
+            "slug": "menu"
+          },
+          {
+            "url": "master_akun/kelola_user_institusi",
+            "name": "Kelola User Institusi",
+            "icon": "user-plus",
+            "role": ["super_admin"],
+            "slug": "menu"
+          },
+          {
+            "url": "master_akun/kelola_pegawai",
+            "name": "Kelola Pegawai",
+            "icon": "users",
+            "role": ["super_admin"],
+            "slug": "menu"
+          },
+          {
+            "url": "master_akun/kelola_pegawai_role",
+            "name": "Kelola Pegawai Role",
+            "icon": "users",
+            "role": ["super_admin"],
+            "slug": "menu"
+          },
+          {
+            "url": "master_akun/kelola_pegawai_institusi",
+            "name": "Kelola Pegawai Institusi",
+            "icon": "users",
+            "role": ["super_admin"],
+            "slug": "menu"
+          }
+        ]
+      },
+      {
+        "url": "master_surat/klasifikasi_surat",
+        "name": "Permohonan Surat",
+        "icon": "edit-3",
+        "role": ["super_admin"],
+        "slug": "klasifikasi_surat"
+      },
+      {
         "navheader": "Daftar Surat",
         "role": ["super_admin", "admin"],
         "slug": ""

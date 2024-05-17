@@ -40,8 +40,7 @@
                             <div class="input-group input-group-merge form-password-toggle" style="flex-wrap: nowrap">
                                 <input class="form-control" id="password" type="password" name="password"
                                     placeholder="············" aria-describedby="login-password" tabindex="2" />
-                                <span class="input-group-text cursor-pointer"
-                                    style="border: 2px solid #7e7e81"><i
+                                <span class="input-group-text cursor-pointer"><i
                                         data-feather="eye"></i></span>
                             </div>
                         </div>
