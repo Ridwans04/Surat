@@ -32,6 +32,7 @@ class google_authController extends Controller
             $user = Socialite::driver('google')->user();
             $token = $user->token;
             $finduser = DB::connection('sdm')->table('pegawai')->where('email_k', '=', $user->getEmail())->first();
+            dd($finduser);
             if (is_null($finduser)) {
                 $res = $this->util->apiGuzzleClient('POST', env('GOOGLE_REVOKE') . "?token=$token");
                 return redirect()->route('login')->with('user_not_found', 'Pengguna Tidak Terdaftar');
