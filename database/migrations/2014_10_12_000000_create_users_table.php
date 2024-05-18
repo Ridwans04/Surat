@@ -15,10 +15,11 @@ return new class extends Migration
     {
         Schema::create('users', function (Blueprint $table) {
             $table->id();
+            $table->integer('id_sdm');
             $table->string('username');
+            $table->string('nip');
             $table->string('password');
-            $table->foreignId('role_id');
-            $table->foreignId('jenjang_id');
+            $table->string('token_google');
             $table->timestamps();
         });
     }

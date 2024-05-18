@@ -26,7 +26,7 @@ Route::post('setSession', [Util::class, 'setSession'])->name('setSession');
 
 Route::prefix('auth')->group(function () {
     Route::prefix('google')->group(function () {
-        Route::get('redirect', [google_authController::class, "redirectGoogle"])->name('redirect.google');
+        Route::get("redirect", [google_authController::class, "redirectGoogle"])->name('redirect.google');
         Route::get("callback", [google_authController::class, "callback"])->name("callback.google");
     });
 });

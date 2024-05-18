@@ -44,9 +44,10 @@
                                         data-feather="eye"></i></span>
                             </div>
                         </div>
-                        <button class="btn btn-relief w-100" style="background-color: #1e5c45; color: white" tabindex="4">Masuk</button>
+                        <button class="btn btn-relief w-100 mb-1 font-small-4" style="background-color: #1e5c45; color: white" tabindex="4">LOGIN DENGAN NIP</button>
                     </form>
-                    <a href="{{route('redirect.google')}}">google signin</a>
+                    <span class="d-flex justify-content-center fw-bolder font-medium-2"> ATAU</span>
+                    <a class="btn btn-relief w-100 mt-1 font-small-4" style="background-color: #1e5c45; color: white"  href="{{route('redirect.google')}}">LOGIN DENGAN GOOGLE</a>
                     <form id="setsession" action="{{ route('setSession') }}" method="POST">
                         @csrf
                         <input type="hidden" id="token" name="token">
