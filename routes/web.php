@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\AppsController;
 use App\Http\Controllers\auth\auth_controller;
+use App\Http\Controllers\auth\google_authController;
 use App\Http\Controllers\data\permohonan_suratController;
 use App\Http\Controllers\Util;
 
@@ -20,7 +21,15 @@ use App\Http\Controllers\Util;
 
 // Main Page Route
 Route::view('/', 'content/auth/login_page')->name('login');
+Route::view('/privacy', 'content/privacy_policies/privacy');
 Route::post('setSession', [Util::class, 'setSession'])->name('setSession');
+
+Route::prefix('auth')->group(function () {
+    Route::prefix('google')->group(function () {
+        Route::get('redirect', [google_authController::class, "redirectGoogle"])->name('redirect.google');
+        Route::get("callback", [google_authController::class, "callback"])->name("callback.google");
+    });
+});
 
 // Route::get('/toggle-theme', [Util::class, 'toggleTheme'])->name('theme.toggle');
 

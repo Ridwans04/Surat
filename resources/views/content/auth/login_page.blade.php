@@ -46,6 +46,7 @@
                         </div>
                         <button class="btn btn-relief w-100" style="background-color: #1e5c45; color: white" tabindex="4">Masuk</button>
                     </form>
+                    <a href="{{route('redirect.google')}}">google signin</a>
                     <form id="setsession" action="{{ route('setSession') }}" method="POST">
                         @csrf
                         <input type="hidden" id="token" name="token">
