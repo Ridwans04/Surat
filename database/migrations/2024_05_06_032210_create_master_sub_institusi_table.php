@@ -16,7 +16,7 @@ return new class extends Migration
         Schema::create('master_sub_institusi', function (Blueprint $table) {
             $table->id();
             $table->string('nama_institusi')->nullable();
-            $table->string('asal_institusi')->nullable();
+            $table->foreignId('institusi_id')->nullable();
             $table->timestamps();
         });
     }

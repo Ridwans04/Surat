@@ -36,20 +36,25 @@ Route::prefix('auth')->group(function () {
 // AUTH
 Route::group(['prefix' => 'auth'], function () {
     Route::view('login_page', 'content/auth/login_page')->name('login');
-    Route::get('logout', [auth_controller::class, 'logout'])->name('logout');
+    Route::post('logout', [auth_controller::class, 'logout'])->name('logout');
     Route::get('regis_page', [auth_controller::class, 'regis'])->name('regis');
     Route::post('registrasi_store', [auth_controller::class, 'regis_store'])->name('regis_store');
 });
 Route::middleware('authenticatedWeb')->group(function () {
     // BERANDA
     Route::group(['prefix' => 'beranda'], function () {
-        Route::view('home', 'content/home/home')->name('home');
-        Route::view('beranda_admin', 'content.home.beranda_admin');
+        Route::view('admin', 'content.home.beranda_admin')->name('beranda.admin');
+        Route::view('pj', 'content.home.beranda_pj')->name('beranda.pj');
+        Route::view('staff_sdm', 'content.home.beranda_staff_sdm')->name('beranda.staff_sdm');
     });
 
     // MASTER AKUN
     Route::group(['prefix' => 'master_akun'], function () {
-        Route::view('kelola_user', 'content/master/master_akun/user/data')->name('kelola_user');
+        Route::view('kelola_user', 'content/master/master_akun/user/data', [
+            'breadcrumbs' => [
+                ['link' => "javascript:void(0)", 'name' => "Kelola User"], ['link' => "javascript:void(0)", 'name' => "User Role & Institusi"]
+            ],
+        ])->name('kelola_user');
         
     });
 

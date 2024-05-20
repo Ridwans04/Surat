@@ -17,7 +17,7 @@ class Util extends Controller
     {
         $token = $request->token;
         $this->setSession2($token);
-        return redirect()->route('home'); 
+        return redirect()->route('beranda.admin');
     }
 
     public function setSession2($token)
@@ -25,13 +25,14 @@ class Util extends Controller
         $id = $this->getIDFromToken($token);
         if ($id != null) {
             $role = $this->getRoleFromID($id);
-            // $institusi = $this->getInstitusiFromID($id);
+            $institusi = $this->getInstitusiFromID($id);
             $dataUser = User::all()->find($id);
             if (is_null(Auth::user())) {
                 Auth::login($dataUser);
             }
             session()->put('token', $token);
             session()->put('role', $role);
+            session()->put('institusi', $institusi);
         }
     }
 
@@ -42,20 +43,11 @@ class Util extends Controller
 
     public function getIDFromToken($token)
     {
-        $data = JWT::decode($token, new Key(env('JWT_SECRET'), env('JWT_ALGO')));
-        dd($data);
-        // if($data->sub == 'User'){
-        //     try {
-        //         return $decode->surat_id_user->id;
-        //     } catch (\Throwable $th) {
-        //     }
-        //     try {
-        //         return $decode->id;
-        //     } catch (\Throwable $th) {
-        //         return null;
-        //     }
-        // }
-        
+        try {
+            $data = JWT::decode($token, new Key(env('JWT_SECRET'), env('JWT_ALGO')));
+            return $data->surat_id->id;
+        } catch (\Throwable $th) {
+        }
     }
 
     public function getRoleFromID(string $id)
@@ -70,7 +62,7 @@ class Util extends Controller
 
     public function getInstitusiFromID(string $id)
     {
-        $dataRole = DB::table('master_institusi')->join('user_role', 'master_role.id', '=', 'user_role.role_id')->where('user_role.user_id', $id)->get()->toArray();
+        $dataRole = DB::table('master_institusi')->join('user_institusi', 'master_institusi.id', '=', 'user_institusi.institusi_id')->where('user_institusi.user_id', $id)->get()->toArray();
         $role = [];
         foreach ($dataRole as $key => $value) {
             array_push($role, $value->role_name);

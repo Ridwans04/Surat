@@ -14,7 +14,6 @@
 @endphp
     <div class="auth-wrapper auth-basic px-2" style="background: url('{{ asset($imagePath) }}'); background-size: cover;">
         <div class="auth-inner my-2">
-            <!-- Login basic -->
             <div class="card mb-0" style="border-radius: 30px">
                 <div class="card-body">
                     <a href="#" class="brand-logo">
@@ -28,8 +27,8 @@
                     <form class="auth-login-form mt-2" onsubmit="event.preventDefault(),login(this)">
                         @csrf
                         <div class="mb-1">
-                            <label class="form-label" for="username">Username/NIP</label>
-                            <input class="form-control" id="username" type="text" name="username"
+                            <label class="form-label" for="nip">Username/NIP</label>
+                            <input class="form-control" id="nip" type="text" name="nip"
                                 placeholder="Masukkan Username Pengguna" aria-describedby="login-email" tabindex="1" />
                         </div>
                         <div class="mb-1">
@@ -44,17 +43,16 @@
                                         data-feather="eye"></i></span>
                             </div>
                         </div>
-                        <button class="btn btn-relief w-100 mb-1 font-small-4" style="background-color: #1e5c45; color: white" tabindex="4">LOGIN DENGAN NIP</button>
+                        <button class="btn btn-relief w-100 mb-1 font-small-3" style="background-color: #1e5c45; color: white" tabindex="4">LOGIN DENGAN NIP</button>
                     </form>
-                    <span class="d-flex justify-content-center fw-bolder font-medium-2"> ATAU</span>
-                    <a class="btn btn-relief w-100 mt-1 font-small-4" style="background-color: #1e5c45; color: white"  href="{{route('redirect.google')}}">LOGIN DENGAN GOOGLE</a>
+                    <span class="d-flex justify-content-center fw-bolder font-small-4"> ATAU</span>
+                    <a class="btn btn-relief w-100 mt-1 font-small-3" style="background-color: #1e5c45; color: white"  href="{{route('redirect.google')}}">LOGIN DENGAN GOOGLE</a>
                     <form id="setsession" action="{{ route('setSession') }}" method="POST">
                         @csrf
                         <input type="hidden" id="token" name="token">
                     </form>
                 </div>
             </div>
-            <!-- /Login basic -->
         </div>
     </div>
 @endsection

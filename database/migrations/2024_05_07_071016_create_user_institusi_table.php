@@ -13,9 +13,10 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('user_jenjang', function (Blueprint $table) {
+        Schema::create('user_institusi', function (Blueprint $table) {
             $table->id();
-            $table->string('jenjang');
+            $table->foreignId('user_id');
+            $table->foreignId('institusi_id');
             $table->timestamps();
         });
     }

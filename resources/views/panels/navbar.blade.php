@@ -54,9 +54,13 @@
                 </span>
             </a>
             <div class="dropdown-menu dropdown-menu-end " aria-labelledby="dropdown-user">
-                <a class="dropdown-item fw-bolder" href="{{ route('logout') }}">
-                    <i class="me-50" data-feather="power"></i> Logout
-                </a>
+                <form action="{{ route('logout') }}" method="post">
+                    @csrf
+                    <button class="btn btn-primary-light" type="submit">
+                        <i data-feather="log-out"></i>
+                        Logout
+                    </button>
+                </form>
             </div>
         </li>
     </ul>

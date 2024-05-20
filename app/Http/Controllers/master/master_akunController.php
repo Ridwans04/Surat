@@ -3,6 +3,8 @@
 namespace App\Http\Controllers\master;
 
 use App\Http\Controllers\Controller;
+use App\Models\akun\user_institusi;
+use App\Models\akun\user_role;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
@@ -19,6 +21,26 @@ class master_akunController extends Controller
         ]);
     }
 
+    public function get_user_role()
+    {
+        $data = user_role::all();
+
+        return response([
+            'data' => $data,
+            'success' => true
+        ]);
+    }
+
+    public function get_user_institusi()
+    {
+        $data = user_institusi::all();
+
+        return response([
+            'data' => $data,
+            'success' => true
+        ]);
+    }
+
     public function add_akun(Request $request)
     {
         $username = $request->input('username');
@@ -28,8 +50,6 @@ class master_akunController extends Controller
 
         User::create([
             'username' => $username,
-            'level' => $level,
-            'institusi' => $institusi,
             'password' => $password
         ]);
         return response()->json(['success' => true]);

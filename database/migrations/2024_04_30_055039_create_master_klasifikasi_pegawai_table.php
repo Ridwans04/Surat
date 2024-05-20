@@ -17,7 +17,6 @@ return new class extends Migration
             $table->id();
             $table->string('klasifikasi');
             $table->string('penetapan');
-            $table->string('link_kontrak');
             $table->timestamps();
         });
     }

@@ -23,7 +23,8 @@ class google_authController extends Controller
     public function redirectGoogle()
     {
         $url = Socialite::driver('google')->redirect()->getTargetUrl();
-        return redirect($url . '&prompt=select_account');
+        // return redirect($url . '&prompt=select_account');
+        return redirect($url);
     }
 
     public function callback(Request $request)
@@ -31,32 +32,32 @@ class google_authController extends Controller
         try {
             $user = Socialite::driver('google')->user();
             $token = $user->token;
-            $finduser = DB::connection('sdm')->table('pegawai')->where('email_k', '=', $user->getEmail())->first();
-            if (is_null($finduser)) {
+            $findUser = DB::connection('sdm')->table('pegawai')->where('email_k', '=', $user->getEmail())->first();
+            if (is_null($findUser)) {
                 $res = $this->util->apiGuzzleClient('POST', env('GOOGLE_REVOKE') . "?token=$token");
                 return redirect()->route('login')->with('user_not_found', 'Pengguna Tidak Terdaftar');
             }
             $dataCheck = User::all()
-                ->where('id_sdm', '=', $finduser->id)
+                ->where('id_sdm', '=', $findUser->id)
                 ->first();
             if (is_null($dataCheck)) {
-                $id = $finduser->id;
-                $email = $finduser->email_k;
-                $nama = $finduser->nama;
-                $nip = $finduser->nip;
+                $id = $findUser->id;
+                $email = $findUser->email_k;
+                $nama = $user->getName();
+                $nip = $findUser->nip;
                 if (!str_contains($email, '@raudlatuljannah')) {
                     $res = $this->util->apiGuzzleClient('POST', env('GOOGLE_REVOKE') . "?token=$token");
                     return redirect()->route('login')->with('user_not_found', 'Pengguna Tidak Terdaftar');
                 }
                 $user = new user();
-                $user->name = strtoupper($nama);
-                $user->id_pegawai_sdm = $id;
+                $user->username = strtoupper($nama);
+                $user->id_sdm = $id;
                 $user->nip = $nip;
-                $user->password = Hash::make('luhurbudi');
+                $user->password = Hash::make('123456');
                 $user->save();
             }
             $dataCheck = User::all()
-                ->where('id_pegawai', '=', $finduser->id)
+                ->where('id_sdm', '=', $findUser->id)
                 ->first();
             Auth::login($dataCheck);
             $this->util->saveTokenGoogle($dataCheck->id, $token);
@@ -70,7 +71,16 @@ class google_authController extends Controller
             ];
             $jwt = $this->util->makeJWT($payload);
             $this->util->setSession2($jwt);
-            return redirect()->route('dashboard');
+            $role = session('role');
+            $adminRoles = ["super_admin", "admin"];
+            switch (true) {
+                case array_intersect($role, $adminRoles):
+                    return redirect()->route('beranda.admin');
+                    break;
+                case $role === 'pj':
+                    return redirect()->route('beranda.pj');
+                    break;
+            }
         } catch (Exception $e) {
             dd($e->getMessage());
         }

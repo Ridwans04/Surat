@@ -19,14 +19,19 @@ use Illuminate\Support\Facades\Route;
 */
 
 // AUTH
-Route::group(['prefix' => 'auth'], function(){
+Route::group(['prefix' => 'auth'], function () {
     Route::post('authenticate', [auth_controller::class, 'authenticate'])->name('authenticate');
 });
 // MASTER AKUN
-Route::get('get_data_akun', [master_akunController::class, 'get_data_akun'])->name('get_data_akun');
-Route::post('add_akun', [master_akunController::class, 'add_akun'])->name('add_akun');
-Route::put('update_akun', [master_akunController::class, 'update_akun'])->name('update_akun');
-Route::delete('hapus_akun', [master_akunController::class, 'hapus_akun'])->name('hapus_akun');
+Route::middleware('roleCheck:admin||super_admin')->group(function () {
+    Route::prefix('user')->group(function () {
+        Route::get('get_data_akun', [master_akunController::class, 'get_data_akun'])->name('get_data_akun');
+        Route::get('get_user_role', [master_akunController::class, 'get_user_role'])->name('get_user_role');
+        Route::post('add_akun', [master_akunController::class, 'add_akun'])->name('add_akun');
+        Route::put('update_akun', [master_akunController::class, 'update_akun'])->name('update_akun');
+        Route::delete('hapus_akun', [master_akunController::class, 'hapus_akun'])->name('hapus_akun');
+    });
+});
 
 // MASTER SURAT
 Route::get('get_data_surat', [master_suratController::class, 'get_data_surat'])->name('get_data_surat');

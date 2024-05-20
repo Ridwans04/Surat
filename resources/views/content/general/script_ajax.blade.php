@@ -102,7 +102,6 @@
                         title: warning_msg,
                         text: response.message ? response.message : "",
                     });
-                    funcError();
                 }
             },
             error: function(error) {
@@ -112,13 +111,12 @@
                     title: error_msg,
                     text: error.responseJSON.message ? error.responseJSON.message : "",
                 });
-                funcError();
             }
         });
     }
 
     // SWAL FIRE QUESTION
-    const question = async (title, textyes, textno, text) => {
+    const sa_question = async (title, textyes, textno, text) => {
         var response = await Swal.fire({
             icon: "question",
             title: title,
@@ -126,6 +124,23 @@
             showCancelButton: true,
             confirmButtonText: textyes,
             cancelButtonText: textno,
+        });
+        return response;
+    }
+
+    const sa_darkThem = async (title, confirmtext, canceltext) => {
+        var response = await Swal.fire({
+            icon: "question",
+            title: title,
+            showCancelButton: true,
+            confirmButtonText: confirmtext,
+            cancelButtonText: canceltext,
+            customClass: {
+                popup: 'swal2-dark-theme', // Apply the dark theme to the modal
+                title: 'swal2-dark-theme', // Apply to the title
+                confirmButton: 'swal2-dark-theme', // Apply to the confirm button
+                cancelButton: 'swal2-dark-theme', // Apply to the cancel button
+            },
         });
         return response;
     }

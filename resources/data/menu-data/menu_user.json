@@ -1,11 +1,11 @@
 {
     "menu": [
       {
-        "url": "home",
+        "url": "beranda/admin",
         "name": "Beranda",
         "icon": "home",
         "role": ["super_admin", "admin"],
-        "slug": "home"
+        "slug": "beranda.admin"
       },
       {
         "url": "home",
@@ -31,39 +31,11 @@
             "name": "Kelola User",
             "icon": "user-plus",
             "role": ["super_admin"],
-            "slug": "master_akun"
-          },
-          {
-            "url": "master_akun/kelola_user_role",
-            "name": "Kelola User Role",
-            "icon": "user-plus",
-            "role": ["super_admin"],
-            "slug": "menu"
-          },
-          {
-            "url": "master_akun/kelola_user_institusi",
-            "name": "Kelola User Institusi",
-            "icon": "user-plus",
-            "role": ["super_admin"],
             "slug": "menu"
           },
           {
             "url": "master_akun/kelola_pegawai",
             "name": "Kelola Pegawai",
-            "icon": "users",
-            "role": ["super_admin"],
-            "slug": "menu"
-          },
-          {
-            "url": "master_akun/kelola_pegawai_role",
-            "name": "Kelola Pegawai Role",
-            "icon": "users",
-            "role": ["super_admin"],
-            "slug": "menu"
-          },
-          {
-            "url": "master_akun/kelola_pegawai_institusi",
-            "name": "Kelola Pegawai Institusi",
             "icon": "users",
             "role": ["super_admin"],
             "slug": "menu"

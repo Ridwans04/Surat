@@ -10,7 +10,7 @@
               @foreach ($breadcrumbs as $breadcrumb)
               <li class="breadcrumb-item">
                   @if(isset($breadcrumb['link']))
-                  <a href="{{ $breadcrumb['link'] == 'javascript:void(0)' ? $breadcrumb['link']:url($breadcrumb['link']) }}">
+                  <a href="{{ $breadcrumb['link'] == 'javascript:void(0)' ? $breadcrumb['link']:url($breadcrumb['link']) }}" style="color: #19bd86e0; font-weight: bolder">
                       @endif
                       {{$breadcrumb['name']}}
                       @if(isset($breadcrumb['link']))

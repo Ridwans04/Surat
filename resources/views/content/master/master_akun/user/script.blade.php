@@ -31,28 +31,77 @@
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script src="{{ asset('js/scripts/tool/toast.js') }}"></script>
     <script>
-        // FUNGSI SWEET ALERT
-        function SweetAlert(title) {
-            return Swal.fire({
-                icon: "question",
-                title: title,
-                showCancelButton: true,
-                confirmButtonText: "Ya",
-                cancelButtonText: "Tidak",
-                customClass: {
-                    popup: 'swal2-dark-theme', // Apply the dark theme to the modal
-                    title: 'swal2-dark-theme', // Apply to the title
-                    confirmButton: 'swal2-dark-theme', // Apply to the confirm button
-                    cancelButton: 'swal2-dark-theme', // Apply to the cancel button
-                },
-            })
+        const tableSuccess = (data, table) => {
+            var html_row = "";
+            var menu = "";
+            var date = new Date();
+            $.each(response.data, function(key, val) {
+                menu =
+                    `
+                    <button onclick="modal_detail('${val.id}', '${val.username}', '${val.role}')"
+                    type="button" class="btn btn-icon btn-success mb-1 text-start">
+                    <i data-feather="edit"></i>
+                    Edit</button>
+                    <button onclick="hapus_data('${val.id}', 'user_role')"
+                    type="button" class="btn btn-icon btn-danger mb-1 text-start">
+                    <i data-feather="trash"></i>
+                    Hapus</button>
+                    `
+                html_row += `<tr>
+                            <td>${val.username}</td>
+                            <td style="white-space:nowrap">${val.role}</td>
+                            <td>${val.institusi}</td>
+                            <td>${menu}</td>
+                        </tr>`;
+            });
+            var html_content = `
+                <thead>
+                    <tr>
+                        <th>Username</th>
+                        <th>Role</th>
+                        <th>Menu</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    ${html_row}
+                </tbody>`;
+            if ($.fn.DataTable.isDataTable('#master_akun')) {
+                $('#master_akun').DataTable().destroy();
+            }
+            $('#master_akun').unblock().html(html_content).DataTable({
+                searching: false,
+                ordering: false,
+                drawCallback: function() {
+                    $('#master_akun [data-feather]').each(function() {
+                        var icon = $(this).data('feather');
+                        $(this).empty().append(feather.icons[icon].toSvg({
+                            width: 14,
+                            height: 14
+                        }));
+                    });
+                }
+            });
         }
+        const get_user_role = () => {
+            success_msg = "Data berhasil ditampilkan";
+            warning_msg = "Data berhasil ditampilkan";
+            error_msg = "Data berhasil ditampilkan";
+            var url = `{{ route('get_user_role') }}`;
+            var method = "GET";
+            var data = {}
+            var table = "master_akun";
+            var funcSuccess = tableSuccess;
+            ajaxtable(url, data, method, table, funcSuccess);
+        }
+        get_user_role();
+
         // FUNGSI MENAMPILKAN DATA
         function get_data_akun() {
             $.ajax({
                 type: "GET",
                 url: `{{ route('get_data_akun') }}`,
-                beforeSend: function() {
+                beforeSend: function(request) {
+                    request.setRequestHeader("Authorization", `Bearer {{ session('token') }}`);
                     $('#master_akun').block({
                         message: '<div class="loader-box"><div class="loader-1"></div></div>',
                         css: {
@@ -68,11 +117,11 @@
                 dataType: "JSON",
                 success: function(response) {
                     var html_row = "";
-                    var menu = "";
-                    var date = new Date();
-                    $.each(response.data, function(key, val) {
-                        menu =
-                            `
+            var menu = "";
+            var date = new Date();
+            $.each(response.data, function(key, val) {
+                menu =
+                    `
                                 <button onclick="modal_detail('${val.id}', '${val.username}', '${val.level}', '${val.institusi}')"
                                 type="button" class="btn btn-icon btn-success mb-1 text-start">
                                 <i data-feather="edit"></i>
@@ -82,14 +131,14 @@
                                 <i data-feather="trash"></i>
                                 Hapus</button>
                             `
-                        html_row += `<tr>
+                html_row += `<tr>
                             <td>${val.username}</td>
                             <td style="white-space:nowrap">${val.level}</td>
                             <td>${val.institusi}</td>
                             <td>${menu}</td>
                         </tr>`;
-                    });
-                    var html_content = `
+            });
+            var html_content = `
                 <thead>
                     <tr>
                         <th>Username</th>
@@ -101,22 +150,22 @@
                 <tbody>
                     ${html_row}
                 </tbody>`;
-                    if ($.fn.DataTable.isDataTable('#master_akun')) {
-                        $('#master_akun').DataTable().destroy();
-                    }
-                    $('#master_akun').unblock().html(html_content).DataTable({
-                        searching: false,
-                        ordering: false,
-                        drawCallback: function() {
-                            $('#master_akun [data-feather]').each(function() {
-                                var icon = $(this).data('feather');
-                                $(this).empty().append(feather.icons[icon].toSvg({
-                                    width: 14,
-                                    height: 14
-                                }));
-                            });
-                        }
+            if ($.fn.DataTable.isDataTable('#master_akun')) {
+                $('#master_akun').DataTable().destroy();
+            }
+            $('#master_akun').unblock().html(html_content).DataTable({
+                searching: false,
+                ordering: false,
+                drawCallback: function() {
+                    $('#master_akun [data-feather]').each(function() {
+                        var icon = $(this).data('feather');
+                        $(this).empty().append(feather.icons[icon].toSvg({
+                            width: 14,
+                            height: 14
+                        }));
                     });
+                }
+            });
                 },
                 error: function(error) {
                     Swal.fire(
@@ -132,7 +181,7 @@
         get_data_akun()
 
         // FUNGSI TAMBAH AKUN
-        function add_akun() {
+        function add_role() {
             const form = new FormData(document.querySelector('form#add_akun'));
             const title = 'Anda yakin ingin menambahkan data?';
             SweetAlert(title).then((result) => {

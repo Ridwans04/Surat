@@ -4,7 +4,6 @@ namespace App\Http\Controllers\auth;
 
 use App\Http\Controllers\Controller;
 use App\Http\Controllers\Util;
-use App\Models\akun\pegawai_password;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -19,19 +18,18 @@ class auth_controller extends Controller
     public function __construct()
     {
         $this->util = new Util();
-        $this->pegawai = new pegawai_password();
     }
 
     public function authenticate(Request $request)
     {
         $credentials = $request->validate([
-            'username' => 'required',
+            'nip' => 'required',
             'password' => 'required',
         ]);
 
         // MENGAMBIL DATA USERS
         $usersCheck = User::all()
-            ->where('nip', '=', $request->username)
+            ->where('nip', '=', $request->nip)
             ->first();
 
         $key = 'verify:' . $request->ip();
@@ -52,7 +50,7 @@ class auth_controller extends Controller
                 if (Auth::attempt($credentials)) {
                     $payload = [
                         'sub' => 'User',
-                        'surat_id_user' => ['id' => $usersCheck->id],
+                        'surat_id' => ['id' => $usersCheck->id],
                         'iss' => 'E-surat RaudlLatul Jannah',
                         'exp' => time() + env('TIME_EXPIRATION'),
                     ];

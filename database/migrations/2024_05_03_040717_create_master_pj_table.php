@@ -16,7 +16,7 @@ return new class extends Migration
         Schema::create('master_pj', function (Blueprint $table) {
             $table->id();
             $table->string('pj')->nullable();
-            $table->string('institusi')->nullable();
+            $table->foreignId('institusi_id')->nullable();
             $table->timestamps();
         });
     }
