@@ -65,7 +65,7 @@
     <script src="{{ asset(mix('js/scripts/pages/auth-login.js')) }}"></script>
     <script>
         const login = (formData) => {
-            success_msg = "Signed in successfully";
+            success_msg = "Login Anda Berhasil";
             warning_msg = "Username Atau Password Salah";
             error_msg = "error";
             const data = new FormData(formData);

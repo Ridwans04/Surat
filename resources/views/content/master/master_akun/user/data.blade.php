@@ -16,7 +16,7 @@
                             TABEL DATA USER ROLE
                         </button>
                     </h2>
-                    <div id="accordionMarginOne" class="accordion-collapse collapse" aria-labelledby="headingMarginOne"
+                    <div id="accordionMarginOne" class="accordion-collapse collapse show" aria-labelledby="headingMarginOne"
                         data-bs-parent="#accordionMargin">
                         <div class="accordion-body">
                             <div class="card">
@@ -27,7 +27,7 @@
                                     </div>
                                 </div>
                                 <div class="card-datatable table-responsive p-1">
-                                    <table id="master_akun" class="table">
+                                    <table class="dt-column-search table" id="user_role">
                                     </table>
                                 </div>
 
@@ -75,12 +75,7 @@
                     <div id="accordionMarginTwo" class="accordion-collapse collapse" aria-labelledby="headingMarginTwo"
                         data-bs-parent="#accordionMargin">
                         <div class="accordion-body">
-                            Sweet pie candy jelly. Sesame snaps biscuit sugar plum. Sweet roll topping fruitcake.
-                            Caramels
-                            liquorice biscuit ice cream fruitcake cotton candy tart. Donut caramels gingerbread
-                            jelly-o
-                            gingerbread pudding. Gummi bears pastry marshmallow candy canes pie. Pie apple pie
-                            carrot cake.
+                            
                         </div>
                     </div>
                 </div>

@@ -29,13 +29,11 @@
     <script src="{{ asset('js/scripts/tool/block-ui.js') }}"></script>
     <script src="{{ asset('js/scripts/tool/sweet-alert.js') }}"></script>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-    <script src="{{ asset('js/scripts/tool/toast.js') }}"></script>
     <script>
         const tableSuccess = (data, table) => {
             var html_row = "";
             var menu = "";
-            var date = new Date();
-            $.each(response.data, function(key, val) {
+            $.each(data, function(key, val) {
                 menu =
                     `
                     <button onclick="modal_detail('${val.id}', '${val.username}', '${val.role}')"
@@ -49,8 +47,7 @@
                     `
                 html_row += `<tr>
                             <td>${val.username}</td>
-                            <td style="white-space:nowrap">${val.role}</td>
-                            <td>${val.institusi}</td>
+                            <td>${val.role}</td>
                             <td>${menu}</td>
                         </tr>`;
             });
@@ -65,120 +62,22 @@
                 <tbody>
                     ${html_row}
                 </tbody>`;
-            if ($.fn.DataTable.isDataTable('#master_akun')) {
-                $('#master_akun').DataTable().destroy();
-            }
-            $('#master_akun').unblock().html(html_content).DataTable({
-                searching: false,
-                ordering: false,
-                drawCallback: function() {
-                    $('#master_akun [data-feather]').each(function() {
-                        var icon = $(this).data('feather');
-                        $(this).empty().append(feather.icons[icon].toSvg({
-                            width: 14,
-                            height: 14
-                        }));
-                    });
-                }
-            });
+            $(table).html(html_content);
+            $(table).unblock();
+            setTable(table);
         }
         const get_user_role = () => {
             success_msg = "Data berhasil ditampilkan";
-            warning_msg = "Data berhasil ditampilkan";
-            error_msg = "Data berhasil ditampilkan";
+            warning_msg = "Data gagal ditampilkan";
+            error_msg = "Data gagal ditampilkan";
             var url = `{{ route('get_user_role') }}`;
             var method = "GET";
             var data = {}
-            var table = "master_akun";
+            var table = "table";
             var funcSuccess = tableSuccess;
             ajaxtable(url, data, method, table, funcSuccess);
         }
         get_user_role();
-
-        // FUNGSI MENAMPILKAN DATA
-        function get_data_akun() {
-            $.ajax({
-                type: "GET",
-                url: `{{ route('get_data_akun') }}`,
-                beforeSend: function(request) {
-                    request.setRequestHeader("Authorization", `Bearer {{ session('token') }}`);
-                    $('#master_akun').block({
-                        message: '<div class="loader-box"><div class="loader-1"></div></div>',
-                        css: {
-                            backgroundColor: 'transparent',
-                            border: '0'
-                        },
-                        overlayCSS: {
-                            backgroundColor: '#fff',
-                            opacity: 0.8
-                        }
-                    });
-                },
-                dataType: "JSON",
-                success: function(response) {
-                    var html_row = "";
-            var menu = "";
-            var date = new Date();
-            $.each(response.data, function(key, val) {
-                menu =
-                    `
-                                <button onclick="modal_detail('${val.id}', '${val.username}', '${val.level}', '${val.institusi}')"
-                                type="button" class="btn btn-icon btn-success mb-1 text-start">
-                                <i data-feather="edit"></i>
-                                Edit</button>
-                                <button onclick="hapus_akun('${val.id}')"
-                                type="button" class="btn btn-icon btn-danger mb-1 text-start">
-                                <i data-feather="trash"></i>
-                                Hapus</button>
-                            `
-                html_row += `<tr>
-                            <td>${val.username}</td>
-                            <td style="white-space:nowrap">${val.level}</td>
-                            <td>${val.institusi}</td>
-                            <td>${menu}</td>
-                        </tr>`;
-            });
-            var html_content = `
-                <thead>
-                    <tr>
-                        <th>Username</th>
-                        <th>Level</th>
-                        <th>Institusi</th>
-                        <th>Menu</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    ${html_row}
-                </tbody>`;
-            if ($.fn.DataTable.isDataTable('#master_akun')) {
-                $('#master_akun').DataTable().destroy();
-            }
-            $('#master_akun').unblock().html(html_content).DataTable({
-                searching: false,
-                ordering: false,
-                drawCallback: function() {
-                    $('#master_akun [data-feather]').each(function() {
-                        var icon = $(this).data('feather');
-                        $(this).empty().append(feather.icons[icon].toSvg({
-                            width: 14,
-                            height: 14
-                        }));
-                    });
-                }
-            });
-                },
-                error: function(error) {
-                    Swal.fire(
-                        'Error',
-                        'Kesalahan Data',
-                        'error'
-                    )
-                }
-            });
-        }
-
-        // FUNGSI OTOMATIS MENAMPILKAN DATA
-        get_data_akun()
 
         // FUNGSI TAMBAH AKUN
         function add_role() {

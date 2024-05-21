@@ -23,7 +23,7 @@ Route::group(['prefix' => 'auth'], function () {
     Route::post('authenticate', [auth_controller::class, 'authenticate'])->name('authenticate');
 });
 // MASTER AKUN
-Route::middleware('roleCheck:admin||super_admin')->group(function () {
+Route::middleware('roleCheck:super_admin')->group(function () {
     Route::prefix('user')->group(function () {
         Route::get('get_data_akun', [master_akunController::class, 'get_data_akun'])->name('get_data_akun');
         Route::get('get_user_role', [master_akunController::class, 'get_user_role'])->name('get_user_role');

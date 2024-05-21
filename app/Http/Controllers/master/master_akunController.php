@@ -5,26 +5,36 @@ namespace App\Http\Controllers\master;
 use App\Http\Controllers\Controller;
 use App\Models\akun\user_institusi;
 use App\Models\akun\user_role;
+use App\Models\master\master_role;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 
 class master_akunController extends Controller
 {
-    public function get_data_akun()
-    {
-        $data = User::all();
 
-        return response([
-            'data' => $data,
-            'success' => true
-        ]);
+    protected $role;
+    public function __construct()
+    {
+        $this->role = new master_role();
     }
 
     public function get_user_role()
     {
-        $data = user_role::all();
-
+        $data = User::all()->toArray();
+        $num = 0;
+        foreach ($data as $key => $value) {
+            $role = DB::table('master_role')
+                ->join('user_role', 'master_role.id', '=', 'user_role.role_id')
+                ->where('user_role.user_id', $value['id'])
+                ->get()->toArray();
+            $role = [];
+            foreach ($role as $key => $value) {
+                array_push($role, $value->role);
+            }
+            $dataUser[$num++]['role'] = implode(",", $role);
+        }
         return response([
             'data' => $data,
             'success' => true

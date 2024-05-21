@@ -30,6 +30,7 @@
                     Toast.fire({
                         icon: "success",
                         title: success_msg,
+                        timer: 1500,
                         text: response.message ? response.message : "",
                     });
                     if (url == `{{ route('authenticate') }}`) {
@@ -56,7 +57,7 @@
     }
 
 
-    const ajaxtable = (url, data, method, table, funcSuccess, funcError) => {
+    const ajaxtable = (url, data, method, table, funcSuccess) => {
         $.ajax({
             type: method,
             url: url,
@@ -64,7 +65,7 @@
             processData: false,
             contentType: false,
             beforeSend: function(request) {
-                request.setRequestHeader("Authorization", `{{ session('token') }}`);
+                request.setRequestHeader("Authorization", `Bearer {{ session('token') }}`);
                 if (!table) {
                     Swal.fire({
                         html: sweet_loader,
@@ -110,7 +111,7 @@
                     icon: "error",
                     title: error_msg,
                     text: error.responseJSON.message ? error.responseJSON.message : "",
-                });
+                })
             }
         });
     }

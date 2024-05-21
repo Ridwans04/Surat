@@ -2,7 +2,7 @@
 <script src="{{ asset(mix('vendors/js/vendors.min.js')) }}"></script>
 <!-- BEGIN Vendor JS-->
 <!-- BEGIN: Page Vendor JS-->
-<script src="{{asset(mix('vendors/js/ui/jquery.sticky.js'))}}"></script>
+<script src="{{ asset(mix('vendors/js/ui/jquery.sticky.js')) }}"></script>
 @yield('vendor-script')
 <!-- END: Page Vendor JS-->
 <!-- BEGIN: Theme JS-->
@@ -49,11 +49,48 @@
         // Initialize Feather icons on page load
         feather.replace();
     });
-  </script>
+    const setTable = (table) => {
+        $(table).DataTable({
+            responsive: {
+                details: {
+                    display: $.fn.dataTable.Responsive.display.childRowImmediate,
+                    type: ''
+                }
+            },
+            "lengthMenu": [
+                [10, 15, 25, 50, -1],
+                [10, 15, 25, 50, "All"]
+            ],
+            dom: 'Blfrtip',
+            buttons: [{
+                    extend: 'copyHtml5',
+                    exportOptions: {
+                        columns: ':not(:last-child)'
+                    }
+                },
+                {
+                    extend: 'excelHtml5',
+                    exportOptions: {
+                        columns: ':not(:last-child)',
+                    }
+                },
+                {
+                    extend: 'pdfHtml5',
+                    exportOptions: {
+                        columns: ':not(:last-child)'
+                    },
+                },
+                'colvis'
+            ],
+            destroy: true,
+        });
+        $('.dt-buttons.btn-group').addClass("ms-5");
+    }
+</script>
 </script>
 
-@if($configData['blankPage'] === false)
-<script src="{{ asset(mix('js/scripts/customizer.js')) }}"></script>
+@if ($configData['blankPage'] === false)
+    <script src="{{ asset(mix('js/scripts/customizer.js')) }}"></script>
 @endif
 <!-- END: Theme JS-->
 <!-- BEGIN: Page JS-->

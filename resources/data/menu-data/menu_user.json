@@ -44,10 +44,40 @@
       },
       {
         "url": "master_surat/klasifikasi_surat",
-        "name": "Permohonan Surat",
+        "name": "Master Data",
         "icon": "edit-3",
         "role": ["super_admin"],
-        "slug": "klasifikasi_surat"
+        "slug": "klasifikasi_surat",
+        "submenu":[
+          {
+            "url": "",
+            "name": "Master Surat",
+            "icon": "edit-3",
+            "role": ["super_admin", "admin"],
+            "slug": ""
+          },
+          {
+            "url": "",
+            "name": "Master Role",
+            "icon": "edit-3",
+            "role": ["super_admin", "admin"],
+            "slug": ""
+          },
+          {
+            "url": "",
+            "name": "Master Institusi",
+            "icon": "edit-3",
+            "role": ["super_admin", "admin"],
+            "slug": ""
+          },
+          {
+            "url": "",
+            "name": "Master PJ",
+            "icon": "edit-3",
+            "role": ["super_admin", "admin"],
+            "slug": ""
+          }
+        ]
       },
       {
         "navheader": "Daftar Surat",
