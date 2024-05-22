@@ -23,18 +23,6 @@ class master_akunController extends Controller
     public function get_user_role()
     {
         $data = User::with(['join_with_userrole.user_role_join'])->get();
-        $num = 0;
-        // foreach ($data as $key => $value) {
-        //     $role = DB::table('master_role')
-        //         ->join('user_role', 'master_role.id', '=', 'user_role.role_id')
-        //         ->where('user_role.user_id', $value['id'])
-        //         ->get()->toArray();
-        //     $role = [];
-        //     foreach ($role as $key => $value) {
-        //         array_push($role, $value->role);
-        //     }
-        //     $dataUser[$num++]['role'] = implode("||", $role);
-        // }
         return response([
             'data' => $data,
             'status' => "success"
