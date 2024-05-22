@@ -100,7 +100,7 @@
                 <tbody>
                     ${html_row}
                 </tbody>`;
-                    if ($.fn.DataTable.isDataTable('#master_akun')) {
+                    if ($.fn.DataTable.isDataTable('#master_pj')) {
                         $('#master_pj').DataTable().destroy();
                     }
                     $('#master_pj').unblock().html(html_content).DataTable({

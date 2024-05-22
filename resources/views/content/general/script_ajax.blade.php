@@ -1,7 +1,7 @@
-{{-- <form id="setsession" action="{{ route('setSession') }}" method="POST">
+<form id="setsession" action="{{ route('setSession') }}" method="POST">
     @csrf
     <input type="hidden" id="token" name="token">
-</form> --}}
+</form>
 
 
 <script>
@@ -57,7 +57,7 @@
     }
 
 
-    const ajaxtable = (url, data, method, table, funcSuccess) => {
+    const ajaxtable = (url, data, method, table, funcSuccess, funcError) => {
         $.ajax({
             type: method,
             url: url,
@@ -65,7 +65,7 @@
             processData: false,
             contentType: false,
             beforeSend: function(request) {
-                request.setRequestHeader("Authorization", `Bearer {{ session('token') }}`);
+                request.setRequestHeader("Authorization", `{{ session('token') }}`);
                 if (!table) {
                     Swal.fire({
                         html: sweet_loader,
@@ -103,6 +103,7 @@
                         title: warning_msg,
                         text: response.message ? response.message : "",
                     });
+                    funcError();
                 }
             },
             error: function(error) {
@@ -111,7 +112,8 @@
                     icon: "error",
                     title: error_msg,
                     text: error.responseJSON.message ? error.responseJSON.message : "",
-                })
+                });
+                funcError();
             }
         });
     }

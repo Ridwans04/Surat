@@ -34,17 +34,23 @@
             var html_row = "";
             var menu = "";
             $.each(data, function(key, val) {
+                
                 menu =
                     `
-                    <button onclick="modal_detail('${val.id}', '${val.username}', '${val.role}')"
-                    type="button" class="btn btn-icon btn-success mb-1 text-start">
-                    <i data-feather="edit"></i>
-                    Edit</button>
-                    <button onclick="hapus_data('${val.id}', 'user_role')"
-                    type="button" class="btn btn-icon btn-danger mb-1 text-start">
-                    <i data-feather="trash"></i>
-                    Hapus</button>
+                        <button onclick="modal_detail('${val.id}', '${val.username}', '${val.role}')"
+                        type="button" class="btn btn-icon btn-success mb-1 text-start">
+                        <i data-feather="edit"></i>
+                        Edit</button>
+                        <button onclick="hapus_data('${val.id}', 'user_role')"
+                        type="button" class="btn btn-icon btn-danger mb-1 text-start">
+                        <i data-feather="trash"></i>
+                        Hapus</button>
                     `
+                // var role = [];
+                // var listrole = val.role.replaceAll("_", " ").split(",");
+                // listrole.forEach(element => {
+                //     role.push(`<span class="badge badge-primary">${element}</span>`);
+                // });
                 html_row += `<tr>
                             <td>${val.username}</td>
                             <td>${val.role}</td>
@@ -54,7 +60,7 @@
             var html_content = `
                 <thead>
                     <tr>
-                        <th>Username</th>
+                        <th>Nama</th>
                         <th>Role</th>
                         <th>Menu</th>
                     </tr>
@@ -62,6 +68,34 @@
                 <tbody>
                     ${html_row}
                 </tbody>`;
+            if ($.fn.DataTable.isDataTable(table)) {
+                $(table).DataTable().destroy();
+            }
+            $(table).unblock().html(html_content).DataTable({
+                searching: false,
+                ordering: false,
+                drawCallback: function() {
+                    $(`${table} [data-feather]`).each(function() {
+                        var icon = $(this).data('feather');
+                        $(this).empty().append(feather.icons[icon].toSvg({
+                            width: 14,
+                            height: 14
+                        }));
+                    });
+                }
+            });
+        }
+        const tableError = (data, table) => {
+            var html_content = `
+                                <thead>
+                                    <tr>
+                                        <th>Nama</th>
+                                        <th>Role</th>
+                                        <th>Menu</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                </tbody>`;
             $(table).html(html_content);
             $(table).unblock();
             setTable(table);
@@ -72,10 +106,11 @@
             error_msg = "Data gagal ditampilkan";
             var url = `{{ route('get_user_role') }}`;
             var method = "GET";
-            var data = {}
+            var data = {};
             var table = "table";
             var funcSuccess = tableSuccess;
-            ajaxtable(url, data, method, table, funcSuccess);
+            var funcError = tableError;
+            ajaxtable(url, data, method, table, funcSuccess, funcError);
         }
         get_user_role();
 

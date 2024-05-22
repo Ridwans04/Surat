@@ -26,13 +26,13 @@
                                             onclick="get_user_role()">Refresh</button>
                                     </div>
                                 </div>
-                                <div class="card-datatable table-responsive p-1">
-                                    <table class="dt-column-search table" id="user_role">
+                                <div class="card p-1">
+                                    <table class="datatables-basic table" id="user_role">
                                     </table>
                                 </div>
 
                                 {{-- MODAL UPDATE DATA --}}
-                                <div class="modal fade" id="modal_detail" tabindex="-1" aria-hidden="true">
+                                {{-- <div class="modal fade" id="modal_detail" tabindex="-1" aria-hidden="true">
                                     <div class="modal-dialog modal-lg modal-dialog-centered modal-edit-user">
                                         <div class="modal-content">
                                             <div class="modal-header bg-transparent">
@@ -59,7 +59,7 @@
                                             </div>
                                         </div>
                                     </div>
-                                </div>
+                                </div> --}}
                             </div>
                         </div>
                     </div>

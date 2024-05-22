@@ -39,3 +39,8 @@
   {{-- user custom styles --}}
   <link rel="stylesheet" href="{{ asset(mix('css/style.css')) }}" />
 @endif
+<style>
+  html{
+    zoom: 0.85;
+  }
+</style>

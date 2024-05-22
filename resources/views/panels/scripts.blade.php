@@ -86,6 +86,9 @@
         });
         $('.dt-buttons.btn-group').addClass("ms-5");
     }
+    var success_msg = "";
+    var warning_msg = "";
+    var error_msg = "";
 </script>
 </script>
 
