@@ -12,7 +12,7 @@ class user_role extends Model
     protected $table = "user_role";
     protected $guarded = [];
 
-    public function user_role_join()
+    public function has_one_masterrole()
     {
         return $this->hasOne(master_role::class, "id", "role_id");
     }

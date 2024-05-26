@@ -34,10 +34,10 @@
             var html_row = "";
             var menu = "";
             $.each(data, function(key, val) {
-                
+
                 menu =
                     `
-                        <button onclick="modal_detail('${val.id}', '${val.username}', '${val.role}')"
+                        <button onclick="modal_detail('${val.id}')"
                         type="button" class="btn btn-icon btn-success mb-1 text-start">
                         <i data-feather="edit"></i>
                         Edit</button>
@@ -46,14 +46,17 @@
                         <i data-feather="trash"></i>
                         Hapus</button>
                     `
-                // var role = [];
-                // var listrole = val.role.replaceAll("_", " ").split(",");
-                // listrole.forEach(element => {
-                //     role.push(`<span class="badge badge-primary">${element}</span>`);
-                // });
+                var role = [];
+                val.has_many_userrole.forEach(userRole => {
+                    if (userRole.has_one_masterrole && userRole.has_one_masterrole.role) {
+                        role.push(
+                            `<span class="badge bg-success">${userRole.has_one_masterrole.role.replaceAll("_", " ")}</span>`
+                        );
+                    }
+                });
                 html_row += `<tr>
                             <td>${val.username}</td>
-                            <td>${val.role}</td>
+                            <td>${role.join(" ")}</td>
                             <td>${menu}</td>
                         </tr>`;
             });

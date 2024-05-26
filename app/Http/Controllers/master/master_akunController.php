@@ -22,7 +22,7 @@ class master_akunController extends Controller
 
     public function get_user_role()
     {
-        $data = User::with(['join_with_userrole.user_role_join'])->get();
+        $data = User::with(['has_many_userrole.has_one_masterrole'])->get();
         return response([
             'data' => $data,
             'status' => "success"
