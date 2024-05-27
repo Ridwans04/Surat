@@ -40,7 +40,7 @@
   <link rel="stylesheet" href="{{ asset(mix('css/style.css')) }}" />
 @endif
 <style>
-  html{
+  /* html{
     zoom: 0.85;
-  }
+  } */
 </style>

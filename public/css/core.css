@@ -17735,7 +17735,6 @@ html {
   font-size: 14px;
   height: 100%;
   letter-spacing: 0.01rem;
-  zoom: 0.9;
   /*
     * Blank page
     */
@@ -20687,7 +20686,7 @@ body:after {
 .select2-container--default .select2-results__option {
   padding: 0.428rem 1rem;
   text-align: left;
-  font-size: small;
+  /* font-size: small; */
 }
 .select2-container--classic .select2-results__option[role=group],
 .select2-container--default .select2-results__option[role=group] {

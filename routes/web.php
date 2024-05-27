@@ -49,21 +49,18 @@ Route::middleware('authenticatedWeb')->group(function () {
     });
 
     // MASTER AKUN
-    Route::group(['prefix' => 'master_akun'], function () {
-        Route::view('kelola_user', 'content/master/master_akun/user/data', [
+    Route::group(['prefix' => 'akun'], function () {
+        Route::view('kelola_user', 'content/master/akun/user/index', [
             'breadcrumbs' => [
                 ['link' => "javascript:void(0)", 'name' => "Kelola User"], ['link' => "javascript:void(0)", 'name' => "User Role & Institusi"]
             ],
         ])->name('kelola_user');
+        Route::view('kelola_pegawai', 'content/master/akun/pegawai/index', [
+            'breadcrumbs' => [
+                ['link' => "javascript:void(0)", 'name' => "Kelola Pegawai"], ['link' => "javascript:void(0)", 'name' => "Klasifikasi & Institusi Pegawai"]
+            ],
+        ])->name('kelola_pegawai');
         
-    });
-
-    Route::group(['prefix' => 'master_surat'], function () {
-        Route::view('klasifikasi_surat', 'content/master/master_pj/data')->name('klasifikasi_surat');
-    });
-
-    Route::group(['prefix' => 'master'], function () {
-        Route::view('master_surat', 'content/master/master_surat/data')->name('master_surat');
     });
 
     // PERMOHONAN SURAT

@@ -4,6 +4,7 @@ use App\Http\Controllers\auth\auth_controller;
 use App\Http\Controllers\data\permohonan_suratController;
 use App\Http\Controllers\master\master_akunController;
 use App\Http\Controllers\master\master_suratController;
+use App\Http\Controllers\user\user_roleController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -25,7 +26,7 @@ Route::group(['prefix' => 'auth'], function () {
 // MASTER AKUN
 Route::middleware('roleCheck:super_admin')->group(function () {
     Route::prefix('user')->group(function () {
-        Route::get('get_user_role', [master_akunController::class, 'get_user_role'])->name('get_user_role');
+        Route::apiResource("user_role", user_roleController::class);
         Route::post('add_akun', [master_akunController::class, 'add_akun'])->name('add_akun');
         Route::put('update_akun', [master_akunController::class, 'update_akun'])->name('update_akun');
         Route::delete('hapus_akun', [master_akunController::class, 'hapus_akun'])->name('hapus_akun');

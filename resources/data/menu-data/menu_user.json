@@ -27,18 +27,18 @@
         "slug": "",
         "submenu" : [
           {
-            "url": "master_akun/kelola_user",
+            "url": "akun/kelola_user",
             "name": "Kelola User",
             "icon": "user-plus",
             "role": ["super_admin"],
-            "slug": "menu"
+            "slug": "kelola_user"
           },
           {
             "url": "master_akun/kelola_pegawai",
             "name": "Kelola Pegawai",
             "icon": "users",
             "role": ["super_admin"],
-            "slug": "menu"
+            "slug": "kelola_pegawai"
           }
         ]
       },
