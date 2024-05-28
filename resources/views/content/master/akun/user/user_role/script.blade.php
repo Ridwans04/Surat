@@ -1,13 +1,13 @@
 <script>
     // FUNGSI MENAMPILKAN DATA
-    const tableSuccess = (data, table) => {
+    const tableRoleSucc = (data) => {
         var html_row = "";
         var menu = "";
         $.each(data, function(key, val) {
 
             menu =
                 `
-                    <button onclick="show_modal_detail('${val.id}')"
+                    <button onclick="show_modal_role('${val.id}')"
                     type="button" class="btn btn-icon btn-info text-start">
                     <i data-feather="edit"></i>
                      Edit</button>
@@ -37,14 +37,14 @@
             <tbody>
                 ${html_row}
             </tbody>`;
-        if ($.fn.DataTable.isDataTable(table)) {
-            $(table).DataTable().destroy();
+        if ($.fn.DataTable.isDataTable("#user_role")) {
+            $("#user_role").DataTable().destroy();
         }
-        $(table).unblock().html(html_content).DataTable({
+        $("#user_role").unblock().html(html_content).DataTable({
             searching: false,
             ordering: false,
             drawCallback: function() {
-                $(`${table} [data-feather]`).each(function() {
+                $(`#user_role [data-feather]`).each(function() {
                     var icon = $(this).data('feather');
                     $(this).empty().append(feather.icons[icon].toSvg({
                         width: 14,
@@ -54,7 +54,7 @@
             }
         });
     }
-    const tableError = (data, table) => {
+    const tableRoleErr = (data) => {
         var html_content = `
                             <thead>
                                 <tr>
@@ -65,9 +65,9 @@
                             </thead>
                             <tbody>
                             </tbody>`;
-        $(table).html(html_content);
-        $(table).unblock();
-        setTable(table);
+        $("#user_role").html(html_content);
+        $("#user_role").unblock();
+        setTable("#user_role");
     }
     const get_user_role = () => {
         success_msg = "Data berhasil ditampilkan";
@@ -76,15 +76,15 @@
         var url = `{{ route('user_role.index') }}`;
         var method = "GET";
         var data = {};
-        var table = "table";
-        var funcSuccess = tableSuccess;
-        var funcError = tableError;
+        var table = "#user_role";
+        var funcSuccess = tableRoleSucc;
+        var funcError = tableRoleErr;
         ajaxtable(url, data, method, table, funcSuccess, funcError);
     }
     get_user_role();
 
     // FUNGSI MENAMPILKAN DATA YANG AKAN DIEDIT
-    const show_modal_detail = (id) => {
+    const show_modal_role = (id) => {
         success_msg = "Data berhasil ditampilkan";
         warning_msg = "Data gagal ditampilkan";
         error_msg = "Data gagal ditampilkan";

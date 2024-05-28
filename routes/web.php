@@ -63,6 +63,37 @@ Route::middleware('authenticatedWeb')->group(function () {
         
     });
 
+    // MASTER DATA
+    Route::group(['prefix' => 'master'], function(){
+        // MASTER INSTITUSI
+        Route::view('institusi', 'content/master/institusi/index', [
+            'breadcrumbs' => [
+                ['link' => "javascript:void(0)", 'name' => "Master Institusi"], ['link' => "javascript:void(0)", 'name' => "Tabel Institusi"]
+            ],
+        ])->name('master.institusi');
+
+        // MASTER PJ
+        Route::view('pj', 'content/master/pj/index', [
+            'breadcrumbs' => [
+                ['link' => "javascript:void(0)", 'name' => "Master Data"], ['link' => "javascript:void(0)", 'name' => "User Role & Institusi"]
+            ],
+        ])->name('master.pj');
+
+        // MASTER ROLE
+        Route::view('role', 'content/master/role/index', [
+            'breadcrumbs' => [
+                ['link' => "javascript:void(0)", 'name' => "Master Data"], ['link' => "javascript:void(0)", 'name' => "User Role & Institusi"]
+            ],
+        ])->name('master.role');
+
+        // MASTER SURAT
+        Route::view('surat', 'content/master/surat/index', [
+            'breadcrumbs' => [
+                ['link' => "javascript:void(0)", 'name' => "Master Data"], ['link' => "javascript:void(0)", 'name' => "User Role & Institusi"]
+            ],
+        ])->name('master.surat');
+    });
+
     // PERMOHONAN SURAT
     Route::group(['prefix' => 'permohonan'], function () {
         Route::get('surat', [permohonan_suratController::class, 'permohonan_surat'])->name('permohonan_surat');

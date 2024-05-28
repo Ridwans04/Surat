@@ -3,7 +3,6 @@
     <input type="hidden" id="token" name="token">
 </form>
 
-
 <script>
     var dataAjax;
     var sweet_loader = `<div style="height:50px;"><div class="spinner-border text-success" role="status"></div></div>`;

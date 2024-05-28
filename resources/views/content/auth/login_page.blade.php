@@ -47,10 +47,7 @@
                     </form>
                     <span class="d-flex justify-content-center fw-bolder font-small-4"> ATAU</span>
                     <a class="btn btn-relief w-100 mt-1 font-small-3" style="background-color: #1e5c45; color: white"  href="{{route('redirect.google')}}">LOGIN DENGAN GOOGLE</a>
-                    <form id="setsession" action="{{ route('setSession') }}" method="POST">
-                        @csrf
-                        <input type="hidden" id="token" name="token">
-                    </form>
+                    
                 </div>
             </div>
         </div>

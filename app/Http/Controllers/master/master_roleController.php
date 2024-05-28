@@ -1,11 +1,11 @@
 <?php
 
-namespace App\Http\Controllers\user;
+namespace App\Http\Controllers\master;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 
-class user_jenjangController extends Controller
+class master_roleController extends Controller
 {
     /**
      * Display a listing of the resource.

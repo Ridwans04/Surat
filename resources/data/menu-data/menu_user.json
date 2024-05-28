@@ -34,7 +34,7 @@
             "slug": "kelola_user"
           },
           {
-            "url": "master_akun/kelola_pegawai",
+            "url": "akun/kelola_pegawai",
             "name": "Kelola Pegawai",
             "icon": "users",
             "role": ["super_admin"],
@@ -43,39 +43,39 @@
         ]
       },
       {
-        "url": "master_surat/klasifikasi_surat",
+        "url": "",
         "name": "Master Data",
         "icon": "edit-3",
         "role": ["super_admin"],
-        "slug": "klasifikasi_surat",
+        "slug": "",
         "submenu":[
           {
-            "url": "",
-            "name": "Master Surat",
-            "icon": "edit-3",
-            "role": ["super_admin", "admin"],
-            "slug": ""
-          },
-          {
-            "url": "",
-            "name": "Master Role",
-            "icon": "edit-3",
-            "role": ["super_admin", "admin"],
-            "slug": ""
-          },
-          {
-            "url": "",
+            "url": "master/institusi",
             "name": "Master Institusi",
             "icon": "edit-3",
             "role": ["super_admin", "admin"],
-            "slug": ""
+            "slug": "master.institusi"
           },
           {
-            "url": "",
+            "url": "master/pj",
             "name": "Master PJ",
             "icon": "edit-3",
             "role": ["super_admin", "admin"],
-            "slug": ""
+            "slug": "master.pj"
+          },
+          {
+            "url": "master/role",
+            "name": "Master Role",
+            "icon": "edit-3",
+            "role": ["super_admin", "admin"],
+            "slug": "master.role"
+          },
+          {
+            "url": "master/surat",
+            "name": "Master Surat",
+            "icon": "edit-3",
+            "role": ["super_admin", "admin"],
+            "slug": "master.surat"
           }
         ]
       },

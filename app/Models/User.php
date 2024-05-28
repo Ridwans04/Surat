@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Models\akun\user_institusi;
 use App\Models\akun\user_role;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -48,5 +49,10 @@ class User extends Authenticatable
     public function has_many_userrole()
     {
         return $this->hasMany(user_role::class, 'user_id', 'id');
+    }
+
+    public function has_many_userins()
+    {
+        return $this->hasMany(user_institusi::class, "user_id", "id");
     }
 }
