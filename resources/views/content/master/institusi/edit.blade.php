@@ -12,14 +12,14 @@
                 <div class="modal-body p-2">
                     <form onsubmit="event.preventDefault(),update_data(this)" id="update_arsip" class="row">
                         @method('PATCH')
-                        <input type="hidden" name="id_role" id="id_role">
-                        <div class="col-12 col-md-12">
+                        <input type="hidden" name="id_ins" id="id_ins">
+                        <div class="col-12 col-md-6">
                             <label class="form-label" for="user">Nama Institusi</label>
-                            <select name="nama_institusi" id="nm_ins" class="select2 form-select" multiple></select>
+                            <input type="text" name="nama_institusi" id="nm_ins" class="form-control">
                         </div>
-                        <div class="col-12 col-md-12">
+                        <div class="col-12 col-md-6">
                             <label class="form-label" for="user">Inisial Institusi</label>
-                            <select name="inisial_institusi" id="int_ins" class="select2 form-select" multiple></select>
+                            <input type="text" name="initial_institusi" id="int_ins" class="form-control">
                         </div>
                         <div class="col-12 text-center mt-2">
                             <button type="submit" class="btn btn-primary me-1">Perbarui</button>

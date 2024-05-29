@@ -1,8 +1,8 @@
 @extends('layouts/contentLayoutMaster')
 
-@include('content.master.master_surat.script', ['section' => 'title'])
-@include('content.master.master_surat.script', ['section' => 'vendor-style'])
-@include('content.master.master_surat.script', ['section' => 'page-style'])
+@include('content.master.surat.script', ['section' => 'title'])
+@include('content.master.surat.script', ['section' => 'vendor-style'])
+@include('content.master.surat.script', ['section' => 'page-style'])
 
 @section('content')
     <h3>Penanggung Jawab</h3>
@@ -82,5 +82,5 @@
     @include('content/_partials/_modals/modal-edit-permission')
 @endsection
 
-@include('content.master.master_surat.script', ['section' => 'vendor-script'])
-@include('content.master.master_surat.script', ['section' => 'page-script'])
+@include('content.master.surat.script', ['section' => 'vendor-script'])
+@include('content.master.surat.script', ['section' => 'page-script'])

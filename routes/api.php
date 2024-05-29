@@ -2,12 +2,10 @@
 
 use App\Http\Controllers\auth\auth_controller;
 use App\Http\Controllers\data\permohonan_suratController;
-use App\Http\Controllers\master\master_akunController;
 use App\Http\Controllers\master\master_institusiController;
 use App\Http\Controllers\master\master_suratController;
 use App\Http\Controllers\user\user_institusiController;
 use App\Http\Controllers\user\user_roleController;
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
 /*

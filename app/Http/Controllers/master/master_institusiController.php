@@ -20,23 +20,11 @@ class master_institusiController extends Controller
         ]);
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
     public function store(Request $request)
     {
         //
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function show($id_ins, Request $request)
     {
         $id = $id_ins;
@@ -44,13 +32,19 @@ class master_institusiController extends Controller
         if(!$data || is_null($data)){
             return response()->json(['status' => 'failed'], 404);
         }
-        dd($data);
         return response()->json(['status' => 'success', 'data' => $data->toArray()], 200);
     }
 
-    public function update(Request $request, $id)
+    public function update($id_ins, Request $request)
     {
-        //
+        $id = $id_ins;
+        $data = master_institusi::where('id', $id)->first();
+        $data->nama_institusi = $request->nama_institusi;
+        $data->initial_institusi = $request->initial_institusi;
+        $data->save();
+        return response()->json([
+           'status' => 'success'
+        ]);
     }
 
     /**

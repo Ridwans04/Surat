@@ -49,7 +49,7 @@ class user_roleController extends Controller
     public function update($user_id, Request $request)
     {
         $id = $user_id;
-        user_role::where('user_id', $user_id)->delete();
+        user_role::where('user_id', $id)->delete();
         if ($request->has('role')) {
             $roles = $request->role;
             foreach ($roles as $key => $value) {

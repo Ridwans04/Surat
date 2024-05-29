@@ -87,7 +87,7 @@ Route::middleware('authenticatedWeb')->group(function () {
         ])->name('master.role');
 
         // MASTER SURAT
-        Route::view('surat', 'content/master/surat/index', [
+        Route::view('surat', 'content/master/surat/data', [
             'breadcrumbs' => [
                 ['link' => "javascript:void(0)", 'name' => "Master Data"], ['link' => "javascript:void(0)", 'name' => "User Role & Institusi"]
             ],
