@@ -24,9 +24,9 @@
     <script src="{{ asset(mix('vendors/js/forms/validation/jquery.validate.min.js')) }}"></script>
 @endsection
 @section('page-script')
-    <!-- Page js files -->
-    <script src="{{ asset(mix('js/scripts/pages/modal-add-role.js')) }}"></script>
-    <script src="{{ asset(mix('js/scripts/pages/app-access-roles.js')) }}"></script>
+    <script src="{{ asset('js/scripts/tool/block-ui.js') }}"></script>
+    <script src="{{ asset('js/scripts/tool/sweet-alert.js') }}"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script>
         const tableSuccess = (data, table) => {
             var html_row = "";
@@ -102,11 +102,26 @@
         }
         get_data();
 
-        const show_modal = () => {
+        const show_modal = (id) => {
             success_msg = "Data berhasil ditampilkan";
             warning_msg = "Data gagal ditampilkan";
             error_msg = "Data gagal ditampilkan";
-            var url = 
+            var url = `{{ route('institusi.show', ':id') }}`;
+            url = url.replace(":id", id);
+            var method = "GET";
+            var data = {};
+            var table = "table";
+            var funcSuccess = setDataUpdate;
+            var funcError = function(){};
+            ajaxtable(url, {}, "GET", "", funcSuccess, funcError);
+        }
+
+        const setDataUpdate = (data, table) => {
+            $(table).unblock();
+            $('input[name="id"]').val(data.id);
+            $('input#nm_ins').val(data.nama_institusi.replaceAll('_', ' '));
+            $('input#int_ins').val(data.initial_institusi.replaceAll('_', ' '));
+            $('#modal_update').modal('show');
         }
     </script>
 @endsection

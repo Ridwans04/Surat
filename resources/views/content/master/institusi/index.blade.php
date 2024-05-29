@@ -26,12 +26,7 @@
 <!--/ Role cards -->
 
 <h3 class="mt-50">Semua Institusi dengan banyak user di dalamnya</h3>
-<!-- table -->
-<div class="card p-1">
-    <table class="datatables-basic table" id="user_role">
-    </table>
-</div>
-<!-- table -->
+@include('content.master.institusi.table')
 
 @endsection
 

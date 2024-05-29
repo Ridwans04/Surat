@@ -6,6 +6,8 @@ use App\Http\Controllers\Controller;
 use App\Models\master\master_institusi;
 use Illuminate\Http\Request;
 
+use function PHPUnit\Framework\isNull;
+
 class master_institusiController extends Controller
 {
     public function index()
@@ -35,18 +37,17 @@ class master_institusiController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show($id_ins, Request $request)
     {
-        //
+        $id = $id_ins;
+        $data = master_institusi::find($id);
+        if(!$data || is_null($data)){
+            return response()->json(['status' => 'failed'], 404);
+        }
+        dd($data);
+        return response()->json(['status' => 'success', 'data' => $data->toArray()], 200);
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function update(Request $request, $id)
     {
         //
