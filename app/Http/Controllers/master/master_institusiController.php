@@ -22,7 +22,13 @@ class master_institusiController extends Controller
 
     public function store(Request $request)
     {
-        //
+        $data = new master_institusi();
+        $data->nama_institusi = strtoupper($request->nama_institusi);
+        $data->initial_institusi = str_replace(" ", "_", strtoupper($request->nama_institusi));
+        if ($data->save()) {
+            return response()->json(['status' => 'success'], 200);
+        }
+        return response()->json(['status' => 'failed'], 400);
     }
 
     public function show($id_ins, Request $request)

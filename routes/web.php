@@ -72,17 +72,10 @@ Route::middleware('authenticatedWeb')->group(function () {
             ],
         ])->name('master.institusi');
 
-        // MASTER PJ
-        Route::view('pj', 'content/master/pj/index', [
-            'breadcrumbs' => [
-                ['link' => "javascript:void(0)", 'name' => "Master Data"], ['link' => "javascript:void(0)", 'name' => "User Role & Institusi"]
-            ],
-        ])->name('master.pj');
-
         // MASTER ROLE
         Route::view('role', 'content/master/role/index', [
             'breadcrumbs' => [
-                ['link' => "javascript:void(0)", 'name' => "Master Data"], ['link' => "javascript:void(0)", 'name' => "User Role & Institusi"]
+                ['link' => "javascript:void(0)", 'name' => "Master Role"], ['link' => "javascript:void(0)", 'name' => "Data Role"]
             ],
         ])->name('master.role');
 

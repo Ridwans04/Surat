@@ -10,9 +10,6 @@
     <div class="row">
         <div class="col-xl-4 col-lg-6 col-md-6">
             <div class="card">
-                <div class="card-header">
-                    
-                </div>
                 <div class="card-body">
                     <div class="d-flex justify-content-between">
                         <span>Total 4 users</span>
@@ -26,9 +23,6 @@
             </div>
         </div>
     </div>
-    <!--/ Role cards -->
-
-    <h3 class="mt-50">Semua Institusi dengan banyak user di dalamnya</h3>
     @include('content.master.institusi.table')
 @endsection
 

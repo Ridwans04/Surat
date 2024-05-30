@@ -44,8 +44,8 @@
                 `
                 html_row += `<tr>
                             <td>${no++}</td>
-                            <td>${val.nama_institusi}</td>
-                            <td>${val.initial_institusi}</td>
+                            <td>${val.role}</td>
+                            <td>${val.initial_role}</td>
                             <td>${menu}</td>
                         </tr>`;
             });
@@ -53,8 +53,8 @@
             <thead>
                 <tr>
                     <th>No.</th>
-                    <th>Nama Institusi</th>
-                    <th>Inisial Institusi</th>
+                    <th>Nama Role</th>
+                    <th>Inisial Role</th>
                     <th>Menu</th>
                 </tr>
             </thead>
@@ -82,8 +82,8 @@
                             <thead>
                                 <tr>
                                     <th>No.</th>
-                                    <th>Nama Institusi</th>
-                                    <th>Inisial Institusi</th>
+                                    <th>Nama Role</th>
+                                    <th>Inisial Role</th>
                                     <th>Menu</th>
                                 </tr>
                             </thead>
@@ -97,7 +97,7 @@
             success_msg = "Data berhasil ditampilkan";
             warning_msg = "Data gagal ditampilkan";
             error_msg = "Data gagal ditampilkan";
-            var url = `{{ route('institusi.index') }}`;
+            var url = `{{ route('role.index') }}`;
             var method = "GET";
             var data = {};
             var table = "table";

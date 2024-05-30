@@ -7,14 +7,14 @@
                 data-bs-target="#exampleModalCenter">
                 <i data-feather="plus"></i> Tambah Data
             </button>
-            @include('content.master.institusi.create')
+            @include('content.master.role.create')
         </div>
     </div>
     <div class="card-body p-1">
-        <h3>DATA INSTITUSI</h3>
+        <h3>DATA ROLE</h3>
         <table class="datatables-basic table" id="user_role">
         </table>
-        @include('content.master.institusi.edit')
+        @include('content.master.role.edit')
     </div>
 </div>
 <!-- table -->

@@ -1,13 +1,11 @@
 <?php
 
-namespace App\Http\Controllers\master;
+namespace App\Http\Controllers\pegawai;
 
 use App\Http\Controllers\Controller;
-use App\Models\master\master_role;
-use Dflydev\DotAccessData\Data;
 use Illuminate\Http\Request;
 
-class master_roleController extends Controller
+class institusi_pegawaiController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -16,15 +14,15 @@ class master_roleController extends Controller
      */
     public function index()
     {
-        $data = master_role::all()->toArray();
-        
-        return response()->json([
-            'status' => 'success',
-            'data' => $data
-        ]);
+        //
     }
 
-    
+    /**
+     * Store a newly created resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
     public function store(Request $request)
     {
         //

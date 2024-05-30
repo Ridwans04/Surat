@@ -3,6 +3,7 @@
 use App\Http\Controllers\auth\auth_controller;
 use App\Http\Controllers\data\permohonan_suratController;
 use App\Http\Controllers\master\master_institusiController;
+use App\Http\Controllers\master\master_roleController;
 use App\Http\Controllers\master\master_suratController;
 use App\Http\Controllers\user\user_institusiController;
 use App\Http\Controllers\user\user_roleController;
@@ -31,6 +32,7 @@ Route::middleware('roleCheck:super_admin')->group(function () {
     });
     Route::prefix('master')->group(function (){
         Route::apiResource("institusi", master_institusiController::class);
+        Route::apiResource("role", master_roleController::class);
     });
 });
 

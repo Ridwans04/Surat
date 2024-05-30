@@ -45,35 +45,28 @@
       {
         "url": "",
         "name": "Master Data",
-        "icon": "edit-3",
+        "icon": "database",
         "role": ["super_admin"],
         "slug": "",
         "submenu":[
           {
             "url": "master/institusi",
             "name": "Master Institusi",
-            "icon": "edit-3",
+            "icon": "home",
             "role": ["super_admin", "admin"],
             "slug": "master.institusi"
           },
           {
-            "url": "master/pj",
-            "name": "Master PJ",
-            "icon": "edit-3",
-            "role": ["super_admin", "admin"],
-            "slug": "master.pj"
-          },
-          {
             "url": "master/role",
             "name": "Master Role",
-            "icon": "edit-3",
+            "icon": "git-pull-request",
             "role": ["super_admin", "admin"],
             "slug": "master.role"
           },
           {
             "url": "master/surat",
             "name": "Master Surat",
-            "icon": "edit-3",
+            "icon": "credit-card",
             "role": ["super_admin", "admin"],
             "slug": "master.surat"
           }
