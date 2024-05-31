@@ -75,7 +75,7 @@
                     $.each(response.data, function(key, val) {
                         menu =
                             `
-                                <button onclick="modal_detail('${val.id}', '${val.pj}', '${val.institusi}')"
+                                <button onclick="modal_detail('${val.id}', '${val.nama_surat}')"
                                 type="button" class="btn btn-icon btn-success mb-1 text-start">
                                 <i data-feather="edit"></i>
                                 Edit</button>
@@ -182,11 +182,9 @@
         }
 
         // FUNGSI MENAMPILKAN MODAL DETAIL
-        function modal_detail(id, user, lvl, ins) {
+        function modal_detail(id, surat) {
             $('#id_akun').val(id);
-            $('#user').val(user);
-            $('#lvl').val(lvl);
-            $('#ins').val(ins);
+            $('#nm_user').val(surat);
             $('#modal_detail').modal('show');
         }
 
@@ -201,9 +199,7 @@
                         url: `{{ route('update_surat') }}`,
                         data: {
                             id: form.get('id_akun'),
-                            user: form.get('user'),
-                            lvl: form.get('lvl'),
-                            ins: form.get('ins'),
+                            user: form.get('nm_user'),
                             pass: form.get('pass'),
                         },
                         beforeSend: function() {

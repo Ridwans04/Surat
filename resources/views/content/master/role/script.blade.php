@@ -44,8 +44,7 @@
                 `
                 html_row += `<tr>
                             <td>${no++}</td>
-                            <td>${val.role}</td>
-                            <td>${val.initial_role}</td>
+                            <td>${val.role.replaceAll("_", " ")}</td>
                             <td>${menu}</td>
                         </tr>`;
             });
@@ -54,7 +53,6 @@
                 <tr>
                     <th>No.</th>
                     <th>Nama Role</th>
-                    <th>Inisial Role</th>
                     <th>Menu</th>
                 </tr>
             </thead>
@@ -83,7 +81,6 @@
                                 <tr>
                                     <th>No.</th>
                                     <th>Nama Role</th>
-                                    <th>Inisial Role</th>
                                     <th>Menu</th>
                                 </tr>
                             </thead>
@@ -114,7 +111,7 @@
             success_msg = "Data berhasil dibuat";
             warning_msg = "Data gagal dibuat";
             error_msg = "Data gagal dibuat";
-            var url = `{{ route('institusi.store') }}`;
+            var url = `{{ route('role.store') }}`;
             var method = "POST";
             var funcSuccess = get_data;
             var funcError = function () {};
@@ -127,7 +124,7 @@
             success_msg = "Data berhasil ditampilkan";
             warning_msg = "Data gagal ditampilkan";
             error_msg = "Data gagal ditampilkan";
-            var url = `{{ route('institusi.show', ':id') }}`;
+            var url = `{{ route('role.show', ':id') }}`;
             url = url.replace(":id", id);
             var method = "GET";
             var data = {};
@@ -139,9 +136,8 @@
 
         const setDataUpdate = (data, table) => {
             $(table).unblock();
-            $('input[name="id_ins"]').val(data.id);
-            $('#nm_ins').val(data.nama_institusi.replaceAll('_', ' '));
-            $('#int_ins').val(data.initial_institusi);
+            $('input[name="id_role"]').val(data.id);
+            $('#nm_role').val(data.role.replaceAll('_', ' '));
             $('#modal_update').modal('show');
         }
         // END FUNGSI MENAMPILKAN MODAL UPDATE DATA
@@ -152,8 +148,8 @@
             success_msg = "Data berhasil diperbarui";
             warning_msg = "Data gagal diperbarui";
             error_msg = "Data gagal diperbarui";
-            var url = `{{ route('institusi.update', ':id') }}`;
-            url = url.replace(':id', form.get('id_ins'));
+            var url = `{{ route('role.update', ':id') }}`;
+            url = url.replace(':id', form.get('id_role'));
             data = form;
             var method = "POST";
             var funcSuccess = get_data;

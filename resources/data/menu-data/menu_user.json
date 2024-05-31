@@ -46,7 +46,7 @@
         "url": "",
         "name": "Master Data",
         "icon": "database",
-        "role": ["super_admin"],
+        "role": ["super_admin", "admin"],
         "slug": "",
         "submenu":[
           {
@@ -79,9 +79,16 @@
       },
       {
         "url": "permohonan_surat",
+        "name": "Permintaan Surat",
+        "icon": "edit-3",
+        "role": ["admin"],
+        "slug": "permohonan_surat"
+      },
+      {
+        "url": "permohonan_surat",
         "name": "Permohonan Surat",
         "icon": "edit-3",
-        "role": ["super_admin", "admin"],
+        "role": ["pj"],
         "slug": "permohonan_surat"
       },
       {

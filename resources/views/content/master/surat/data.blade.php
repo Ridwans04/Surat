@@ -60,12 +60,8 @@
                         <form onsubmit="event.preventDefault(),update_data(this)" id="update_arsip" class="row gy-1 pt-75">
                             <input type="hidden" name="id_akun" id="id_akun">
                             <div class="col-12 col-md-6">
-                                <label class="form-label" for="user">Username</label>
-                                <input type="text" id="user" name="user" class="form-control" />
-                            </div>
-                            <div class="col-12 col-md-6">
-                                <label class="form-label" for="lvl">Level</label>
-                                <input type="text" id="lvl" name="lvl" class="form-control" />
+                                <label class="form-label" for="user">Nama Surat</label>
+                                <input type="text" id="nm_surat" name="nm_surat" class="form-control" />
                             </div>
                             <div class="col-12 text-center mt-2 pt-50">
                                 <button type="submit" class="btn btn-primary me-1">Perbarui</button>

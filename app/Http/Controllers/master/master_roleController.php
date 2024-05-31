@@ -9,11 +9,6 @@ use Illuminate\Http\Request;
 
 class master_roleController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
     public function index()
     {
         $data = master_role::all()->toArray();
@@ -24,43 +19,40 @@ class master_roleController extends Controller
         ]);
     }
 
-    
     public function store(Request $request)
     {
-        //
+        $data = new master_role();
+        $data->role = str_replace(" ", "_", $request->role);
+        if($data->save()){
+            return response()->json(['status' => 'success'], 200);
+        }
+        return response()->json(['status' => "failed"], 400); 
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
+    public function show($id_data)
     {
-        //
+        $id = $id_data;
+        $data = master_role::where('id', $id)->first();
+        if(!$data || is_null($data)){
+            return response()->json(['status' => 'failed'], 404);
+        }
+        return response()->json(['status' => 'success', 'data' => $data->toArray()], 200);
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, $id)
+    public function update(Request $request, $id_data)
     {
-        //
+        // dd($request->all());
+        $id = $id_data;
+        $data = master_role::where('id', $id)->first();
+        $data->role = str_replace(" ", "_", $request->nama_role);
+        if($data->save()){
+            return response()->json(['status' => 'success'], 200);
+        }
+        return response()->json(['status' => "failed"], 400); 
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function destroy($id)
     {
-        //
+        
     }
 }

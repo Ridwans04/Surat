@@ -11,9 +11,9 @@
                 </div>
                 <div class="modal-body">
                   <form onsubmit="event.preventDefault(),create_data(this)" class="row">
-                    <div class="col-12 col-md-6">
-                        <label class="form-label" for="user">Nama Institusi</label>
-                        <input type="text" name="nama_institusi" id="nama_ins" class="form-control">
+                    <div class="col-12 col-md-12">
+                        <label class="form-label" for="user">Nama Role</label>
+                        <input type="text" name="role" class="form-control">
                     </div>
                     <div class="col-12 text-center mt-2">
                         <button type="submit" class="btn btn-primary me-1">Perbarui</button>

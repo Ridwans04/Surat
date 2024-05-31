@@ -31,7 +31,7 @@ class master_institusiController extends Controller
         return response()->json(['status' => 'failed'], 400);
     }
 
-    public function show($id_ins, Request $request)
+    public function show($id_ins)
     {
         $id = $id_ins;
         $data = master_institusi::find($id);
