@@ -8,48 +8,48 @@ use Illuminate\Http\Request;
 
 class master_suratController extends Controller
 {
-    public function get_data_surat()
+    public function index()
     {
-        $data = master_surat::all();
+        $data = master_surat::all()->toArray();
         return response()->json([
-            'success'   =>true,
+            'status' => 'success',
             'data' => $data
         ]);
     }
 
-    public function add_surat(Request $request)
+    public function store(Request $request)
     {
-        $surat = $request->input('nm_surat');
-
-        master_surat::create([
-            'nama_surat' => $surat,
-            'status' => 'aktif',
-        ]);
-        return response()->json(['success' => true]);
+        $data = new master_surat();
+        $data->nama_surat = $request->surat;
+        if($data->save()){
+            return response()->json(['status' => 'success'], 200);
+        }
+        return response()->json(['status' => "failed"], 400); 
     }
 
-    public function update_surat(Request $request)
+    public function show($id_data)
     {
-        $id = $request->input('id');
-        $surat = $request->input('nama_surat');
-        $status = $request->input('status');
-
-        $data = master_surat::find($id);
-        $data->nama_surat  = $surat;
-        $data->status      = $status;
-        $data->save();
-
-        return response()->json([
-            'success' => true
-        ]);
+        $id = $id_data;
+        $data = master_surat::where('id', $id)->first();
+        if(!$data || is_null($data)){
+            return response()->json(['status' => 'failed'], 404);
+        }
+        return response()->json(['status' => 'success', 'data' => $data->toArray()], 200);
     }
 
-    public function hapus_surat(Request $request)
+    public function update(Request $request, $id_data)
     {
-        $id = $request->id;
-        master_surat::find($id)->delete();
-        return response()->json([
-            'success'   => true
-        ]);
+        $id = $id_data;
+        $data = master_surat::where('id', $id)->first();
+        $data->nama_surat = $request->nama_surat;
+        if($data->save()){
+            return response()->json(['status' => 'success'], 200);
+        }
+        return response()->json(['status' => "failed"], 400); 
+    }
+
+    public function destroy($id)
+    {
+        //
     }
 }

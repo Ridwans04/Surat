@@ -6,14 +6,14 @@
         <div class="modal-dialog modal-dialog-centered">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalCenterTitle">Tambah Data Institusi</h5>
+                    <h5 class="modal-title" id="exampleModalCenterTitle">Tambah Data Surat</h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
                   <form onsubmit="event.preventDefault(),create_data(this)" class="row">
-                    <div class="col-12 col-md-6">
-                        <label class="form-label" for="user">Nama Institusi</label>
-                        <input type="text" name="nama_institusi" id="nama_ins" class="form-control">
+                    <div class="col-12 col-md-12">
+                        <label class="form-label" for="user">Nama Surat</label>
+                        <input type="text" name="surat" class="form-control">
                     </div>
                     <div class="col-12 text-center mt-2">
                         <button type="submit" class="btn btn-primary me-1">Simpan</button>

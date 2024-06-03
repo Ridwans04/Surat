@@ -41,7 +41,6 @@ class master_roleController extends Controller
 
     public function update(Request $request, $id_data)
     {
-        // dd($request->all());
         $id = $id_data;
         $data = master_role::where('id', $id)->first();
         $data->role = str_replace(" ", "_", $request->nama_role);

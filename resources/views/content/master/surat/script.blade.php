@@ -1,4 +1,4 @@
-@section('title', 'Master Surat')
+@section('title', 'Master Data')
 
 @section('vendor-style')
     <!-- Vendor css files -->
@@ -11,6 +11,7 @@
     <link rel="stylesheet" href="{{ asset(mix('css/base/plugins/forms/form-validation.css')) }}">
 @endsection
 
+
 @section('vendor-script')
     <!-- Vendor js files -->
     <script src="{{ asset(mix('vendors/js/tables/datatable/jquery.dataTables.min.js')) }}"></script>
@@ -19,240 +20,142 @@
     <script src="{{ asset(mix('vendors/js/tables/datatable/responsive.bootstrap5.js')) }}"></script>
     <script src="{{ asset(mix('vendors/js/tables/datatable/datatables.buttons.min.js')) }}"></script>
     <script src="{{ asset(mix('vendors/js/tables/datatable/buttons.bootstrap5.min.js')) }}"></script>
+    <script src="{{ asset(mix('vendors/js/tables/datatable/datatables.checkboxes.min.js')) }}"></script>
     <script src="{{ asset(mix('vendors/js/forms/validation/jquery.validate.min.js')) }}"></script>
 @endsection
 @section('page-script')
-    <!-- Page js files -->
-    <script src="{{ asset(mix('js/scripts/pages/modal-add-permission.js')) }}"></script>
-    <script src="{{ asset(mix('js/scripts/pages/modal-edit-permission.js')) }}"></script>
-    <script src="{{ asset(mix('js/scripts/pages/app-access-permission.js')) }}"></script>
     <script src="{{ asset('js/scripts/tool/block-ui.js') }}"></script>
     <script src="{{ asset('js/scripts/tool/sweet-alert.js') }}"></script>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-    <script src="{{ asset('js/scripts/tool/toast.js') }}"></script>
     <script>
-        // FUNGSI SWEET ALERT
-        function SweetAlert(title) {
-            return Swal.fire({
-                icon: "question",
-                title: title,
-                showCancelButton: true,
-                confirmButtonText: "Ya",
-                cancelButtonText: "Tidak",
-                customClass: {
-                    popup: 'swal2-dark-theme', // Apply the dark theme to the modal
-                    title: 'swal2-dark-theme', // Apply to the title
-                    confirmButton: 'swal2-dark-theme', // Apply to the confirm button
-                    cancelButton: 'swal2-dark-theme', // Apply to the cancel button
-                },
-            })
-        }
+        // FUNGSI MENAMPILKAN TABLE
+        const tableSuccess = (data, table) => {
+            var html_row = "";
+            var menu = "";
+            var no = 1;
+            $.each(data, function(key, val) {
 
-        // FUNGSI MENAMPILKAN DATA
-        function get_data() {
-            $.ajax({
-                type: "GET",
-                url: `{{ route('get_data_surat') }}`,
-                beforeSend: function() {
-                    $('#master_surat').block({
-                        message: '<div class="loader-box"><div class="loader-1"></div></div>',
-                        css: {
-                            backgroundColor: 'transparent',
-                            border: '0'
-                        },
-                        overlayCSS: {
-                            backgroundColor: '#fff',
-                            opacity: 0.8
-                        }
-                    });
-                },
-                dataType: "JSON",
-                success: function(response) {
-                    var html_row = "";
-                    var nomer = "1";
-                    var menu = "";
-                    var date = new Date();
-                    $.each(response.data, function(key, val) {
-                        menu =
-                            `
-                                <button onclick="modal_detail('${val.id}', '${val.nama_surat}')"
-                                type="button" class="btn btn-icon btn-success mb-1 text-start">
-                                <i data-feather="edit"></i>
-                                Edit</button>
-                                <button onclick="hapus_akun('${val.id}')"
-                                type="button" class="btn btn-icon btn-danger mb-1 text-start">
-                                <i data-feather="trash"></i>
-                                Hapus</button>
-                            `
-                        html_row += `<tr>
-                            <td>${nomer++}</td>
+                menu =
+                    `
+                    <button onclick="show_modal('${val.id}')"
+                    type="button" class="btn btn-icon btn-info text-start">
+                    <i data-feather="edit"></i>
+                     Edit</button>
+                `
+                html_row += `<tr>
+                            <td>${no++}</td>
                             <td>${val.nama_surat}</td>
-                            <td style="white-space:nowrap">${val.status}</td>
                             <td>${menu}</td>
                         </tr>`;
+            });
+            var html_content = `
+            <thead>
+                <tr>
+                    <th>No.</th>
+                    <th>Nama Surat</th>
+                    <th>Menu</th>
+                </tr>
+            </thead>
+            <tbody>
+                ${html_row}
+            </tbody>`;
+            if ($.fn.DataTable.isDataTable(table)) {
+                $(table).DataTable().destroy();
+            }
+            $(table).unblock().html(html_content).DataTable({
+                ordering: false,
+                drawCallback: function() {
+                    $(`${table} [data-feather]`).each(function() {
+                        var icon = $(this).data('feather');
+                        $(this).empty().append(feather.icons[icon].toSvg({
+                            width: 14,
+                            height: 14
+                        }));
                     });
-                    var html_content = `
-                <thead>
-                    <tr>
-                        <th>No.</th>
-                        <th>Nama Surat</th>
-                        <th>Status</th>
-                        <th>Menu</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    ${html_row}
-                </tbody>`;
-                    if ($.fn.DataTable.isDataTable('#master_surat')) {
-                        $('#master_surat').DataTable().destroy();
-                    }
-                    $('#master_surat').unblock().html(html_content).DataTable({
-                        searching: false,
-                        ordering: false,
-                        drawCallback: function() {
-                            $('#master_surat [data-feather]').each(function() {
-                                var icon = $(this).data('feather');
-                                $(this).empty().append(feather.icons[icon].toSvg({
-                                    width: 14,
-                                    height: 14
-                                }));
-                            });
-                        }
-                    });
-                },
-                error: function(error) {
-                    Swal.fire(
-                        'Error',
-                        'Kesalahan Data',
-                        'error'
-                    )
                 }
             });
         }
-
-        // FUNGSI OTOMATIS MENAMPILKAN DATA
-        get_data()
-
-        // FUNGSI TAMBAH AKUN
-        function add_surat() {
-            const form = new FormData(document.querySelector('form#add_surat'));
-            const title = 'Anda yakin ingin menambahkan data?';
-            SweetAlert(title).then((result) => {
-                if (result.isConfirmed) {
-                    $.ajax({
-                        method: "post",
-                        url: "{{ route('add_surat') }}",
-                        data: form,
-                        contentType: false,
-                        processData: false,
-                        beforeSend: function() {
-                            Swal.fire({
-                                html: '<div class="loader-box"><div class="loader-2"></div></div>',
-                                showConfirmButton: false,
-                                allowOutsideClick: false,
-                                background: 'transparent',
-                            });
-                        },
-                        datatype: "json",
-                        success: function(response) {
-                            console.log(response);
-                            if (response.success) {
-                                Toast.fire({
-                                    icon: "success",
-                                    title: "Data berhasil ditambahkan"
-                                });
-                                $('#modal_add').modal('hide');
-                            } else {
-                                Toast.fire({
-                                    icon: "error",
-                                    title: "Data gagal ditambahkan"
-                                });
-                            }
-                        },
-                        error: function(error) {
-                            Swal.fire(
-                                'Error',
-                                '',
-                                'error'
-                            )
-                        }
-                    });
-                }
-            })
+        const tableError = (data, table) => {
+            var html_content = `
+                            <thead>
+                                <tr>
+                                    <th>No.</th>
+                                    <th>Nama Surat</th>
+                                    <th>Menu</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                            </tbody>`;
+            $(table).html(html_content);
+            $(table).unblock();
+            setTable(table);
         }
-
-        // FUNGSI MENAMPILKAN MODAL DETAIL
-        function modal_detail(id, surat) {
-            $('#id_akun').val(id);
-            $('#nm_user').val(surat);
-            $('#modal_detail').modal('show');
+        const get_data = () => {
+            success_msg = "Data berhasil ditampilkan";
+            warning_msg = "Data gagal ditampilkan";
+            error_msg = "Data gagal ditampilkan";
+            var url = `{{ route('surat.index') }}`;
+            var method = "GET";
+            var data = {};
+            var table = "table";
+            var funcSuccess = tableSuccess;
+            var funcError = tableError;
+            ajaxtable(url, data, method, table, funcSuccess, funcError);
         }
+        get_data();
+        // END FUNGSI MENAMPILKAN TABLE
 
-        // FUNGSI UPDATE DATA AKUN
-        function update_data(obj) {
+        // FUNGSI MEMBUAT DATA
+        const create_data = (obj) => {
             const form = new FormData(obj);
-            let title = `Apa anda yakin ingin memperbarui data ?`;
-            SweetAlert(title).then((result) => {
-                if (result.isConfirmed) {
-                    $.ajax({
-                        type: "put",
-                        url: `{{ route('update_surat') }}`,
-                        data: {
-                            id: form.get('id_akun'),
-                            user: form.get('nm_user'),
-                            pass: form.get('pass'),
-                        },
-                        beforeSend: function() {
-                            Swal.fire({
-                                html: '<div style="height:50px"><div class="spinner-border text-danger" role="status"></div></div>',
-                                showConfirmButton: false,
-                                allowOutsideClick: false,
-                                background: 'transparent',
-                            });
-                        },
-                        dataType: 'JSON',
-                        success: function(response) {
-                            if (response.success) {
-                                Toast.fire({
-                                    icon: 'success',
-                                    title: 'Success'
-                                });
-                                $('#modal_detail').modal('hide');
-                                get_data_akun()
-                            }
-                        },
-                        error: function(response) {
-                            Swal.fire('Error', '', 'error')
-                        }
-                    })
-                }
-            })
+            success_msg = "Data berhasil dibuat";
+            warning_msg = "Data gagal dibuat";
+            error_msg = "Data gagal dibuat";
+            var url = `{{ route('surat.store') }}`;
+            var method = "POST";
+            var funcSuccess = get_data;
+            var funcError = function () {};
+            ajaxtable(url, form, method, "", funcSuccess, funcError);
+        } 
+        // END FUNGSI MEMBUAT DATA
+
+        // FUNGSI MENAMPILKAN MODAL UPDATE DATA
+        const show_modal = (id) => {
+            success_msg = "Data berhasil ditampilkan";
+            warning_msg = "Data gagal ditampilkan";
+            error_msg = "Data gagal ditampilkan";
+            var url = `{{ route('surat.show', ':id') }}`;
+            url = url.replace(":id", id);
+            var method = "GET";
+            var data = {};
+            var table = "table";
+            var funcSuccess = setDataUpdate;
+            var funcError = function() {};
+            ajaxtable(url, {}, "GET", "", funcSuccess, funcError);
         }
 
-        // FUNGSI HAPUS AKUN
-        function hapus_akun(id) {
-            let title = 'Apa anda yakin ingin menghapus data ?';
-            SweetAlert(title).then((result) => {
-                if (result.isConfirmed) {
-                    $.ajax({
-                        type: "delete",
-                        url: `{{ route('hapus_surat') }}&id=${id}`,
-                        dataType: 'JSON',
-                        success: function(response) {
-                            if (response.success) {
-                                Toast.fire({
-                                    icon: 'success',
-                                    title: 'Success'
-                                });
-                                get_data_akun()
-                            }
-                        },
-                        error: function(response) {
-                            Swal.fire('Error', '', 'error')
-                        }
-                    })
-                }
-            })
+        const setDataUpdate = (data, table) => {
+            $(table).unblock();
+            $('input[name="id_surat"]').val(data.id);
+            $('#nm_surat').val(data.nama_surat);
+            $('#modal_update').modal('show');
         }
+        // END FUNGSI MENAMPILKAN MODAL UPDATE DATA
+
+        // FUNGSI UPDATE DATA
+        const update_data = (obj) => {
+            const form = new FormData(obj);
+            success_msg = "Data berhasil diperbarui";
+            warning_msg = "Data gagal diperbarui";
+            error_msg = "Data gagal diperbarui";
+            var url = `{{ route('surat.update', ':id') }}`;
+            url = url.replace(':id', form.get('id_surat'));
+            data = form;
+            var method = "POST";
+            var funcSuccess = get_data;
+            var funcError = function() {};
+            ajaxtable(url, data, method, "", funcSuccess, funcError)
+        }
+        // END FUNGSI UPDATE DATA
     </script>
 @endsection

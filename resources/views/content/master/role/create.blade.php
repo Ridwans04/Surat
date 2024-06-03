@@ -16,7 +16,7 @@
                         <input type="text" name="role" class="form-control">
                     </div>
                     <div class="col-12 text-center mt-2">
-                        <button type="submit" class="btn btn-primary me-1">Perbarui</button>
+                        <button type="submit" class="btn btn-primary me-1">Simpan</button>
                     </div>
                 </form>
                 </div>

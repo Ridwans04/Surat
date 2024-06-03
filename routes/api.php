@@ -33,6 +33,7 @@ Route::middleware('roleCheck:super_admin')->group(function () {
     Route::prefix('master')->group(function (){
         Route::apiResource("institusi", master_institusiController::class);
         Route::apiResource("role", master_roleController::class);
+        Route::apiResource("surat", master_suratController::class);
     });
 });
 
