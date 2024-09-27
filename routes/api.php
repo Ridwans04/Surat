@@ -19,7 +19,8 @@ use Illuminate\Support\Facades\Route;
 | is assigned the "api" middleware group. Enjoy building your API!
 |
 */
-
+Route::post('/authenticate', [auth_controller::class, 'authenticate'])->name('authenticate');
+Route::post('/verify-otp', [auth_controller::class, 'verifyOtp'])->name('verify.otp');
 // AUTH
 Route::group(['prefix' => 'auth'], function () {
     Route::post('authenticate', [auth_controller::class, 'authenticate'])->name('authenticate');

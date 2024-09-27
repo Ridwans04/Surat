@@ -8,51 +8,54 @@
     var sweet_loader = `<div style="height:50px;"><div class="spinner-border text-success" role="status"></div></div>`;
 
     const ajax = (url, data, method) => {
-        $.ajax({
-            type: method,
-            url: url,
-            data: data,
-            processData: false,
-            contentType: false,
-            beforeSend: function(request) {
-                request.setRequestHeader("Authorization", `Bearer {{ session('token') }}`);
-                Swal.fire({
-                    html: sweet_loader,
-                    showConfirmButton: false,
-                    allowOutsideClick: false,
-                    background: 'transparent',
-                });
-            },
-            dataType: "JSON",
-            success: function(response) {
-                if (response.status == "success") {
-                    Toast.fire({
-                        icon: "success",
-                        title: success_msg,
-                        timer: 1500,
-                        text: response.message ? response.message : "",
-                    });
-                    if (url == `{{ route('authenticate') }}`) {
-                        $('#token').val(response.data);
-                        console.log(response.data);
-                        $('form#setsession').submit();
-                    }
-                } else {
-                    Toast.fire({
-                        icon: "warning",
-                        title: warning_msg,
-                        text: response.message ? response.message : "",
-                    });
-                }
-            },
-            error: function(error) {
-                Toast.fire({
-                    icon: "error",
-                    title: error_msg,
-                    text: error.responseJSON.message ? error.responseJSON.message : "",
-                });
-            }
-        });
+        console.log(url);
+        // $.ajax({
+        //     type: method,
+        //     url: url,
+        //     data: data,
+        //     processData: false,
+        //     contentType: false,
+        //     beforeSend: function(request) {
+        //         request.setRequestHeader("Authorization", `Bearer {{ session('token') }}`);
+        //         Swal.fire({
+        //             html: sweet_loader,
+        //             showConfirmButton: false,
+        //             allowOutsideClick: false,
+        //             background: 'transparent',
+        //         });
+        //     },
+        //     dataType: "JSON",
+        //     success: function(response) {
+        //         window.location.href = "{{ route('otp_verif_page') }}";
+        //         if (response.status == "success") {
+        //             Toast.fire({
+        //                 icon: "success",
+        //                 title: success_msg,
+        //                 timer: 1500,
+        //                 text: response.message ? response.message : "",
+        //             });
+                    
+        //             if (url == `{{ route('authenticate') }}`) {
+        //                 $('#token').val(response.data);
+        //                 console.log(response.data);
+        //                 $('form#setsession').submit();
+        //             }
+        //         } else {
+        //             Toast.fire({
+        //                 icon: "warning",
+        //                 title: warning_msg,
+        //                 text: response.message ? response.message : "",
+        //             });
+        //         }
+        //     },
+        //     error: function(error) {
+        //         Toast.fire({
+        //             icon: "error",
+        //             title: error_msg,
+        //             text: error.responseJSON.message ? error.responseJSON.message : "",
+        //         });
+        //     }
+        // });
     }
 
 

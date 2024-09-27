@@ -26,8 +26,8 @@ Route::post('setSession', [Util::class, 'setSession'])->name('setSession');
 
 Route::prefix('auth')->group(function () {
     Route::prefix('google')->group(function () {
-        Route::get("redirect", [google_authController::class, "redirectGoogle"])->name('redirect.google');
-        Route::get("callback", [google_authController::class, "callback"])->name("callback.google");
+        Route::get('redirect', [google_authController::class, 'redirectGoogle'])->name('redirect.google');
+        Route::get('callback', [google_authController::class, 'callback'])->name('callback.google');
     });
 });
 
@@ -35,12 +35,15 @@ Route::prefix('auth')->group(function () {
 
 // AUTH
 Route::group(['prefix' => 'auth'], function () {
+    Route::get('/otp_verif_page', function () {
+        return view('content/auth/otp_verif');
+    })->name('otp_verif_page');
     Route::view('login_page', 'content/auth/login_page')->name('login');
     Route::post('logout', [auth_controller::class, 'logout'])->name('logout');
     Route::get('regis_page', [auth_controller::class, 'regis'])->name('regis');
     Route::post('registrasi_store', [auth_controller::class, 'regis_store'])->name('regis_store');
 });
-Route::middleware('authenticatedWeb')->group(function () {
+// Route::middleware('authenticatedWeb')->group(function () {
     // BERANDA
     Route::group(['prefix' => 'beranda'], function () {
         Route::view('admin', 'content.home.beranda_admin')->name('beranda.admin');
@@ -51,39 +54,28 @@ Route::middleware('authenticatedWeb')->group(function () {
     // MASTER AKUN
     Route::group(['prefix' => 'akun'], function () {
         Route::view('kelola_user', 'content/master/akun/user/index', [
-            'breadcrumbs' => [
-                ['link' => "javascript:void(0)", 'name' => "Kelola User"], ['link' => "javascript:void(0)", 'name' => "User Role & Institusi"]
-            ],
+            'breadcrumbs' => [['link' => 'javascript:void(0)', 'name' => 'Kelola User'], ['link' => 'javascript:void(0)', 'name' => 'User Role & Institusi']],
         ])->name('kelola_user');
         Route::view('kelola_pegawai', 'content/master/akun/pegawai/index', [
-            'breadcrumbs' => [
-                ['link' => "javascript:void(0)", 'name' => "Kelola Pegawai"], ['link' => "javascript:void(0)", 'name' => "Klasifikasi & Institusi Pegawai"]
-            ],
+            'breadcrumbs' => [['link' => 'javascript:void(0)', 'name' => 'Kelola Pegawai'], ['link' => 'javascript:void(0)', 'name' => 'Klasifikasi & Institusi Pegawai']],
         ])->name('kelola_pegawai');
-        
     });
 
     // MASTER DATA
-    Route::group(['prefix' => 'master'], function(){
+    Route::group(['prefix' => 'master'], function () {
         // MASTER INSTITUSI
         Route::view('institusi', 'content/master/institusi/index', [
-            'breadcrumbs' => [
-                ['link' => "javascript:void(0)", 'name' => "Master Institusi"], ['link' => "javascript:void(0)", 'name' => "Tabel Institusi"]
-            ],
+            'breadcrumbs' => [['link' => 'javascript:void(0)', 'name' => 'Master Institusi'], ['link' => 'javascript:void(0)', 'name' => 'Tabel Institusi']],
         ])->name('master.institusi');
 
         // MASTER ROLE
         Route::view('role', 'content/master/role/index', [
-            'breadcrumbs' => [
-                ['link' => "javascript:void(0)", 'name' => "Master Role"], ['link' => "javascript:void(0)", 'name' => "Data Role"]
-            ],
+            'breadcrumbs' => [['link' => 'javascript:void(0)', 'name' => 'Master Role'], ['link' => 'javascript:void(0)', 'name' => 'Data Role']],
         ])->name('master.role');
 
         // MASTER SURAT
         Route::view('surat', 'content/master/surat/index', [
-            'breadcrumbs' => [
-                ['link' => "javascript:void(0)", 'name' => "Master Surat"], ['link' => "javascript:void(0)", 'name' => "List Surat RJ"]
-            ],
+            'breadcrumbs' => [['link' => 'javascript:void(0)', 'name' => 'Master Surat'], ['link' => 'javascript:void(0)', 'name' => 'List Surat RJ']],
         ])->name('master.surat');
     });
 
@@ -91,4 +83,4 @@ Route::middleware('authenticatedWeb')->group(function () {
     Route::group(['prefix' => 'permohonan'], function () {
         Route::get('surat', [permohonan_suratController::class, 'permohonan_surat'])->name('permohonan_surat');
     });
-});
+// });

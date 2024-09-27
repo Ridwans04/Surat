@@ -30,9 +30,16 @@ class Util extends Controller
             if (is_null(Auth::user())) {
                 Auth::login($dataUser);
             }
-            session()->put('token', $token);
-            session()->put('role', $role);
-            session()->put('institusi', $institusi);
+            $sessionData = [
+                'token' => $token,
+                'role' => $role,
+                'institusi' => $institusi,
+            ];
+        
+            session($sessionData);
+            // session()->put('token', $token);
+            // session()->put('role', $role);
+            // session()->put('institusi', $institusi);
         }
     }
 
