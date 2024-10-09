@@ -40,7 +40,8 @@ Route::group(['prefix' => 'auth'], function () {
     })->name('otp_verif_page');
     Route::view('login_page', 'content/auth/login_page')->name('login');
     Route::post('logout', [auth_controller::class, 'logout'])->name('logout');
-    Route::get('regis_page', [auth_controller::class, 'regis'])->name('regis');
+    // Route::get('regis_page', [auth_controller::class, 'regis'])->name('regis');
+    Route::view('regis_page', 'content/auth/regis_page')->name('regis');
     Route::post('registrasi_store', [auth_controller::class, 'regis_store'])->name('regis_store');
 });
 // Route::middleware('authenticatedWeb')->group(function () {

@@ -15,7 +15,7 @@
     <div class="card mb-0">
       <div class="card-body">
         <a href="#" class="brand-logo">
-            <img src="{{ asset('images/logo/logo.png') }}" width="50" height="20"
+            <img src="{{ asset('images/logo/logo.png') }}" 
                 class="img-fluid me-1 mb-2" alt="Brand logo">
             <h2 class="brand-text text-primary mt-1 "> E-Surat RJ</h2>
         </a>
