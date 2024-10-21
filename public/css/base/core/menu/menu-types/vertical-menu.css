@@ -164,7 +164,7 @@
 .vertical-layout.vertical-menu-modern .toggle-icon,
 .vertical-layout.vertical-menu-modern .collapse-toggle-icon {
   margin-right: 0.425rem;
-  margin-top: 25px;
+  /* margin-top: 25px; */
 }
 .vertical-layout.vertical-menu-modern .toggle-icon:focus,
 .vertical-layout.vertical-menu-modern .collapse-toggle-icon:focus {

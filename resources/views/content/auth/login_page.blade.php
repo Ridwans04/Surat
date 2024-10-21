@@ -32,11 +32,6 @@
                                 placeholder="Masukkan Username Pengguna" required />
                         </div>
                         <div class="mb-1">
-                            <label class="form-label" for="no_hp">No HP</label>
-                            <input class="form-control" id="no_hp" type="text" name="no_hp"
-                                placeholder="Masukkan Nomor HP" required />
-                        </div>
-                        <div class="mb-1">
                             <div class="d-flex justify-content-between">
                                 <label class="form-label" for="password">Kata Sandi</label>
                             </div>
@@ -46,7 +41,7 @@
                                 <span class="input-group-text cursor-pointer"><i data-feather="eye"></i></span>
                             </div>
                         </div>
-                        <button class="btn btn-relief w-100 mb-1 font-small-3"
+                        <button class="btn btn-relief w-100 mb-1 font-small-3" type="submit"
                             style="background-color: #1e5c45; color: white" tabindex="4">LOGIN</button>
                     </form>
                     <span class="d-flex justify-content-center fw-bolder font-small-4"> ATAU</span>
@@ -65,41 +60,41 @@
 @section('page-script')
     <script src="{{ asset(mix('js/scripts/pages/auth-login.js')) }}"></script>
     <script>
-        const authenticate = (formData) => {
-            const data = new FormData(formData);
-            const url = `{{ route('authenticate') }}`;
-
-            fetch(url, {
-                    method: 'POST',
-                    headers: {
-                        'X-CSRF-TOKEN': document.querySelector('input[name="_token"]').value
-                    },
-                    body: data
-                })
-                .then(response => response.json())
-                .then(data => {
-                    if (data.success) {
-                        // Redirect to OTP verification page or show success message
-                        alert('OTP Sent! Redirecting to OTP verification page...');
-                        window.location.href = "{{ route('otp_verif_page') }}";
-                    } else {
-                        // Show error message
-                        alert(data.message);
-                    }
-                })
-                .catch(error => {
-                    console.error('Error:', error);
-                    alert('An error occurred, please try again.');
-                });
-        }
-
         // const authenticate = (formData) => {
-        //     success_msg = "Login Anda Berhasil";
-        //     warning_msg = "Username Atau Password Salah";
-        //     error_msg = "error";
         //     const data = new FormData(formData);
         //     const url = `{{ route('authenticate') }}`;
-        //     ajax(url, data, 'POST');
+
+        //     fetch(url, {
+        //             method: 'POST',
+        //             headers: {
+        //                 'X-CSRF-TOKEN': document.querySelector('input[name="_token"]').value
+        //             },
+        //             body: data
+        //         })
+        //         .then(response => response.json())
+        //         .then(data => {
+        //             if (data.success) {
+        //                 // Redirect to OTP verification page or show success message
+        //                 alert('OTP Sent! Redirecting to OTP verification page...');
+        //                 window.location.href = "{{ route('otp_verif_page') }}";
+        //             } else {
+        //                 // Show error message
+        //                 alert(data.message);
+        //             }
+        //         })
+        //         .catch(error => {
+        //             console.error('Error:', error);
+        //             alert('An error occurred, please try again.');
+        //         });
         // }
+
+        const authenticate = (formData) => {
+            success_msg = "Login Anda Berhasil";
+            warning_msg = "Username Atau Password Salah";
+            error_msg = "error";
+            const data = new FormData(formData);
+            const url = `{{ route('authenticate') }}`;
+            ajax(url, data, 'POST');
+        }
     </script>
 @endsection

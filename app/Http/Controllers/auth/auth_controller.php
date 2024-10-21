@@ -22,107 +22,107 @@ class auth_controller extends Controller
         $this->util = new Util();
     }
 
-    // public function authenticate(Request $request)
-    // {
-    //     $credentials = $request->validate([
-    //         'nip' => 'required',
-    //         'password' => 'required',
-    //     ]);
-
-    //     // MENGAMBIL DATA USERS
-    //     $usersCheck = User::all()
-    //         ->where('nip', '=', $request->nip)
-    //         ->first();
-
-    //     $key = 'verify:' . $request->ip();
-
-    //     $maxAttempt = 5;
-    //     if (RateLimiter::tooManyAttempts($key, $maxAttempt)) {
-    //         $seconds = RateLimiter::availableIn($key);
-    //         return response()->json(['status' => 'failed', 'message' => 'Sudah Mencoba Terlalu Banyak, Bisa Mencoba Lagi Dalam ' . floor($seconds / 60) . ' Menit ' . $seconds % 60 . ' Detik'], 200);
-    //     }
-    //     $executed = RateLimiter::attempt(
-    //         $key,
-    //         $maxAttempt,
-    //         function () use ($request, $credentials, $usersCheck, $key, $maxAttempt) {
-    //             if (is_null($usersCheck)) {
-    //                 $remaining = RateLimiter::remaining($key, $maxAttempt);
-    //                 return response()->json(['status' => 'failed', 'message' => 'Nip Atau Password Salah, Sisa ' . $remaining . ' kali Percobaan'], 200);
-    //             }
-    //             if (Auth::attempt($credentials)) {
-    //                 $payload = [
-    //                     'sub' => $usersCheck->sub,
-    //                     'surat_id' => ['id' => $usersCheck->id],
-    //                     'iss' => 'E-surat RaudlLatul Jannah',
-    //                     'exp' => time() + env('TIME_EXPIRATION'),
-    //                 ];
-    //                 try {
-    //                     $jwt = $this->util->makeJWT($payload);
-    //                     return response()->json(
-    //                         [
-    //                             'status' => 'success',
-    //                             'data' => $jwt,
-    //                         ],
-    //                         200,
-    //                     );
-    //                 } catch (\Throwable $th) {
-    //                     return response()->json(['status' => 'failed'], 400);
-    //                 }
-    //             } else {
-    //                 $remaining = RateLimiter::remaining($key, $maxAttempt);
-    //                 return response()->json(['status' => 'failed', 'message' => 'Nip Atau Password Salah, Sisa ' . $remaining . ' kali Percobaan'], 200);
-    //             }
-    //         },
-    //         300,
-    //     );
-    //     return $executed;
-    // }
-
     public function authenticate(Request $request)
     {
-        $request->validate([
-            'nip' => 'required|string',
-            'password' => 'required|string',
-            'no_hp' => 'required|numeric',
+        $credentials = $request->validate([
+            'nip' => 'required',
+            'password' => 'required',
         ]);
 
-        $nip = $request->input('nip');
-        $password = $request->input('password');
-        $nomor = $request->input('no_hp');
+        // MENGAMBIL DATA USERS
+        $usersCheck = User::all()
+            ->where('nip', '=', $request->nip)
+            ->first();
 
-        // Verifikasi NIP dan password
-        $user = User::where('nip', $nip)->first();
+        $key = 'verify:' . $request->ip();
 
-        if ($user && Hash::check($password, $user->password)) {
-            // Hapus OTP lama jika ada
-            $user->otp = null;
-            $user->otp_time = null;
-            $user->save();
-
-            // Generate OTP
-            $otp = rand(100000, 999999);
-            $user->otp = $otp;
-            $user->otp_time = now();
-            $user->save();
-
-            // Kirim OTP melalui Fonnte API
-            $response = Http::withHeaders([
-                'Authorization' => '7XkD@qKvbcoBFxkP8hpr',
-            ])->post('https://api.fonnte.com/send', [
-                'target' => $nomor,
-                'message' => 'Your OTP : ' . $otp,
-            ]);
-
-            if ($response->successful()) {
-                // Kirim respon JSON agar AJAX bisa menangani
-                return response()->json(['success' => true, 'message' => 'OTP sent successfully.']);
-            } else {
-                return response()->json(['success' => false, 'message' => 'Failed to send OTP.']);
-            }
-        } else {
-            return response()->json(['success' => false, 'message' => 'Invalid NIP or password.']);
+        $maxAttempt = 5;
+        if (RateLimiter::tooManyAttempts($key, $maxAttempt)) {
+            $seconds = RateLimiter::availableIn($key);
+            return response()->json(['status' => 'failed', 'message' => 'Sudah Mencoba Terlalu Banyak, Bisa Mencoba Lagi Dalam ' . floor($seconds / 60) . ' Menit ' . $seconds % 60 . ' Detik'], 200);
         }
+        $executed = RateLimiter::attempt(
+            $key,
+            $maxAttempt,
+            function () use ($request, $credentials, $usersCheck, $key, $maxAttempt) {
+                if (is_null($usersCheck)) {
+                    $remaining = RateLimiter::remaining($key, $maxAttempt);
+                    return response()->json(['status' => 'failed', 'message' => 'Nip Atau Password Salah, Sisa ' . $remaining . ' kali Percobaan'], 200);
+                }
+                if (Auth::attempt($credentials)) {
+                    $payload = [
+                        'sub' => $usersCheck->sub,
+                        'surat_id' => ['id' => $usersCheck->id],
+                        'iss' => 'E-surat RaudlLatul Jannah',
+                        'exp' => time() + env('TIME_EXPIRATION'),
+                    ];
+                    try {
+                        $jwt = $this->util->makeJWT($payload);
+                        return response()->json(
+                            [
+                                'status' => 'success',
+                                'data' => $jwt,
+                            ],
+                            200,
+                        );
+                    } catch (\Throwable $th) {
+                        return response()->json(['status' => 'failed'], 400);
+                    }
+                } else {
+                    $remaining = RateLimiter::remaining($key, $maxAttempt);
+                    return response()->json(['status' => 'failed', 'message' => 'Nip Atau Password Salah, Sisa ' . $remaining . ' kali Percobaan'], 200);
+                }
+            },
+            300,
+        );
+        return $executed;
     }
+
+    // public function authenticate(Request $request)
+    // {
+    //     $request->validate([
+    //         'nip' => 'required|string',
+    //         'password' => 'required|string',
+    //         'no_hp' => 'required|numeric',
+    //     ]);
+
+    //     $nip = $request->input('nip');
+    //     $password = $request->input('password');
+    //     $nomor = $request->input('no_hp');
+
+    //     // Verifikasi NIP dan password
+    //     $user = User::where('nip', $nip)->first();
+
+    //     if ($user && Hash::check($password, $user->password)) {
+    //         // Hapus OTP lama jika ada
+    //         $user->otp = null;
+    //         $user->otp_time = null;
+    //         $user->save();
+
+    //         // Generate OTP
+    //         $otp = rand(100000, 999999);
+    //         $user->otp = $otp;
+    //         $user->otp_time = now();
+    //         $user->save();
+
+    //         // Kirim OTP melalui Fonnte API
+    //         $response = Http::withHeaders([
+    //             'Authorization' => '7XkD@qKvbcoBFxkP8hpr',
+    //         ])->post('https://api.fonnte.com/send', [
+    //             'target' => $nomor,
+    //             'message' => 'Your OTP : ' . $otp,
+    //         ]);
+
+    //         if ($response->successful()) {
+    //             // Kirim respon JSON agar AJAX bisa menangani
+    //             return response()->json(['success' => true, 'message' => 'OTP sent successfully.']);
+    //         } else {
+    //             return response()->json(['success' => false, 'message' => 'Failed to send OTP.']);
+    //         }
+    //     } else {
+    //         return response()->json(['success' => false, 'message' => 'Invalid NIP or password.']);
+    //     }
+    // }
 
     // Method untuk memverifikasi OTP
     public function verifyOtp(Request $request)

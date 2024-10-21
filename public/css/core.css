@@ -2883,7 +2883,7 @@ textarea.form-control-lg {
 .input-group {
   position: relative;
   display: flex;
-  flex-wrap: wrap;
+  flex-wrap: nowrap;
   align-items: stretch;
   width: 100%;
 }
@@ -10011,7 +10011,8 @@ textarea.form-control-lg {
   .d-lg-flex {
     display: flex !important;
     padding:0;
-    background-color: black;
+    /* background-color: #fff; */
+    background-color: #fcfdff3b;
   }
 
   .d-lg-inline-flex {
@@ -18601,7 +18602,7 @@ footer.footer-border {
   max-width: 36px;
 }
 .main-menu .navbar-header .navbar-brand .brand-text {
-  color: #28c76f;
+  color: #7367f0;
   padding-left: 1rem;
   margin-bottom: 1px;
   font-weight: 600;

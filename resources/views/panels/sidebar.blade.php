@@ -8,9 +8,9 @@
             <li class="nav-item me-auto">
                 <a class="navbar-brand" href="{{ url('/') }}">
                     <span class="brand-logo">
-                        <img src="{{ asset('images/logo/logo1.png') }}" class="img-fluid " alt="Brand logo">
+                        <img src="{{ asset('images/logo/logo.png') }}" class="img-fluid " alt="Brand logo">
                     </span>
-                    <h2 class="brand-text">E-SURAT</h2>
+                    <h3 class="brand-text">LETTEASE</h3>
                 </a>
             </li>
             <li class="nav-item nav-toggle">
