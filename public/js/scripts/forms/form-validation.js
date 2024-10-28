@@ -78,9 +78,9 @@ $(function () {
           required: true,
           email: true
         },
-        'basic-default-password': {
-          required: true
-        },
+        // 'basic-default-password': {
+        //   required: true
+        // },
         'confirm-password': {
           required: true,
           equalTo: '#basic-default-password'
