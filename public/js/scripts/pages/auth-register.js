@@ -56,6 +56,11 @@ $(function () {
   // multi-steps registration
   // --------------------------------------------------------------------
 
+  // Menambahkan metode regex ke jQuery Validation
+  $.validator.addMethod("regex", function(value, element, regex) {
+    return this.optional(element) || regex.test(value);
+  }, "Password harus mengandung huruf besar, huruf kecil, angka, dan karakter khusus");
+
   // Horizontal Wizard
   if (typeof registerMultiStepsWizard !== undefined && registerMultiStepsWizard !== null) {
     var numberedStepper = new Stepper(registerMultiStepsWizard),
@@ -72,11 +77,10 @@ $(function () {
           },
           password: {
             required: true,
-            minlength: 8
+            regex: /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/
           },
           'confirm-password': {
             required: true,
-            minlength: 8,
             equalTo: '#password'
           },
           'first-name': {
@@ -91,13 +95,12 @@ $(function () {
         },
         messages: {
           password: {
-            required: 'Enter new password',
-            minlength: 'Enter at least 8 characters'
+            required: 'Masukkan password baru',
+            regex: 'Password harus mengandung huruf besar, huruf kecil, angka, karakter khusus, dan minimal 8 karakter.'
           },
           'confirm-password': {
-            required: 'Please confirm new password',
-            minlength: 'Enter at least 8 characters',
-            equalTo: 'The password and its confirm are not the same'
+            required: 'Konfirmasi password baru',
+            equalTo: 'Password dan konfirmasi tidak sama'
           }
         }
       });

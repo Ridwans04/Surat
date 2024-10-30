@@ -9,6 +9,7 @@
   "license": "MIT",
   "require": {
     "php": "^8.0.2",
+    "anhskohbo/no-captcha": "^3.6",
     "firebase/php-jwt": "^6.10",
     "fruitcake/laravel-cors": "^2.0.5",
     "guzzlehttp/guzzle": "^7.2",
@@ -16,6 +17,7 @@
     "laravel/sanctum": "^2.14",
     "laravel/socialite": "^5.14",
     "laravel/tinker": "^2.7",
+    "mews/captcha": "^3.4",
     "twilio/sdk": "^8.3"
   },
   "require-dev": {

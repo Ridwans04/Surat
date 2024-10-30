@@ -12,6 +12,7 @@ use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\RateLimiter;
 use Illuminate\Support\Facades\Session;
+use Illuminate\Support\Facades\Validator;
 
 class auth_controller extends Controller
 {
@@ -20,6 +21,49 @@ class auth_controller extends Controller
     public function __construct()
     {
         $this->util = new Util();
+    }
+
+    public function send_otp(Request $request)
+    {
+        // Validasi input nomor telepon dari AJAX
+        $validator = Validator::make($request->all(), [
+            'mobile_number' => 'required|numeric'
+        ]);
+
+        if ($validator->fails()) {
+            return response()->json(['success' => false, 'message' => 'Nomor telepon tidak valid.'], 422);
+        }
+
+        // Generate OTP
+        $otp = rand(100000, 999999);
+
+        try {
+            // Kirim OTP melalui Fonnte API
+            $response = Http::withHeaders([
+                'Authorization' => '7XkD@qKvbcoBFxkP8hpr',
+            ])->post('https://api.fonnte.com/send', [
+                'target' => $request->input('mobile_number'), // langsung ambil dari request
+                'message' => 'Your OTP: ' . $otp,
+            ]);
+
+            // Cek apakah respons dari Fonnte berhasil
+            if ($response->successful()) {
+                // Simpan OTP ke dalam session (atau database jika diperlukan)
+                session(['otp' => $otp]);
+
+                return response()->json(['success' => true, 'message' => 'Kode OTP berhasil dikirim.']);
+            } else {
+                return response()->json(['success' => false, 'message' => 'Gagal mengirim OTP. Silakan coba lagi.']);
+            }
+        } catch (\Exception $e) {
+            // Penanganan error jika terjadi masalah koneksi atau server Fonnte
+            return response()->json(['success' => false, 'message' => 'Terjadi kesalahan saat mengirim OTP: ' . $e->getMessage()]);
+        }
+    }
+
+    public function registration()
+    {
+        
     }
 
     public function authenticate(Request $request)
@@ -99,19 +143,7 @@ class auth_controller extends Controller
     //         $user->otp_time = null;
     //         $user->save();
 
-    //         // Generate OTP
-    //         $otp = rand(100000, 999999);
-    //         $user->otp = $otp;
-    //         $user->otp_time = now();
-    //         $user->save();
-
-    //         // Kirim OTP melalui Fonnte API
-    //         $response = Http::withHeaders([
-    //             'Authorization' => '7XkD@qKvbcoBFxkP8hpr',
-    //         ])->post('https://api.fonnte.com/send', [
-    //             'target' => $nomor,
-    //             'message' => 'Your OTP : ' . $otp,
-    //         ]);
+    //         
 
     //         if ($response->successful()) {
     //             // Kirim respon JSON agar AJAX bisa menangani

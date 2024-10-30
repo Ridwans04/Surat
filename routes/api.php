@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\api\captcha_controller;
 use App\Http\Controllers\auth\auth_controller;
 use App\Http\Controllers\data\permohonan_suratController;
 use App\Http\Controllers\master\master_institusiController;
@@ -20,7 +21,9 @@ use Illuminate\Support\Facades\Route;
 |
 */
 Route::post('/authenticate', [auth_controller::class, 'authenticate'])->name('authenticate');
+Route::post('/send_otp', [auth_controller::class, 'send_otp'])->name('send_otp');
 Route::post('/verify-otp', [auth_controller::class, 'verifyOtp'])->name('verify.otp');
+Route::post('/validate-captcha', [captcha_controller::class, 'validateCaptcha'])->name('captcha.validate');
 // AUTH
 Route::group(['prefix' => 'auth'], function () {
     Route::post('authenticate', [auth_controller::class, 'authenticate'])->name('authenticate');

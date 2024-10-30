@@ -8,6 +8,7 @@
 @yield('vendor-style')
 <!-- END: Vendor CSS-->
 
+<script src="https://www.google.com/recaptcha/enterprise.js?render=6Le8NW8qAAAAADs_SqqfWUE-nZJCaITleHE9CXk7"></script>
 <!-- BEGIN: Theme CSS-->
 <link rel="stylesheet" href="{{ asset(mix('css/core.css')) }}" />
 <link rel="stylesheet" href="{{ asset(mix('css/base/themes/dark-layout.css')) }}" />

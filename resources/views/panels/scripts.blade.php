@@ -98,4 +98,5 @@
 <!-- END: Theme JS-->
 <!-- BEGIN: Page JS-->
 @yield('page-script')
+@stack('sub-script')
 <!-- END: Page JS-->
