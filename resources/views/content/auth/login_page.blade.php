@@ -60,34 +60,6 @@
 @section('page-script')
     <script src="{{ asset(mix('js/scripts/pages/auth-login.js')) }}"></script>
     <script>
-        // const authenticate = (formData) => {
-        //     const data = new FormData(formData);
-        //     const url = `{{ route('authenticate') }}`;
-
-        //     fetch(url, {
-        //             method: 'POST',
-        //             headers: {
-        //                 'X-CSRF-TOKEN': document.querySelector('input[name="_token"]').value
-        //             },
-        //             body: data
-        //         })
-        //         .then(response => response.json())
-        //         .then(data => {
-        //             if (data.success) {
-        //                 // Redirect to OTP verification page or show success message
-        //                 alert('OTP Sent! Redirecting to OTP verification page...');
-        //                 window.location.href = "{{ route('otp_verif_page') }}";
-        //             } else {
-        //                 // Show error message
-        //                 alert(data.message);
-        //             }
-        //         })
-        //         .catch(error => {
-        //             console.error('Error:', error);
-        //             alert('An error occurred, please try again.');
-        //         });
-        // }
-
         const authenticate = (formData) => {
             success_msg = "Login Anda Berhasil";
             warning_msg = "Username Atau Password Salah";

@@ -27,7 +27,7 @@ class auth_controller extends Controller
     {
         // Validasi input nomor telepon dari AJAX
         $validator = Validator::make($request->all(), [
-            'mobile_number' => 'required|numeric'
+            'mobile_number' => 'required|numeric',
         ]);
 
         if ($validator->fails()) {
@@ -61,9 +61,23 @@ class auth_controller extends Controller
         }
     }
 
-    public function registration()
+    public function registration(Request $request)
     {
-        
+        $request->validate([
+            'username' => 'required|string',
+            'password' => 'required|string',
+            'no_hp' => 'required|numeric',
+        ]);
+
+        $nip = $request->input('nip');
+        $password = $request->input('password');
+        $nomor = $request->input('no_hp');
+
+        // Verifikasi NIP dan password
+        $user = User::where('nip', $nip)->first();
+            
+        return response()->json(['success' => true, 'message' => 'OTP sent successfully.']);
+           
     }
 
     public function authenticate(Request $request)
@@ -121,40 +135,6 @@ class auth_controller extends Controller
         );
         return $executed;
     }
-
-    // public function authenticate(Request $request)
-    // {
-    //     $request->validate([
-    //         'nip' => 'required|string',
-    //         'password' => 'required|string',
-    //         'no_hp' => 'required|numeric',
-    //     ]);
-
-    //     $nip = $request->input('nip');
-    //     $password = $request->input('password');
-    //     $nomor = $request->input('no_hp');
-
-    //     // Verifikasi NIP dan password
-    //     $user = User::where('nip', $nip)->first();
-
-    //     if ($user && Hash::check($password, $user->password)) {
-    //         // Hapus OTP lama jika ada
-    //         $user->otp = null;
-    //         $user->otp_time = null;
-    //         $user->save();
-
-    //         
-
-    //         if ($response->successful()) {
-    //             // Kirim respon JSON agar AJAX bisa menangani
-    //             return response()->json(['success' => true, 'message' => 'OTP sent successfully.']);
-    //         } else {
-    //             return response()->json(['success' => false, 'message' => 'Failed to send OTP.']);
-    //         }
-    //     } else {
-    //         return response()->json(['success' => false, 'message' => 'Invalid NIP or password.']);
-    //     }
-    // }
 
     // Method untuk memverifikasi OTP
     public function verifyOtp(Request $request)

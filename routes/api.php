@@ -20,24 +20,28 @@ use Illuminate\Support\Facades\Route;
 | is assigned the "api" middleware group. Enjoy building your API!
 |
 */
-Route::post('/authenticate', [auth_controller::class, 'authenticate'])->name('authenticate');
-Route::post('/send_otp', [auth_controller::class, 'send_otp'])->name('send_otp');
-Route::post('/verify-otp', [auth_controller::class, 'verifyOtp'])->name('verify.otp');
-Route::post('/validate-captcha', [captcha_controller::class, 'validateCaptcha'])->name('captcha.validate');
-// AUTH
+// AUTH API ROUTE
 Route::group(['prefix' => 'auth'], function () {
+    Route::post('registration', [auth_controller::class, 'registration'])->name('registration');
     Route::post('authenticate', [auth_controller::class, 'authenticate'])->name('authenticate');
+    Route::post('logout', [auth_controller::class, 'logout'])->name('logout');   
+    Route::post('/send_otp', [auth_controller::class, 'send_otp'])->name('send_otp');
+    Route::post('/verify-otp', [auth_controller::class, 'verifyOtp'])->name('verify.otp');
 });
+// END AUTH ROUTE
+
+// AUTH
+
 // MASTER AKUN
 Route::middleware('roleCheck:super_admin')->group(function () {
     Route::prefix('user')->group(function () {
-        Route::apiResource("user_role", user_roleController::class);
-        Route::apiResource("user_ins", user_institusiController::class);
+        Route::apiResource('user_role', user_roleController::class);
+        Route::apiResource('user_ins', user_institusiController::class);
     });
-    Route::prefix('master')->group(function (){
-        Route::apiResource("institusi", master_institusiController::class);
-        Route::apiResource("role", master_roleController::class);
-        Route::apiResource("surat", master_suratController::class);
+    Route::prefix('master')->group(function () {
+        Route::apiResource('institusi', master_institusiController::class);
+        Route::apiResource('role', master_roleController::class);
+        Route::apiResource('surat', master_suratController::class);
     });
 });
 

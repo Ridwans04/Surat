@@ -19,31 +19,30 @@ use App\Http\Controllers\Util;
 |
 */
 
-// Main Page Route
+// MAIN PAGE
 Route::view('/', 'content/auth/login_page')->name('login');
-Route::view('/privacy', 'content/privacy_policies/privacy');
-Route::post('setSession', [Util::class, 'setSession'])->name('setSession');
 
+// SESSION USER ROUTE
+Route::post('setSession', [Util::class, 'setSession'])->name('setSession');
+// END SESSION ROUTE
+
+// GOOGLE SSO AUTH
 Route::prefix('auth')->group(function () {
     Route::prefix('google')->group(function () {
         Route::get('redirect', [google_authController::class, 'redirectGoogle'])->name('redirect.google');
         Route::get('callback', [google_authController::class, 'callback'])->name('callback.google');
     });
 });
-
-// Route::get('/toggle-theme', [Util::class, 'toggleTheme'])->name('theme.toggle');
+Route::view('/privacy', 'content/privacy_policies/privacy');
+// END SSO ROUTE
 
 // AUTH
 Route::group(['prefix' => 'auth'], function () {
-    Route::get('/otp_verif_page', function () {
-        return view('content/auth/otp_verif');
-    })->name('otp_verif_page');
     Route::view('login_page', 'content/auth/login_page')->name('login');
-    Route::post('logout', [auth_controller::class, 'logout'])->name('logout');
-    // Route::get('regis_page', [auth_controller::class, 'regis'])->name('regis');
     Route::view('regis_page', 'content/auth/registrasi/regis_page')->name('regis');
-    Route::post('registrasi_store', [auth_controller::class, 'regis_store'])->name('regis_store');
 });
+// END AUTH ROUTE
+
 // Route::middleware('authenticatedWeb')->group(function () {
     // BERANDA
     Route::group(['prefix' => 'beranda'], function () {

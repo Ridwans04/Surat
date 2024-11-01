@@ -14,7 +14,7 @@
         <div class="auth-inner my-2" style="max-width: 450px">
             <!-- Register basic -->
             <div class="card mb-0 w-100">
-                <div class="card-body p-3">
+                <div class="card-body mb-0 p-3">
                     <a href="#" class="brand-logo">
                         <svg viewbox="0 0 139 95" version="1.1" xmlns="http://www.w3.org/2000/svg"
                             xmlns:xlink="http://www.w3.org/1999/xlink" height="35">
@@ -58,29 +58,30 @@
                     <h2 class="fw-bolder text-center mb-75">Halaman Registrasi 🔒</h2>
 
                     <form class="auth-register-form mt-2" onsubmit="event.preventDefault(), registration">
-                        <div class="row mb-1">
+                        <div class="row">
                             <div class="mb-1">
                                 <label class="form-label" for="username">Username</label>
                                 <input type="text" name="username" id="username" class="form-control"
-                                    placeholder="Masukkan disini" required/>
+                                    placeholder="Masukkan disini" required />
                             </div>
                             <div class="mb-1">
                                 <label class="form-label" for="password">Password</label>
                                 <div class="input-group input-group-merge form-password-toggle">
                                     <input type="password" name="password" id="password" class="form-control"
-                                        placeholder="&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;" required/>
+                                        placeholder="&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;"
+                                        required />
                                     <span class="input-group-text cursor-pointer"><i data-feather="eye"></i></span>
                                 </div>
                             </div>
                             <div class=" mb-1">
                                 <label class="form-label" for="no_telp">Nomor Telepon</label>
                                 <input type="text" name="no_telp" id="no_telp" class="form-control mobile-number-mask"
-                                    placeholder="cth : 08712345678" required/>
+                                    placeholder="cth : 08712345678" required />
                             </div>
                             <div class="col-md-7 mb-1">
                                 <label class="form-label" for="otp">Kode OTP</label>
                                 <input type="text" name="otp" id="otp" class="form-control"
-                                    placeholder="*****" required/>
+                                    placeholder="*****" required />
                             </div>
                             <div class="col-md-5 mb-1" style="margin-top: 1.1em">
                                 <button onclick="sendOTP()" id="btn_otp" type="button"
@@ -98,9 +99,9 @@
                     </form>
 
                     <p class="text-center mt-2">
-                        <span>Already have an account?</span>
-                        <a href="{{ url('auth/login-basic') }}">
-                            <span>Sign in instead</span>
+                        <span>Apakah anda sudah memiliki akun?</span>
+                        <a href="{{ route('login') }}">
+                            <span>Login Sekarang</span>
                         </a>
                     </p>
                 </div>
@@ -120,7 +121,7 @@
 
 @section('page-script')
 
-    <script src="https://www.google.com/recaptcha/api.js" async defer></script>    
+    <script src="https://www.google.com/recaptcha/api.js" async defer></script>
     <script src="{{ asset(mix('js/scripts/pages/auth-register.js')) }}"></script>
     <script>
         function sendOTP() {
@@ -154,6 +155,15 @@
                     }
                 })
                 .catch(error => console.error('Error:', error));
+        }
+
+        const registration = (formData) => {
+            success_msg = "Registrasi Berhasil";
+            warning_msg = "Registrasi Gagal";
+            error_msg = "Error";
+            const data = new FormData(formData);
+            const url = `{{ route('registration') }}`;
+            ajax(url, data, 'POST');
         }
     </script>
 @endsection
