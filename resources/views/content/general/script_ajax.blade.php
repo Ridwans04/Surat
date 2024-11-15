@@ -32,7 +32,9 @@
                         timer: 1500,
                         text: response.message ? response.message : "",
                     });
-                    
+                    if (url == `{{ route('registration') }}`) {
+                        window.location.href = response.redirect_url;
+                    }
                     if (url == `{{ route('authenticate') }}`) {
                         $('#token').val(response.data);
                         console.log(response.data);

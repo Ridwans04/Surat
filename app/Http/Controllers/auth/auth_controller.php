@@ -63,21 +63,45 @@ class auth_controller extends Controller
 
     public function registration(Request $request)
     {
-        $request->validate([
-            'username' => 'required|string',
-            'password' => 'required|string',
-            'no_hp' => 'required|numeric',
+        // Validasi data yang dikirimkan
+        $validator = Validator::make($request->all(), [
+            'nama' => 'required|string|max:255|nama',
+            'password' => 'required|string|min:6',
+            'nip' => 'required|string|max:255|unique:users,nip',
+            'no_telp' => 'required|num|min:10|max:15',
+            'otp' => 'required|string|min:5|max:6',
         ]);
 
-        $nip = $request->input('nip');
-        $password = $request->input('password');
-        $nomor = $request->input('no_hp');
+        // Jika validasi gagal, kirimkan respon error
+        if ($validator->fails()) {
+            return response()->json(
+                [
+                    'status' => 'error',
+                    'message' => 'Data tidak valid',
+                    'errors' => $validator->errors(),
+                ],
+                422,
+            );
+        }
 
-        // Verifikasi NIP dan password
-        $user = User::where('nip', $nip)->first();
-            
-        return response()->json(['success' => true, 'message' => 'OTP sent successfully.']);
-           
+        // Simpan data pengguna baru ke database
+        $user = new User();
+        $user->nama = $request->nama;
+        $user->password = Hash::make($request->password);
+        $user->nip = $request->nip;
+        $user->no_telp = $request->no_telp;
+        $user->otp = $request->otp;
+        $user->save();
+
+        // Kembalikan respon sukses dengan URL halaman login
+        return response()->json(
+            [
+                'status' => 'success',
+                'message' => 'Registrasi berhasil',
+                'redirect_url' => route('login'), // Pastikan route login sudah diatur
+            ],
+            201,
+        );
     }
 
     public function authenticate(Request $request)

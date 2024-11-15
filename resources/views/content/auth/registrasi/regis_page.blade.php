@@ -57,11 +57,11 @@
                     {{-- <h4 class="card-title text-center mb-1">Halaman Registrasi 🔒</h4> --}}
                     <h2 class="fw-bolder text-center mb-75">Halaman Registrasi 🔒</h2>
 
-                    <form class="auth-register-form mt-2" onsubmit="event.preventDefault(), registration">
+                    <form class="auth-register-form mt-2" onsubmit="event.preventDefault(), registration(this)">
                         <div class="row">
                             <div class="mb-1">
-                                <label class="form-label" for="username">Username</label>
-                                <input type="text" name="username" id="username" class="form-control"
+                                <label class="form-label" for="nama">Nama Lengkap</label>
+                                <input type="text" name="nama" id="nama" class="form-control"
                                     placeholder="Masukkan disini" required />
                             </div>
                             <div class="mb-1">
@@ -72,6 +72,12 @@
                                         required />
                                     <span class="input-group-text cursor-pointer"><i data-feather="eye"></i></span>
                                 </div>
+                                <span id="error" class="error"></span>
+                            </div>
+                            <div class="mb-1">
+                                <label class="form-label" for="nip">NIP</label>
+                                <input type="text" name="nip" id="nip" class="form-control"
+                                    placeholder="Masukkan disini" required />
                             </div>
                             <div class=" mb-1">
                                 <label class="form-label" for="no_telp">Nomor Telepon</label>
@@ -112,11 +118,7 @@
 @endsection
 
 @section('vendor-script')
-    <script src="{{ asset(mix('vendors/js/forms/wizard/bs-stepper.min.js')) }}"></script>
-    <script src="{{ asset(mix('vendors/js/forms/select/select2.full.min.js')) }}"></script>
-    <script src="{{ asset(mix('vendors/js/forms/validation/jquery.validate.min.js')) }}"></script>
-    <script src="{{ asset(mix('vendors/js/forms/cleave/cleave.min.js')) }}"></script>
-    <script src="{{ asset(mix('vendors/js/forms/cleave/addons/cleave-phone.us.js')) }}"></script>
+    <script src="{{ asset('vendors/js/forms/validation/jquery.validate.min.js') }}"></script>
 @endsection
 
 @section('page-script')
@@ -124,10 +126,28 @@
     <script src="https://www.google.com/recaptcha/api.js" async defer></script>
     <script src="{{ asset(mix('js/scripts/pages/auth-register.js')) }}"></script>
     <script>
+        // Validasi Password
+        document.getElementById("password").addEventListener("blur", function() {
+            const password = document.getElementById("password").value;
+            const error = document.getElementById("error");
+
+            // Regular expression untuk validasi password
+            const pattern = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/;
+
+            if (!pattern.test(password)) {
+                error.textContent =
+                    "Password harus mengandung huruf besar, huruf kecil, angka, karakter khusus, dan minimal 8 karakter.";
+            } else {
+                error.textContent = ""; // Kosongkan pesan kesalahan jika valid
+            }
+        });
+
+        // Mengirim Kode OTP
         function sendOTP() {
             document.getElementById("captcha-container").style.display = "block";
         }
 
+        // Verifikasi Captcha
         function captchaVerified() {
             const mobileNumber = document.getElementById('no_telp').value;
 

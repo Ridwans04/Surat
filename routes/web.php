@@ -38,7 +38,7 @@ Route::view('/privacy', 'content/privacy_policies/privacy');
 
 // AUTH
 Route::group(['prefix' => 'auth'], function () {
-    Route::view('login_page', 'content/auth/login_page')->name('login');
+    Route::view('login_page', 'content/auth/login/login_page')->name('login');
     Route::view('regis_page', 'content/auth/registrasi/regis_page')->name('regis');
 });
 // END AUTH ROUTE
