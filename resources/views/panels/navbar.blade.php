@@ -36,7 +36,7 @@
                 data-bs-toggle="dropdown" aria-haspopup="true">
                 <div class="user-nav d-sm-flex d-none">
                     <span class="user-name fw-bolder">
-                        {{ Auth::user()->username }}
+                        {{ session('username') }}
                     </span>
                     <p style="white-space: nowrap" class="font-medium-1">
                         @foreach (session('role') as $key)

@@ -24,7 +24,6 @@ use Illuminate\Support\Facades\Route;
 Route::group(['prefix' => 'auth'], function () {
     Route::post('registration', [auth_controller::class, 'registration'])->name('registration');
     Route::post('authenticate', [auth_controller::class, 'authenticate'])->name('authenticate');
-    Route::post('logout', [auth_controller::class, 'logout'])->name('logout');   
     Route::post('/send_otp', [auth_controller::class, 'send_otp'])->name('send_otp');
     Route::post('/verify-otp', [auth_controller::class, 'verifyOtp'])->name('verify.otp');
 });

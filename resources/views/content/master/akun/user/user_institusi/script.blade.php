@@ -12,17 +12,17 @@
                     <i data-feather="edit"></i>
                      Edit</button>
                 `
-            var role = [];
-            val.has_many_userrole.forEach(userRole => {
+            var ins = [];
+            val.has_many_userins.forEach(userIns => {
                 if (userRole.has_one_masterins && userRole.has_one_masterins.institusi) {
-                    role.push(
-                        `<span class="btn btn-outline-success">${userRole.has_one_masterrole.role.replaceAll("_", " ")}</span>`
+                    ins.push(
+                        `<span class="btn btn-outline-success">${userIns.has_one_masterins.nama_institusi.replaceAll("_", " ")}</span>`
                     );
                 }
             });
             html_row += `<tr>
                             <td>${val.username}</td>
-                            <td>${role.join(" ")}</td>
+                            <td>${ins.join(" ")}</td>
                             <td>${menu}</td>
                         </tr>`;
         });
@@ -30,7 +30,7 @@
             <thead>
                 <tr>
                     <th>Nama</th>
-                    <th>Role</th>
+                    <th>Institusi</th>
                     <th>Menu</th>
                 </tr>
             </thead>
@@ -83,28 +83,28 @@
     }
     get_user_ins();
 
-    // FUNGSI MENAMPILKAN DATA YANG AKAN DIEDIT
-    // const show_modal_detail = (id) => {
-    //     success_msg = "Data berhasil ditampilkan";
-    //     warning_msg = "Data gagal ditampilkan";
-    //     error_msg = "Data gagal ditampilkan";
-    //     var url = `{{ route('user_role.show', ':id') }}`;
-    //     url = url.replace(':id', id);
-    //     var method = "GET";
-    //     var data = {}
-    //     var table = "table";
-    //     var funcSuccess = setDataUpdate;
-    //     var funcError = function() {};
-    //     ajaxtable(url, {}, "GET", "", funcSuccess, funcError);
-    // }
+    FUNGSI MENAMPILKAN DATA YANG AKAN DIEDIT
+    const show_modal_detail = (id) => {
+        success_msg = "Data berhasil ditampilkan";
+        warning_msg = "Data gagal ditampilkan";
+        error_msg = "Data gagal ditampilkan";
+        var url = `{{ route('user_role.show', ':id') }}`;
+        url = url.replace(':id', id);
+        var method = "GET";
+        var data = {}
+        var table = "table";
+        var funcSuccess = setDataUpdate;
+        var funcError = function() {};
+        ajaxtable(url, {}, "GET", "", funcSuccess, funcError);
+    }
 
-    // FUNGSI SELECT2
-    // function setSelect2(select, placeholder) {
-    //     $(select).select2({
-    //         dropdownParent: $('#modal_detail'),
-    //         placeholder: placeholder,
-    //     });
-    // }
+    FUNGSI SELECT2
+    function setSelect2(select, placeholder) {
+        $(select).select2({
+            dropdownParent: $('#modal_detail'),
+            placeholder: placeholder,
+        });
+    }
 
     // FUNGSI MENAMPILKAN MODAL EDIT DATA
     // const setDataUpdate = (data, table) => {

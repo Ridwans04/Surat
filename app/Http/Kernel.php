@@ -3,6 +3,7 @@
 namespace App\Http;
 
 use App\Http\Middleware\isAuthenticated;
+use App\Http\Middleware\logoutTime;
 use App\Http\Middleware\roleChecking;
 use Illuminate\Foundation\Http\Kernel as HttpKernel;
 
@@ -41,6 +42,7 @@ class Kernel extends HttpKernel
             \Illuminate\Routing\Middleware\SubstituteBindings::class,
             \App\Http\Middleware\LocaleMiddleware::class,
             \App\Http\Middleware\ApplyTheme::class,
+            // \App\Http\Middleware\logoutTime::class,
         ],
 
         'api' => [
@@ -69,6 +71,6 @@ class Kernel extends HttpKernel
         'verified' => \Illuminate\Auth\Middleware\EnsureEmailIsVerified::class,
         'authenticatedWeb' => isAuthenticated::class,
         'roleCheck' => roleChecking::class,
-       
+        'logout' => logoutTime::class,
     ];
 }

@@ -18,10 +18,11 @@ use App\Http\Controllers\Util;
 | contains the "web" middleware group. Now create something great!
 |
 */
+// LOGIN & LOGOUT
+Route::view('/', 'content/auth/login/login_page')->name('login');
+Route::post('logout', [auth_controller::class, 'logout'])->name('logout');
 
-// MAIN PAGE
-Route::view('/', 'content/auth/login_page')->name('login');
-
+    
 // SESSION USER ROUTE
 Route::post('setSession', [Util::class, 'setSession'])->name('setSession');
 // END SESSION ROUTE
@@ -42,7 +43,8 @@ Route::group(['prefix' => 'auth'], function () {
     Route::view('regis_page', 'content/auth/registrasi/regis_page')->name('regis');
 });
 // END AUTH ROUTE
-
+// MAIN PAGE
+Route::middleware(['logout'])->group(function(){
 // Route::middleware('authenticatedWeb')->group(function () {
     // BERANDA
     Route::group(['prefix' => 'beranda'], function () {
@@ -83,4 +85,4 @@ Route::group(['prefix' => 'auth'], function () {
     Route::group(['prefix' => 'permohonan'], function () {
         Route::get('surat', [permohonan_suratController::class, 'permohonan_surat'])->name('permohonan_surat');
     });
-// });
+});

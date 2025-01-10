@@ -31,15 +31,12 @@ class Util extends Controller
                 Auth::login($dataUser);
             }
             $sessionData = [
+                'username' => $dataUser->username,
                 'token' => $token,
                 'role' => $role,
                 'institusi' => $institusi,
             ];
-        
             session($sessionData);
-            // session()->put('token', $token);
-            // session()->put('role', $role);
-            // session()->put('institusi', $institusi);
         }
     }
 

@@ -16,7 +16,7 @@
                             TABEL DATA USER ROLE
                         </button>
                     </h2>
-                    <div id="accordionMarginOne" class="accordion-collapse collapse " aria-labelledby="headingMarginOne"
+                    <div id="accordionMarginOne" class="accordion-collapse collapse show" aria-labelledby="headingMarginOne"
                         data-bs-parent="#accordionMargin">
                         <div class="accordion-body">
                             @include('content.master.akun.user.user_role.table')
@@ -32,7 +32,7 @@
                             TABEL DATA USER INSTITUSI
                         </button>
                     </h2>
-                    <div id="accordionMarginTwo" class="accordion-collapse collapse show" aria-labelledby="headingMarginTwo"
+                    <div id="accordionMarginTwo" class="accordion-collapse collapse" aria-labelledby="headingMarginTwo"
                         data-bs-parent="#accordionMargin">
                         <div class="accordion-body">
                             @include('content.master.akun.user.user_institusi.table')
